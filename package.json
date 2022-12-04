@@ -22,7 +22,7 @@
     "test": "turbo run test:all",
     "prepare": "husky install",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "publish-packages": "turbo run build && changeset version && changeset publish",
+    "publish-packages": "turbo run build:tsc && changeset version && changeset publish",
     "modules:info": "find . -name \"node_modules\" -type d -prune | xargs du -chs",
     "modules:prune": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
   },
