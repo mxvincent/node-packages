@@ -2,9 +2,9 @@
   "postgres": {
     "host": "localhost",
     "port": 5432,
-    "database": "demo-app",
-    "username": "mxvincent",
-    "password": "mxvincent"
+    "database": "demo",
+    "username": "demo",
+    "password": "demo"
   },
   "swagger": {
     "path": "/docs"
