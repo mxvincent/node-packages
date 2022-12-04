@@ -1,0 +1,27 @@
+name: release
+on:
+  push:
+    branches: ["main"]
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+      - name: setup node
+        uses: ./.github/node-setup
+      - name: run tests
+        run: |
+          pnpm recursive install
+          pnpm code:lint
+          pnpm test
+      - name: create release pull request
+        id: changesets
+        uses: changesets/action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: publish packages
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: pnpm publish-packages
