@@ -1,0 +1,23 @@
+name: 'node-setup'
+description: 'Setup NodeJS'
+inputs:
+  github-token:
+    description: Token used to access GitHub dependencies
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - name: 'register credentials'
+      shell: bash
+      run: ./.github/node-setup/configure-npm.sh
+      env:
+        GITHUB_TOKEN: '${{ inputs.github-token }}'
+    - name: 'install pnpm'
+      uses: pnpm/action-setup@v2.2.4
+      with:
+        version: 7
+    - name: 'setup node'
+      uses: actions/setup-node@v3
+      with:
+        cache: pnpm
+        node-version: '18.x'
