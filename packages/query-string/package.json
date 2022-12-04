@@ -1,0 +1,35 @@
+{
+  "name": "@mxvincent/query-string",
+  "version": "0.0.0",
+  "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/query-string",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
+  "scripts": {
+    "build:tsc": "tsc",
+    "build:tsc:watch": "tsc -w",
+    "build:swc": "swc ./src -d ./dist",
+    "build:swc:watch": "swc ./src -d ./dist -w",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +",
+    "code:lint": "eslint",
+    "code:check": "tsc --noEmit",
+    "code:check-watch": "tsc --noEmit --watch",
+    "test:all": "jest"
+  },
+  "dependencies": {
+    "@mxvincent/core": "workspace:*",
+    "@mxvincent/query": "workspace:*",
+    "@mxvincent/json-schema": "workspace:*",
+    "ramda": "^0.28.0",
+    "query-string": "^7.1.1"
+  },
+  "devDependencies": {
+    "@mxvincent/typescript-config": "workspace:*",
+    "@mxvincent/eslint-config": "workspace:*",
+    "@types/ramda": "^0.28.18"
+  },
+  "peerDependencies": {
+    "@sinclair/typebox": "^0.25.10"
+  }
+}

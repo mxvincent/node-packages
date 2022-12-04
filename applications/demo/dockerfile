@@ -1,0 +1,43 @@
+###
+# Builder
+###
+FROM node:18-alpine AS builder
+
+RUN apk add --no-cache libc6-compat curl
+RUN apk update
+RUN curl -sL https://unpkg.com/@pnpm/self-installer | node
+
+WORKDIR /app
+
+COPY . .
+
+# build packages with pnpm and swc
+RUN pnpm install --frozen-lockfile
+RUN pnpm --filter=demo-app... build:swc
+
+# build packages with turborepo
+# RUN pnpm install --frozen-lockfile
+# RUN npx turbo run build:swc --filter=demo-app...
+
+# remove optional and development dependencies
+RUN pnpm modules:prune
+RUN pnpm install --filter=demo-app... --prod --no-optional --frozen-lockfile
+
+
+
+###
+# RUNNER
+###
+FROM node:18-alpine AS runner
+
+LABEL org.opencontainers.image.source=https://github.com/mxvincent/node-packages/tree/main/applications/demo-app
+
+RUN addgroup --system --gid 1001 app
+RUN adduser --system --uid 1001 app
+USER app
+
+COPY --from=builder /app /app
+
+WORKDIR /app/applications/demo
+
+CMD node dist/server.js

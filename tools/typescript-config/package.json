@@ -1,0 +1,13 @@
+{
+  "name": "@mxvincent/typescript-config",
+  "version": "0.1.0",
+  "files": [
+    "base.json",
+    "node16.json"
+  ],
+  "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/config-typescript",
+  "private": true,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

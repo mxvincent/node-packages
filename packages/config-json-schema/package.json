@@ -1,0 +1,33 @@
+{
+  "name": "@mxvincent/config-json-schema",
+  "version": "0.0.0",
+  "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/config-json-schema",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
+  "scripts": {
+    "build:tsc": "tsc",
+    "build:tsc:watch": "tsc -w",
+    "build:swc": "swc ./src -d ./dist",
+    "build:swc:watch": "swc ./src -d ./dist -w",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +",
+    "code:lint": "eslint",
+    "code:check": "tsc --noEmit",
+    "code:check-watch": "tsc --noEmit --watch"
+  },
+  "dependencies": {
+    "@mxvincent/config": "workspace:*",
+    "ramda": "^0.28.0"
+  },
+  "devDependencies": {
+    "@mxvincent/typescript-config": "workspace:*",
+    "@mxvincent/eslint-config": "workspace:*",
+    "@types/ramda": "^0.28.18"
+  },
+  "peerDependencies": {
+    "@mxvincent/core": "workspace:*",
+    "@mxvincent/json-schema": "workspace:*",
+    "@sinclair/typebox": "^0.25.10"
+  }
+}

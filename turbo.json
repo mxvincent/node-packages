@@ -1,0 +1,51 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    "build:tsc": {
+      "dependsOn": [
+        "^build:tsc"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "build:tsc:watch": {
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "build:swc": {
+      "dependsOn": [
+        "^build:swc"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "build:swc:watch": {
+      "cache": false,
+      "outputMode": "full",
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "test:all": {
+      "dependsOn": [
+        "build:swc"
+      ],
+      "outputs": []
+    },
+    "code:lint": {
+      "outputs": []
+    },
+    "code:check": {
+      "dependsOn": [
+        "build:tsc"
+      ],
+      "outputs": []
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

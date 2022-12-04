@@ -1,0 +1,32 @@
+{
+  "extends": "@mxvincent/typescript-config/node16.json",
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "**/node_modules/**"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "experimentalDecorators": true,
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "ts-node": {
+    "swc": true
+  },
+  "references": [
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../crypto"
+    },
+    {
+      "path": "../query"
+    },
+    {
+      "path": "../json-schema"
+    }
+  ]
+}

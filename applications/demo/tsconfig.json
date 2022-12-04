@@ -1,0 +1,38 @@
+{
+  "extends": "@mxvincent/typescript-config/node16.json",
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "**/node_modules/**"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "experimentalDecorators": true
+  },
+  "ts-node": {
+    "swc": true
+  },
+  "references": [
+    {
+      "path": "../../packages/json-schema"
+    },
+    {
+      "path": "../../packages/config-json-schema"
+    },
+    {
+      "path": "../../packages/fastify-pagination"
+    },
+    {
+      "path": "../../packages/typeorm"
+    },
+    {
+      "path": "../../packages/query-string"
+    },
+    {
+      "path": "../../packages/http"
+    }
+  ]
+}

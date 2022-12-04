@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: mxvincent
+      POSTGRES_PASSWORD: mxvincent
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  demo-app-server:
+    pull_policy: always
+    image: ghcr.io/mxvincent/demo-app:1.0.0
+    volumes:
+      - ./configs:/app/configs:ro
+      - ./volumes/demo-app-server.json:/app/demo-app-server.json:ro
+    environment:
+      - NODE_ENV=production
+      - PACKAGE_JSON_FILE_PATH=applications/demo/package.json
+      - CONFIG_FILE_PATH=/app/configs/demo-app-server.json
+    ports:
+      - "5000:4000"
+    links:
+      - "postgres:postgres"
+
+volumes:
+  postgres-data:

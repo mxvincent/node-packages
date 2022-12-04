@@ -1,0 +1,31 @@
+{
+  "name": "@mxvincent/config-class-validator",
+  "version": "0.0.0",
+  "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/config-class-validator",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
+  "scripts": {
+    "build:tsc": "tsc",
+    "build:tsc:watch": "tsc -w",
+    "build:swc": "swc ./src -d ./dist",
+    "build:swc:watch": "swc ./src -d ./dist -w",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +",
+    "code:lint": "eslint",
+    "code:check": "tsc --noEmit",
+    "code:check-watch": "tsc --noEmit --watch"
+  },
+  "dependencies": {
+    "@mxvincent/config": "workspace:*"
+  },
+  "devDependencies": {
+    "@mxvincent/typescript-config": "workspace:*",
+    "@mxvincent/eslint-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "@mxvincent/core": "workspace:*",
+    "@mxvincent/json-schema": "workspace:*",
+    "class-validator": "^0.13.2"
+  }
+}

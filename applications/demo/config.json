@@ -1,0 +1,12 @@
+{
+  "postgres": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "demo-app",
+    "username": "mxvincent",
+    "password": "mxvincent"
+  },
+  "swagger": {
+    "path": "/docs"
+  }
+}

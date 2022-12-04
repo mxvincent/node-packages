@@ -1,0 +1,50 @@
+{
+  "name": "demo-app",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
+  "repository": "https://github.com/mxvincent/node-packages/tree/main/applications/demo",
+  "private": true,
+  "scripts": {
+    "build:tsc": "tsc",
+    "build:tsc:watch": "tsc -w",
+    "build:swc": "swc ./src -d ./dist",
+    "build:swc:watch": "swc ./src -d ./dist -w",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +",
+    "code:lint": "eslint",
+    "code:check": "tsc --noEmit",
+    "code:check:watch": "tsc --noEmit --watch",
+    "docker:build-and-push": "./docker.sh",
+    "script:create-users": "ts-node src/scripts/createUsers.ts",
+    "start:app-server": "node -r ts-node/register src/server.ts",
+    "start:app-server:watch": "node-dev src/server.ts | pino-pretty"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "0.25.10",
+    "@fastify/swagger": "^8.1.0",
+    "@fastify/swagger-ui": "^1.2.0",
+    "@mxvincent/core": "workspace:*",
+    "@mxvincent/config-json-schema": "workspace:*",
+    "@mxvincent/fastify-pagination": "workspace:*",
+    "@mxvincent/http": "workspace:*",
+    "@mxvincent/json-schema": "workspace:*",
+    "@mxvincent/query": "workspace:*",
+    "@mxvincent/query-string": "workspace:*",
+    "@mxvincent/typeorm": "workspace:*",
+    "fastify": "^4.9.2",
+    "fastify-plugin": "^4.3.0",
+    "pg": "^8.8.0",
+    "ramda": "^0.28.0",
+    "typeorm": "^0.3.10",
+    "tiny-invariant": "^1.3.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@mxvincent/typescript-config": "workspace:*",
+    "@mxvincent/eslint-config": "workspace:*",
+    "@types/ramda": "^0.28.18",
+    "openapi-types": "^12.0.2",
+    "pino-pretty": "^9.1.1"
+  }
+}
