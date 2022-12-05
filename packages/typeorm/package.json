@@ -1,6 +1,6 @@
 {
   "name": "@mxvincent/typeorm",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/typeorm",
   "private": true,
   "main": "./dist/index.js",
@@ -32,7 +32,6 @@
     "@mxvincent/typescript-config": "workspace:*",
     "@mxvincent/eslint-config": "workspace:*",
     "@types/ramda": "0.28.18"
-
   },
   "peerDependencies": {
     "typeorm": "^0.3.10"

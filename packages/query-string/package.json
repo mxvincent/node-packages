@@ -1,6 +1,6 @@
 {
   "name": "@mxvincent/query-string",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/query-string",
   "private": true,
   "main": "./dist/index.js",
