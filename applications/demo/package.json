@@ -16,7 +16,7 @@
     "code:check": "tsc --noEmit",
     "code:check:watch": "tsc --noEmit --watch",
     "docker:build-and-push": "./docker.sh",
-    "script:create-users": "ts-node src/scripts/createUsers.ts",
+    "script:seed-database": "ts-node src/scripts/seedDatabase.ts",
     "start:app-server": "node -r ts-node/register src/server.ts",
     "start:app-server:watch": "node-dev src/server.ts | pino-pretty"
   },

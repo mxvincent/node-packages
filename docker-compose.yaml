@@ -13,7 +13,7 @@ services:
     pull_policy: always
     image: ghcr.io/mxvincent/demo-app
     volumes:
-      - ${PWD}/configs/demo-app-server.json:/app/config.json:ro
+      - ${PWD}/configs/demo-rest-api.docker.json:/app/config.json:ro
     environment:
       - NODE_ENV=production
     ports:

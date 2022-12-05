@@ -47,19 +47,19 @@ async function createUsers(count: number): Promise<string[]> {
 	const factory = (n: number) => {
 		const username = `user-${String(n).padStart(8, '0')}`
 		const gender = faker.name.sex() as 'female' | 'male'
-		return {
+		return new User({
 			username,
 			email: `${username}@lab.ovh`,
 			firstName: faker.name.firstName(gender),
 			lastName: faker.name.firstName(gender)
-		}
+		})
 	}
 	return createRecords({ count, entity: User, factory, name: 'users' })
 }
 
 async function createOrganizations(count: number): Promise<string[]> {
 	const factory = (n: number) => {
-		return { name: `organization-${String(n).padStart(8, '0')}` }
+		return new Organization({ name: `organization-${String(n).padStart(8, '0')}` })
 	}
 	return createRecords({ count, entity: Organization, factory, name: 'organizations' })
 }
@@ -68,25 +68,25 @@ async function createOrganizationMembers(organizationIds: string[], userIds: str
 	const start = Date.now()
 	let count = 0
 	for (const organizationId of organizationIds) {
-		const members: Partial<OrganizationMember>[] = [
-			{
+		const members: OrganizationMember[] = [
+			new OrganizationMember({
 				role: 'owner',
 				organizationId,
 				userId: getRandomItem(userIds)
-			}
+			})
 		]
 		const getUserId = (): string => {
 			const userId = getRandomItem(userIds)
 			return members.find((member) => member.userId === userId) ? getUserId() : userId
 		}
 		for (let i = 0; i < randomInt(0, 11); i++) {
-			members.push({ role: 'admin', organizationId, userId: getUserId() })
+			members.push(new OrganizationMember({ role: 'admin', organizationId, userId: getUserId() }))
 		}
 		for (let i = 0; i < randomInt(0, 101); i++) {
-			members.push({ role: 'developer', organizationId, userId: getUserId() })
+			members.push(new OrganizationMember({ role: 'developer', organizationId, userId: getUserId() }))
 		}
 		count += members.length
-		await database.manager.getRepository(OrganizationMember).insert(members)
+		await database.manager.save(OrganizationMember, members)
 	}
 	logger.info(`create ${count} organization members in ${(Date.now() - start) / 1000}s`)
 }
