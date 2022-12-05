@@ -1,6 +1,6 @@
 {
   "name": "@mxvincent/fastify-pagination",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/fastify-pagination",
   "private": true,
   "main": "./dist/index.js",
