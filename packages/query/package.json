@@ -2,7 +2,7 @@
   "name": "@mxvincent/query",
   "version": "0.0.0",
   "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/query",
-  "private": true,
+  "private": false,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "source": "./src/index.ts",
