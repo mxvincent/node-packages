@@ -42,7 +42,7 @@ importers:
       turbo: 1.6.3
       typescript: 4.9.3
 
-  applications/demo:
+  applications/demo-api-rest:
     specifiers:
       '@faker-js/faker': ^7.6.0
       '@fastify/swagger': ^8.1.0
