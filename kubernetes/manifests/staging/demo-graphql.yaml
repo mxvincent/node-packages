@@ -4,7 +4,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: staging
     app.kubernetes.io/name: demo-graphql
-    app.kubernetes.io/version: 0.0.0
+    app.kubernetes.io/version: 0.1.0
   name: demo-graphql-docker-auth-secret
   namespace: staging-demo-graphql
 spec:
@@ -33,7 +33,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: staging
     app.kubernetes.io/name: demo-graphql
-    app.kubernetes.io/version: 0.0.0
+    app.kubernetes.io/version: 0.1.0
   name: demo-graphql-config-files-secrets
   namespace: staging-demo-graphql
 spec:
@@ -73,7 +73,7 @@ metadata:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: staging
     app.kubernetes.io/name: demo-graphql
-    app.kubernetes.io/version: 0.0.0
+    app.kubernetes.io/version: 0.1.0
   name: demo-graphql-app-server
   namespace: staging-demo-graphql
 spec:
@@ -94,7 +94,7 @@ spec:
         app.kubernetes.io/component: app-server
         app.kubernetes.io/instance: staging
         app.kubernetes.io/name: demo-graphql
-        app.kubernetes.io/version: 0.0.0
+        app.kubernetes.io/version: 0.1.0
         cdk8s.io/metadata.addr: demo-graphql-app-server-c8feae02
     spec:
       automountServiceAccountToken: false
@@ -105,7 +105,7 @@ spec:
           env:
             - name: CONFIG_FILE_PATH
               value: /app/config.json
-          image: ghcr.io/mxvincent/demo-graphql:0.0.0
+          image: ghcr.io/mxvincent/demo-graphql:0.1.0
           imagePullPolicy: Always
           name: app-server
           ports:
@@ -148,7 +148,7 @@ metadata:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: staging
     app.kubernetes.io/name: demo-graphql
-    app.kubernetes.io/version: 0.0.0
+    app.kubernetes.io/version: 0.1.0
   name: demo-graphql-app-server
   namespace: staging-demo-graphql
 spec:
@@ -171,7 +171,7 @@ metadata:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: staging
     app.kubernetes.io/name: demo-graphql
-    app.kubernetes.io/version: 0.0.0
+    app.kubernetes.io/version: 0.1.0
   name: demo-graphql-app-server
   namespace: staging-demo-graphql
 spec:
