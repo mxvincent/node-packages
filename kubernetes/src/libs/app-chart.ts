@@ -56,7 +56,7 @@ export abstract class AppChart {
 	 */
 	private createNamespace() {
 		new Namespace(this.context.chart, this.context.namespace, {
-			metadata: { namespace: this.context.namespace }
+			metadata: { name: this.context.namespace }
 		})
 	}
 

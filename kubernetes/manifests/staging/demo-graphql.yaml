@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/instance: staging
     app.kubernetes.io/name: demo-graphql
     app.kubernetes.io/version: 0.1.0
-  name: demo-graphql-staging-demo-graphql
+  name: staging-demo-graphql
   namespace: staging-demo-graphql
 spec: {}
 ---

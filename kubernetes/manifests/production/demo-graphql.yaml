@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/instance: production
     app.kubernetes.io/name: demo-graphql
     app.kubernetes.io/version: 0.1.0
-  name: demo-graphql-production-demo-graphql
+  name: production-demo-graphql
   namespace: production-demo-graphql
 spec: {}
 ---
