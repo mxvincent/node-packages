@@ -1,6 +1,6 @@
 {
   "name": "@mxvincent/json-schema",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/json-schema",
   "private": true,
   "main": "./dist/index.js",
