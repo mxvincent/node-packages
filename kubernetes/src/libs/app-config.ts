@@ -89,11 +89,11 @@ export class ExternalSecretProvider {
 	}
 
 	private getSecretId(remoteRef: ExternalSecretSpecDataRemoteRef) {
-		const remoteSecretName = remoteRef.key.replace('name:', '')
+		const base = remoteRef.key.replace(/^name:/, '').replace(/-/g, '_')
 		if (!remoteRef.property) {
-			return remoteSecretName
+			return base.toUpperCase()
 		}
-		return `${remoteSecretName}-${remoteRef.property}`
+		return `${base}_${remoteRef.property}`.toUpperCase()
 	}
 
 	inject(remoteRef: ExternalSecretSpecDataRemoteRef, transform?: SecretValueTransformHelper[]) {

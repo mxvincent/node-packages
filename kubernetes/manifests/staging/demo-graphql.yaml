@@ -55,14 +55,14 @@ spec:
         key: name:staging-demo-graphql
         property: DATABASE_USERNAME
         version: latest
-      secretKey: staging-demo-graphql-DATABASE_USERNAME
+      secretKey: STAGING_DEMO_GRAPHQL_DATABASE_USERNAME
     - remoteRef:
         conversionStrategy: Default
         decodingStrategy: None
         key: name:staging-demo-graphql
         property: DATABASE_PASSWORD
         version: latest
-      secretKey: staging-demo-graphql-DATABASE_PASSWORD
+      secretKey: STAGING_DEMO_GRAPHQL_DATABASE_PASSWORD
   refreshInterval: 1h
   secretStoreRef:
     kind: ClusterSecretStore
@@ -72,7 +72,7 @@ spec:
     name: demo-graphql-config-files
     template:
       data:
-        config.json: '{"logLevel":"info","database":{"type":"postgres","host":"postgres-15-postgresql.postgres-15.svc.cluster.local","port":5432,"database":"staging-demo-graphql","username":"{{ .staging-demo-graphql-DATABASE_USERNAME | toString }}","password":"{{ .staging-demo-graphql-DATABASE_PASSWORD | toString }}"}}'
+        config.json: '{"logLevel":"info","database":{"type":"postgres","host":"postgres-15-postgresql.postgres-15.svc.cluster.local","port":5432,"database":"staging-demo-graphql","username":"{{ .STAGING_DEMO_GRAPHQL_DATABASE_USERNAME | toString }}","password":"{{ .STAGING_DEMO_GRAPHQL_DATABASE_PASSWORD | toString }}"}}'
       engineVersion: "2"
 ---
 apiVersion: apps/v1
