@@ -1,0 +1,51 @@
+import { config } from '@app/config'
+import { Repository } from '@database/repository.service'
+import { TransactionManager } from '@database/transaction-manager.service'
+
+import {
+	createPostgresDataSource,
+	CreatePostgresDataSourceOptions,
+	DataSource,
+	EntityManager,
+	ObjectLiteral,
+	ObjectType
+} from '@mxvincent/typeorm'
+import { Injectable, Scope } from '@nestjs/common'
+
+export const createDataSource = (configOverrides?: Partial<CreatePostgresDataSourceOptions>) => {
+	const extension = __filename.match(/.+\.ts$/) ? 'ts' : 'js'
+	return createPostgresDataSource({
+		entities: [`${__dirname}/entities/*.${extension}`],
+		migrations: [`${__dirname}/migrations/*.${extension}`],
+		subscribers: [`${__dirname}/subscribers/*.${extension}`],
+		...config.database,
+		...configOverrides
+	})
+}
+
+export const dataSource = createDataSource()
+export const getDataSource = () => dataSource
+
+@Injectable({ scope: Scope.REQUEST })
+export class DatabaseContext {
+	dataSource: DataSource
+	transaction: TransactionManager
+
+	constructor(dataSource: DataSource) {
+		this.dataSource = dataSource
+		this.transaction = new TransactionManager(dataSource)
+		this.query = this.dataSource.query
+	}
+
+	get manager(): EntityManager {
+		return this.transaction.manager ?? this.dataSource.manager
+	}
+
+	query<T = unknown>(query: string, parameters?: unknown[]): Promise<T> {
+		return this.dataSource.query(query, parameters, this.transaction.queryRunner)
+	}
+
+	repository<T extends ObjectLiteral>(entity: ObjectType<T>): Repository<T> {
+		return new Repository(this, entity)
+	}
+}

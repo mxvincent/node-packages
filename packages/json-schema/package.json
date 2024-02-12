@@ -1,0 +1,29 @@
+{
+  "name": "@mxvincent/json-schema",
+  "version": "0.0.0",
+  "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/json-schema",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "source": "./src/index.ts",
+  "scripts": {
+    "build:swc": "swc ./src -d ./dist",
+    "build:tsc": "tsc",
+    "build:watch": "pnpm run build:tsc --watch",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+    "code:lint": "eslint src",
+    "code:check": "tsc --noEmit",
+    "code:check-watch": "tsc --noEmit --watch"
+  },
+  "dependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "ramda": "^0.29.0",
+    "@sinclair/typebox": "^0.32.5"
+  },
+  "devDependencies": {
+    "@mxvincent/eslint-config": "workspace:*",
+    "@mxvincent/tsconfig": "workspace:*",
+    "@types/ramda": "^0.29.2"
+  }
+}

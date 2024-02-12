@@ -1,0 +1,7 @@
+packages:
+  - "applications/*"
+  - "sandbox"
+  - "packages/*"
+  - "packages/private/*"
+  - "kubernetes"
+  - ".github/actions/*"

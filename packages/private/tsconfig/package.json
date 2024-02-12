@@ -1,0 +1,12 @@
+{
+  "name": "@mxvincent/tsconfig",
+  "version": "0.0.0",
+  "files": [
+    "commonjs.json"
+  ],
+  "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/config-typescript",
+  "private": true,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

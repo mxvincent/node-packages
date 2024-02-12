@@ -1,0 +1,26 @@
+{
+	"name": "sandbox",
+	"version": "0.0.0",
+	"description": "Package used for testing purposes",
+	"private": true,
+	"main": "./src/main.ts",
+	"scripts": {
+		"build:swc": "swc ./src -d ./dist",
+		"build:tsc": "tsc",
+		"build:watch": "pnpm run build:swc --watch",
+		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+		"code:lint": "eslint src",
+		"code:check": "tsc --noEmit",
+		"code:check:watch": "tsc --noEmit --watch",
+		"start:schema": "node --watch -r @swc/register src/schema.ts"
+	},
+	"dependencies": {
+		"@mxvincent/logger": "workspace:*",
+		"@mxvincent/json-schema": "workspace:*",
+		"@mxvincent/utils": "workspace:*"
+	},
+	"devDependencies": {
+		"@mxvincent/eslint-config": "workspace:*",
+		"@mxvincent/tsconfig": "workspace:*"
+	}
+}

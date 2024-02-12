@@ -1,0 +1,20 @@
+{
+  "name": "@mxvincent/eslint-config",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/config-eslint",
+  "private": true,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-turbo": "^1.10.1",
+    "eslint-plugin-import": "^2.27.5"
+  }
+}

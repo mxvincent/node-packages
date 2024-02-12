@@ -1,0 +1,26 @@
+{
+  "name": "@mxvincent/utils",
+  "version": "0.0.0",
+  "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/utils",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build:swc": "swc ./src -d ./dist",
+    "build:tsc": "tsc",
+    "build:watch": "pnpm run build:tsc --watch",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+    "code:lint": "eslint src",
+    "code:check": "tsc --noEmit",
+    "code:check-watch": "tsc --noEmit --watch",
+    "test:all": "jest"
+  },
+  "dependencies": {
+    "ramda": "^0.29.0"
+  },
+  "devDependencies": {
+    "@mxvincent/eslint-config": "workspace:*",
+    "@mxvincent/tsconfig": "workspace:*",
+    "@types/ramda": "^0.29.2"
+  }
+}
