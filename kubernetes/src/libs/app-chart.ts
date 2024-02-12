@@ -5,6 +5,7 @@ import { CronJobFactory, CronJobOptions } from '@libs/components/cron-job'
 import { DaemonFactory, DaemonOptions } from '@libs/components/daemon'
 import { JobFactory, JobOptions } from '@libs/components/job'
 import { WebServiceFactory, WebServiceOptions } from '@libs/components/web-service'
+import { Namespace } from 'cdk8s-plus-27'
 
 export interface AppChart {
 	/**
@@ -37,6 +38,7 @@ export abstract class AppChart {
 	 */
 	constructor(context: AppContext) {
 		this.context = context
+		this.createNamespace()
 		this.config = new AppConfig(context, {
 			configFiles: this.configFiles,
 			environment: this.environment
@@ -48,6 +50,15 @@ export abstract class AppChart {
 	 * Return the list of components to deploy
 	 */
 	abstract components(context: AppContext): Array<ComponentInterface>
+
+	/**
+	 * Create application namespace
+	 */
+	private createNamespace() {
+		new Namespace(this.context.chart, this.context.namespace, {
+			metadata: { namespace: this.context.namespace }
+		})
+	}
 
 	/**
 	 * Build all application resources
