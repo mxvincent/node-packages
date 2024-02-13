@@ -4,7 +4,6 @@ import { Environment } from '@app/types/Environment'
 import { TimeZone } from '@app/types/TimeZone'
 import { Static, Type } from '@mxvincent/json-schema'
 import { LogLevel } from '@mxvincent/logger'
-import 'dotenv/config'
 import { DatabaseConfigEnvironmentMapping, DatabaseConfigSchema } from './database'
 
 export const AppConfigSchema = Type.Object({
