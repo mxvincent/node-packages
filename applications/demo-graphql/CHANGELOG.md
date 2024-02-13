@@ -1,5 +1,11 @@
 # demo-graphql
 
+## 0.1.2
+
+### Patch Changes
+
+- [`00a793b`](https://github.com/mxvincent/node-packages/commit/00a793b5a6ab3242353925f74b41d8978ffd1851) Thanks [@mxvincent](https://github.com/mxvincent)! - Disable nestjs-pino logger
+
 ## 0.1.1
 
 ### Patch Changes
