@@ -2,7 +2,6 @@ import { PinoLoggerAdapter } from '@app/core/logger.service'
 import { logger } from '@mxvincent/logger'
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { Logger } from 'nestjs-pino'
 import { AppModule } from './app.module'
 import { config } from './config'
 
@@ -16,7 +15,6 @@ async function appServer(): Promise<void> {
 		logger: new PinoLoggerAdapter()
 	})
 	app.useGlobalPipes(new ValidationPipe())
-	app.useLogger(app.get(Logger))
 
 	await app.listen(config.api.server.port)
 
