@@ -28,7 +28,7 @@ export class DemoGraphql extends AppChart {
 	components(context: AppContext) {
 		return [
 			new WebServiceOptions('app-server', {
-				command: ['node', '-r', 'tsconfig-paths/register', '/app/applications/demo-graphql/dist/app-server.js'],
+				command: ['node', '/app/applications/demo-graphql/dist/app-server.js'],
 				ingress: getIngressConfig(context)
 			})
 		]

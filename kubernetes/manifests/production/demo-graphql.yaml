@@ -112,8 +112,6 @@ spec:
       containers:
         - command:
             - node
-            - -r
-            - tsconfig-paths/register
             - /app/applications/demo-graphql/dist/app-server.js
           env:
             - name: CONFIG_FILE_PATH
