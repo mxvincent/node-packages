@@ -1,5 +1,11 @@
 # demo-graphql
 
+## 0.1.1
+
+### Patch Changes
+
+- [`fab406c`](https://github.com/mxvincent/node-packages/commit/fab406c28763ec9fa9d8870fff397abae49a3038) Thanks [@mxvincent](https://github.com/mxvincent)! - Configure missing production build dependencies
+
 ## 0.1.0
 
 ### Minor Changes
