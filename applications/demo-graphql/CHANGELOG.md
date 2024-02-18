@@ -1,5 +1,11 @@
 # demo-graphql
 
+## 0.1.3
+
+### Patch Changes
+
+- [#7](https://github.com/mxvincent/node-packages/pull/7) [`a01ae0a`](https://github.com/mxvincent/node-packages/commit/a01ae0ac49da475170ed80f0a300cf29d63c13dc) Thanks [@mxvincent](https://github.com/mxvincent)! - Add missing `seed-database` script
+
 ## 0.1.2
 
 ### Patch Changes
