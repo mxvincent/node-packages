@@ -6,17 +6,28 @@ import { DaemonFactory, DaemonOptions } from '@libs/components/daemon'
 import { JobFactory, JobOptions } from '@libs/components/job'
 import { WebServiceFactory, WebServiceOptions } from '@libs/components/web-service'
 import { Namespace } from 'cdk8s-plus-27'
+import { is } from 'ramda'
 
-export interface AppChart {
+export interface ConfigFilesProviderInterface {
 	/**
 	 * Inject configuration files
 	 */
-	configFiles?(context: AppContext): ConfigFilesDescriptor
+	configFiles(context: AppContext): ConfigFilesDescriptor
+}
 
+const implementsConfigFilesProviderInterface = (value: unknown): value is ConfigFilesProviderInterface => {
+	return is(Object, value) && 'configFiles' in value && typeof value.configFiles === 'function'
+}
+
+export interface EnvironmentProviderInterface {
 	/**
 	 * Inject environment variables
 	 */
-	environment?(context: AppContext): EnvironmentDescriptor
+	environment(context: AppContext): EnvironmentDescriptor
+}
+
+const implementsEnvironmentProviderInterface = (value: unknown): value is EnvironmentProviderInterface => {
+	return is(Object, value) && 'environment' in value && typeof value.environment === 'function'
 }
 
 /**
@@ -40,8 +51,8 @@ export abstract class AppChart {
 		this.context = context
 		this.createNamespace()
 		this.config = new AppConfig(context, {
-			configFiles: this.configFiles,
-			environment: this.environment
+			environment: implementsEnvironmentProviderInterface(this) ? this.environment : undefined,
+			configFiles: implementsConfigFilesProviderInterface(this) ? this.configFiles : undefined
 		})
 		this.createApplicationResources()
 	}
