@@ -1,5 +1,14 @@
 # demo-graphql
 
+## 0.1.6
+
+### Patch Changes
+
+- [`c5ed35e`](https://github.com/mxvincent/node-packages/commit/c5ed35ec4fe340bce1d0335c2dd357d9a9c7f237) Thanks [@mxvincent](https://github.com/mxvincent)! - Improve environment detection via configuration and validation
+
+- Updated dependencies [[`c5ed35e`](https://github.com/mxvincent/node-packages/commit/c5ed35ec4fe340bce1d0335c2dd357d9a9c7f237)]:
+  - @mxvincent/typeorm@0.1.2
+
 ## 0.1.5
 
 ### Patch Changes
