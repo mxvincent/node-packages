@@ -1,5 +1,12 @@
 # @mxvincent/typeorm
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`e1a06ee`](https://github.com/mxvincent/node-packages/commit/e1a06ee15bad88e6c8a686880db52ce150f5e8a8)]:
+  - @mxvincent/logger@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
