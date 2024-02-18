@@ -1,5 +1,11 @@
 # demo-graphql
 
+## 0.1.5
+
+### Patch Changes
+
+- [`e3b29b3`](https://github.com/mxvincent/node-packages/commit/e3b29b3185192b342a6a7b560617989f692e90c7) Thanks [@mxvincent](https://github.com/mxvincent)! - Set production as default value for environment config
+
 ## 0.1.4
 
 ### Patch Changes
