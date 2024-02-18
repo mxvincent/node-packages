@@ -9,7 +9,7 @@ import { DatabaseConfigEnvironmentMapping, DatabaseConfigSchema } from './databa
 export const AppConfigSchema = Type.Object({
 	logLevel: Type.Enum(LogLevel, { default: 'info' }),
 	timeZone: Type.Enum(TimeZone, { default: TimeZone.UTC }),
-	environment: Type.Enum(Environment, { default: Environment.development }),
+	environment: Type.Enum(Environment, { default: Environment.production }),
 	database: DatabaseConfigSchema,
 	api: ApiConfigSchema
 })
