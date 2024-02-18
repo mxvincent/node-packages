@@ -19,11 +19,11 @@
     "code:check-watch": "tsc --noEmit --watch"
   },
   "dependencies": {
-    "pino": "^8.14.1"
+    "pino": "^8.19.0",
+    "pino-pretty": "^10.3.1"
   },
   "devDependencies": {
     "@mxvincent/eslint-config": "workspace:*",
-    "@mxvincent/tsconfig": "workspace:*",
-    "pino-pretty": "^10.0.0"
+    "@mxvincent/tsconfig": "workspace:*"
   }
 }
