@@ -1,5 +1,5 @@
 import { config } from '@app/config'
-import { createDataSource, DatabaseContext } from '@database/database.service'
+import { createDataSource, Database } from '@database/database.service'
 import { closeAllDatabaseConnections, DataSource, initializeDataSource } from '@mxvincent/typeorm'
 import { testConfig } from './config'
 
@@ -31,12 +31,12 @@ export interface DatabaseTestingStrategy {
  * Use isolated database for testing
  * Database operations are executed in a transaction and automatically reverted
  */
-export const useIsolatedDatabase = (options?: Partial<DatabaseTestingStrategy>): DatabaseContext => {
+export const useIsolatedDatabase = (options?: Partial<DatabaseTestingStrategy>): Database => {
 	const strategy: DatabaseTestingStrategy = {
 		isolationLevel: options?.isolationLevel ?? 'test'
 	}
 
-	const context = new DatabaseContext(
+	const context = new Database(
 		createDataSource({
 			database: getWorkerDatabaseName(testConfig.workerId)
 		})

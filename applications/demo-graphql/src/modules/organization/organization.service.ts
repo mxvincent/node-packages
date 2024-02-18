@@ -1,4 +1,4 @@
-import { DatabaseContext } from '@database/database.service'
+import { Database } from '@database/database.service'
 import { Organization, OrganizationAttributes, OrganizationUniqueProperties } from '@database/entities/Organization'
 import {
 	OrganizationMember,
@@ -16,7 +16,7 @@ export type UpdateOrganizationPayload = Partial<CreateOrganizationPayload>
 
 @Injectable()
 export class OrganizationService {
-	constructor(protected database: DatabaseContext) {
+	constructor(protected database: Database) {
 		this.database = database
 	}
 

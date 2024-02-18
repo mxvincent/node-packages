@@ -1,4 +1,4 @@
-import { DatabaseContext } from '@database/database.service'
+import { Database } from '@database/database.service'
 import { GQLConnection, Page, QueryParameters } from '@mxvincent/query-params'
 import {
 	DeepPartial,
@@ -13,10 +13,10 @@ import {
 } from '@mxvincent/typeorm'
 
 export class Repository<T extends ObjectLiteral> {
-	readonly context: DatabaseContext
+	readonly context: Database
 	readonly entity: ObjectType<T>
 
-	constructor(context: DatabaseContext, entity: ObjectType<T>) {
+	constructor(context: Database, entity: ObjectType<T>) {
 		this.context = context
 		this.entity = entity
 	}

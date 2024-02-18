@@ -23,11 +23,11 @@ export const createDataSource = (configOverrides?: Partial<CreatePostgresDataSou
 	})
 }
 
-export const dataSource = createDataSource()
-export const getDataSource = () => dataSource
+export const accountDataSource = createDataSource()
+export const getDataSource = () => accountDataSource
 
 @Injectable({ scope: Scope.REQUEST })
-export class DatabaseContext {
+export class Database {
 	dataSource: DataSource
 	transaction: TransactionManager
 

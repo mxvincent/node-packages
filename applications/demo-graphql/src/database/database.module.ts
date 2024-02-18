@@ -1,4 +1,4 @@
-import { DatabaseContext, getDataSource } from '@database/database.service'
+import { Database, getDataSource } from '@database/database.service'
 import { closeAllDatabaseConnections, DataSource, initializeDataSource } from '@mxvincent/typeorm'
 import { FactoryProvider, Module, OnModuleDestroy, OnModuleInit } from '@nestjs/common'
 
@@ -8,8 +8,8 @@ const DataSourceProvider: FactoryProvider = {
 }
 
 @Module({
-	providers: [DatabaseContext, DataSourceProvider],
-	exports: [DatabaseContext]
+	providers: [Database, DataSourceProvider],
+	exports: [Database]
 })
 export class DatabaseModule implements OnModuleInit, OnModuleDestroy {
 	async onModuleInit(): Promise<void> {

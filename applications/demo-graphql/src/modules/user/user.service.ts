@@ -1,4 +1,4 @@
-import { DatabaseContext } from '@database/database.service'
+import { Database } from '@database/database.service'
 import { User, UserProperties, UserUniqueProperties } from '@database/entities/User'
 import { ConflictError } from '@mxvincent/errors'
 import { GQLConnection, QueryParameters } from '@mxvincent/query-params'
@@ -10,7 +10,7 @@ export type UpdateUserPayload = Partial<CreateUserPayload>
 
 @Injectable()
 export class UserService {
-	constructor(protected database: DatabaseContext) {
+	constructor(protected database: Database) {
 		this.database = database
 	}
 

@@ -11,14 +11,10 @@ export const getConfigFilePath = (): string => {
 	}
 	const packageRootPath = getPackageRootPath(__dirname)
 	const environment = process.env.NODE_ENV
-	const defaultPath = `${packageRootPath}/config.json`
-	if (environment && environment === 'test') {
+	if (!environment || environment === 'test') {
 		return `${packageRootPath}/config.example.json`
 	}
-	if (environment && environment !== 'production') {
-		return `${packageRootPath}/config.${process.env.NODE_ENV}.json`
-	}
-	return defaultPath
+	return `${packageRootPath}/config.json`
 }
 
 let config: AppConfig

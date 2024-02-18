@@ -1,4 +1,4 @@
-import { DatabaseContext } from '@database/database.service'
+import { Database } from '@database/database.service'
 import { Injectable, Logger, ServiceUnavailableException } from '@nestjs/common'
 
 export type ServiceStatus = {
@@ -12,7 +12,7 @@ export type ServiceStatus = {
 export class HealthCheckService {
 	readonly logger = new Logger(HealthCheckService.name)
 
-	constructor(readonly database: DatabaseContext) {}
+	constructor(readonly database: Database) {}
 
 	private async getDatabaseStatus(): Promise<ServiceStatus['details']['database']> {
 		try {
