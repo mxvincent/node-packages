@@ -6,6 +6,7 @@ import { AppModule } from './app.module'
 import { config } from './config'
 
 async function appServer(): Promise<void> {
+	logger.info(`[Config] environment: ${config.environment}`)
 	logger.info(`[Config] time zone: ${config.timeZone}`)
 	logger.info(`[Config] log level: ${config.logLevel}`)
 
