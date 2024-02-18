@@ -15,7 +15,7 @@
 		"changeset:bump": "changeset version",
 		"changeset:tag": "changeset tag",
 		"code:check": "turbo run code:check",
-		"code:format": "prettier --write \"**/*.{ts,tsx,md}\"",
+		"code:format": "prettier --write \"**/*.{ts,tsx,md}\" && turbo run code:lint -- --fix",
 		"code:lint": "turbo run code:lint",
 		"modules:clean": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +",
 		"modules:info": "find . -name \"node_modules\" -type d -prune | xargs du -chs",

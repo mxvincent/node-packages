@@ -1,4 +1,4 @@
-import { AppChart } from '@libs/app-chart'
+import { AppChart, ConfigFilesProviderInterface } from '@libs/app-chart'
 import { ConfigFilesDescriptor, createConfigFile } from '@libs/app-config'
 import { AppContext, ContextAdapter } from '@libs/app-context'
 import { WebServiceOptions } from '@libs/components/web-service'
@@ -24,7 +24,7 @@ const getIngressConfig: ContextAdapter<IngressConfig> = ({ application, environm
 	}
 }
 
-export class DemoGraphql extends AppChart {
+export class DemoGraphql extends AppChart implements ConfigFilesProviderInterface {
 	components(context: AppContext) {
 		return [
 			new WebServiceOptions('app-server', {
