@@ -1,7 +1,7 @@
-import { Size } from 'cdk8s'
-import { ContainerResources, Cpu } from 'cdk8s-plus-27'
+import { existsSync } from 'node:fs'
 import { dirname } from 'node:path'
 import * as process from 'process'
+import { identity, memoizeWith } from 'ramda'
 
 export type RequiredProperties<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: T[P] }
 
@@ -29,15 +29,27 @@ export const env = (variableName: string, defaultValue?: string) => {
 	return process.env[variableName] ?? defaultValue
 }
 
-export const getContainerResources = (options?: Partial<ContainerResources>): ContainerResources => {
-	return {
-		cpu: {
-			request: options?.cpu?.request ?? Cpu.millis(50),
-			limit: options?.cpu?.limit ?? undefined
-		},
-		memory: {
-			request: options?.memory?.request ?? Size.mebibytes(100),
-			limit: options?.memory?.limit ?? Size.mebibytes(250)
-		}
-	}
+export declare abstract class PlainObject {}
+export type ClassConstructor<T> = {
+	new (): T
 }
+
+/**
+ * Transform literal object to an instance of a given class
+ */
+export function hydrate<T extends PlainObject>(Constructor: ClassConstructor<T>, values: T): T {
+	return Object.assign(new Constructor(), values)
+}
+
+/**
+ * Get applications directory path
+ */
+export const getApplicationDirectory = memoizeWith(identity, (path: string): string => {
+	if (path === '/') {
+		throw new Error('Failed to find repository root dir')
+	}
+	if (existsSync(`${path}/pnpm-workspace.yaml`)) {
+		return `${path}/applications`
+	}
+	return getApplicationDirectory(dirname(path))
+})

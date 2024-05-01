@@ -1,5 +1,5 @@
 {
-	"include": ["./src/charts/**/*", "./src/libs/**/*", "./src/*.ts"],
+	"include": ["./src/charts/**/*", "./src/libs/**/*", "./src/components/**/*", "./src/*.ts"],
 	"exclude": ["node_modules"],
 	"compilerOptions": {
 		"target": "es2022",
@@ -12,6 +12,7 @@
 		"types": ["node"],
 		"paths": {
 			"@charts/*": ["./charts/*"],
+			"@components/*": ["./components/*"],
 			"@imports/*": ["./imports/*"],
 			"@libs/*": ["./libs/*"]
 		}

@@ -5,13 +5,15 @@
   },
   "sourceMaps": false,
   "jsc": {
+    "loose": false,
     "baseUrl": "./src",
     "parser": {
       "syntax": "typescript",
       "decorators": true,
-      "dynamicImport": true
+      "dynamicImport": true,
     },
     "paths": {
+      "@components/*": ["./components/*"],
       "@charts/*": ["./charts/*"],
       "@imports/*": ["./imports/*"],
       "@libs/*": ["./libs/*"]
