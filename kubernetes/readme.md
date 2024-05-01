@@ -2,6 +2,7 @@
 
 ## Generate and push deployment manifests
 ```shell
+git pull origin
 pnpm run generate-manifests
 git add . 
 git commit -m "deploy: $(date -u +'%Y-%m-%dT%H:%M:%SZ') [skip ci]" --no-verify
