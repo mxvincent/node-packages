@@ -7,12 +7,8 @@ import { initializeDataSource } from '@mxvincent/typeorm'
 async function main(): Promise<void> {
 	setLogLevel(config.logLevel)
 	await initializeDataSource(accountDataSource, { runMigrations: false })
-	const a = await accountDataSource.manager.find(Organization, { take: 3, relations: { members: true } })
-	const q = accountDataSource
-		.createQueryBuilder(Organization, 'o')
-		.leftJoinAndSelect('o.members', 'm')
-		.leftJoinAndSelect('m.user', 'u')
-		.limit(3)
+	const organizations = await accountDataSource.manager.find(Organization, { take: 3, relations: { members: true } })
+	logger.info(organizations)
 }
 
 if (require.main === module) {
