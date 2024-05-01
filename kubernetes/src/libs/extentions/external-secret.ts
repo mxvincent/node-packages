@@ -44,7 +44,7 @@ export class ExternalSecretRef {
 	 * Generate a placeholder to replace external secret reference in template
 	 */
 	placeholder(transform: SecretValueTransformHelper = 'toString') {
-		return `.${this.key} | ${transform}`
+		return `{{ .${this.key} | ${transform} }}`
 	}
 }
 
