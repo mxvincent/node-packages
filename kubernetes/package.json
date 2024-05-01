@@ -11,9 +11,8 @@
 		"clean": "rm -rf dist src/imports",
 		"code:check:dev": "tsc --noEmit --skipLibCheck",
 		"code:lint": "eslint src",
-		"generate-manifests": "cdk8s synth --output manifests --check-upgrade=false",
 		"import-api-resources": "kubectl get crds -o yaml > crd.yaml;pnpm cdk8s import --output src/imports;rm crd.yaml",
-		"deploy": "pnpm run generate-manifests && git add . && git commit -m \"deploy: $(date -u +'%Y-%m-%dT%H:%M:%SZ') [skip ci]\" --no-verify && git push --no-verify",
+		"generate-manifests": "cdk8s synth --output manifests --check-upgrade=false",
 		"debug": "node -r @swc/register src/main.ts"
 	},
 	"devDependencies": {
