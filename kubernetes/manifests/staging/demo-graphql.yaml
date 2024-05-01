@@ -140,7 +140,7 @@ spec:
     name: demo-graphql-config-files
     template:
       data:
-        config.json: '{"logLevel":"info","database":{"type":"postgres","host":"postgres-15-postgresql.postgres-15.svc.cluster.local","port":5432,"database":"STAGING_DEMO_GRAPHQL_POSTGRES_DATABASE | toString","username":"STAGING_DEMO_GRAPHQL_POSTGRES_USERNAME | toString","password":"STAGING_DEMO_GRAPHQL_POSTGRES_PASSWORD | toString"}}'
+        config.json: '{"logLevel":"info","database":{"type":"postgres","host":"postgres-15-postgresql.postgres-15.svc.cluster.local","port":5432,"database":".STAGING_DEMO_GRAPHQL_POSTGRES_DATABASE | toString","username":".STAGING_DEMO_GRAPHQL_POSTGRES_USERNAME | toString","password":".STAGING_DEMO_GRAPHQL_POSTGRES_PASSWORD | toString"}}'
       engineVersion: "2"
 ---
 apiVersion: networking.k8s.io/v1
