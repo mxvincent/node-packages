@@ -1,5 +1,11 @@
 # @mxvincent/typeorm
 
+## 0.1.2
+
+### Patch Changes
+
+- [`c5ed35e`](https://github.com/mxvincent/node-packages/commit/c5ed35ec4fe340bce1d0335c2dd357d9a9c7f237) Thanks [@mxvincent](https://github.com/mxvincent)! - Add connection pooling options to Postgres config
+
 ## 0.1.1
 
 ### Patch Changes
