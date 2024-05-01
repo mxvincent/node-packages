@@ -19,9 +19,9 @@ const configFileContent = (context: Context, secrets: ExternalSecret) => ({
 		type: 'postgres',
 		host: 'postgres-15-postgresql.postgres-15.svc.cluster.local',
 		port: 5432,
-		database: context.namespace,
-		username: secrets.ref('DATABASE_USERNAME'),
-		password: secrets.ref('DATABASE_PASSWORD')
+		database: secrets.ref('POSTGRES_DATABASE'),
+		username: secrets.ref('POSTGRES_USERNAME'),
+		password: secrets.ref('POSTGRES_PASSWORD')
 	}
 })
 

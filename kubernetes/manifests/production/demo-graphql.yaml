@@ -109,17 +109,25 @@ spec:
         decodingStrategy: None
         key: name:production-demo-graphql
         metadataPolicy: None
-        property: DATABASE_USERNAME
+        property: POSTGRES_DATABASE
         version: latest
-      secretKey: PRODUCTION_DEMO_GRAPHQL_DATABASE_USERNAME
+      secretKey: PRODUCTION_DEMO_GRAPHQL_POSTGRES_DATABASE
     - remoteRef:
         conversionStrategy: Default
         decodingStrategy: None
         key: name:production-demo-graphql
         metadataPolicy: None
-        property: DATABASE_PASSWORD
+        property: POSTGRES_USERNAME
         version: latest
-      secretKey: PRODUCTION_DEMO_GRAPHQL_DATABASE_PASSWORD
+      secretKey: PRODUCTION_DEMO_GRAPHQL_POSTGRES_USERNAME
+    - remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
+        key: name:production-demo-graphql
+        metadataPolicy: None
+        property: POSTGRES_PASSWORD
+        version: latest
+      secretKey: PRODUCTION_DEMO_GRAPHQL_POSTGRES_PASSWORD
   refreshInterval: 1h
   secretStoreRef:
     kind: ClusterSecretStore
@@ -129,7 +137,7 @@ spec:
     name: demo-graphql-config-files
     template:
       data:
-        config.json: '{"logLevel":"info","database":{"type":"postgres","host":"postgres-15-postgresql.postgres-15.svc.cluster.local","port":5432,"database":"production-demo-graphql","username":"PRODUCTION_DEMO_GRAPHQL_DATABASE_USERNAME | toString","password":"PRODUCTION_DEMO_GRAPHQL_DATABASE_PASSWORD | toString"}}'
+        config.json: '{"logLevel":"info","database":{"type":"postgres","host":"postgres-15-postgresql.postgres-15.svc.cluster.local","port":5432,"database":"PRODUCTION_DEMO_GRAPHQL_POSTGRES_DATABASE | toString","username":"PRODUCTION_DEMO_GRAPHQL_POSTGRES_USERNAME | toString","password":"PRODUCTION_DEMO_GRAPHQL_POSTGRES_PASSWORD | toString"}}'
       engineVersion: "2"
 ---
 apiVersion: networking.k8s.io/v1
