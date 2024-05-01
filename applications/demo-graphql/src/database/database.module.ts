@@ -1,9 +1,10 @@
 import { Database, getDataSource } from '@database/database.service'
-import { closeAllDatabaseConnections, DataSource, initializeDataSource } from '@mxvincent/typeorm'
+import { closeAllDatabaseConnections, initializeDataSource } from '@mxvincent/typeorm'
+import { PostgresDatabaseSource } from '@mxvincent/typeorm/dist'
 import { FactoryProvider, Module, OnModuleDestroy, OnModuleInit } from '@nestjs/common'
 
 const DataSourceProvider: FactoryProvider = {
-	provide: DataSource,
+	provide: PostgresDatabaseSource,
 	useFactory: getDataSource
 }
 
