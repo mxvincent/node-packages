@@ -1,6 +1,6 @@
 {
 	"name": "demo-graphql",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"repository": "https://github.com/mxvincent/node-packages/tree/main/applications/demo-graphql",
 	"private": true,
 	"main": "./dist/index.js",
