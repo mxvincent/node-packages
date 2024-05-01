@@ -28,6 +28,11 @@ export class WebServiceFactory extends ComponentFactory<WebServiceOptions> {
 			replicas: options.replicas,
 			podMetadata: {
 				labels: context.labels
+			},
+			securityContext: {
+				fsGroup: 1000,
+				user: 1000,
+				group: 1000
 			}
 		})
 		deployment.metadata.addLabel(LABEL_COMPONENT, options.name)

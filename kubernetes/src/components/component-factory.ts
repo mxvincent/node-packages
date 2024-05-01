@@ -22,11 +22,10 @@ export abstract class ComponentFactory<Options extends ComponentOptions> {
 			resources: getContainerResources(),
 			envVariables: this.options.config?.environment?.values,
 			securityContext: {
+				privileged: false,
 				readOnlyRootFilesystem: true,
 				ensureNonRoot: true,
-				allowPrivilegeEscalation: false,
-				user: 1000,
-				group: 1000
+				allowPrivilegeEscalation: false
 			}
 		}
 	}
