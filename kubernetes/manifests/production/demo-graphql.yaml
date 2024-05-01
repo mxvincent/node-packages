@@ -55,7 +55,9 @@ spec:
             allowPrivilegeEscalation: false
             privileged: false
             readOnlyRootFilesystem: true
+            runAsGroup: 1000
             runAsNonRoot: true
+            runAsUser: 1000
           volumeMounts:
             - mountPath: /app/config
               name: secret-demo-graphql-config-files

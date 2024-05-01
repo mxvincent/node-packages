@@ -24,7 +24,9 @@ export abstract class ComponentFactory<Options extends ComponentOptions> {
 			securityContext: {
 				readOnlyRootFilesystem: true,
 				ensureNonRoot: true,
-				allowPrivilegeEscalation: false
+				allowPrivilegeEscalation: false,
+				user: 1000,
+				group: 1000
 			}
 		}
 	}
