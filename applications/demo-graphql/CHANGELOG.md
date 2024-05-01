@@ -1,5 +1,11 @@
 # demo-graphql
 
+## 0.1.7
+
+### Patch Changes
+
+- [`815aaec`](https://github.com/mxvincent/node-packages/commit/815aaec83e0e2651f8b563cfe84c53f2760bb25d) Thanks [@mxvincent](https://github.com/mxvincent)! - Build app image with a non root user
+
 ## 0.1.6
 
 ### Patch Changes

@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: staging
     app.kubernetes.io/name: demo-graphql
-    app.kubernetes.io/version: 0.1.6
+    app.kubernetes.io/version: 0.1.7
   name: demo-graphql-app-server
   namespace: staging-demo-graphql
 spec:
@@ -28,7 +28,7 @@ spec:
         app.kubernetes.io/component: app-server
         app.kubernetes.io/instance: staging
         app.kubernetes.io/name: demo-graphql
-        app.kubernetes.io/version: 0.1.6
+        app.kubernetes.io/version: 0.1.7
         cdk8s.io/metadata.addr: demo-graphql-app-server-c8feae02
     spec:
       automountServiceAccountToken: false
@@ -39,7 +39,7 @@ spec:
           env:
             - name: CONFIG_FILE_PATH
               value: /app/config.json
-          image: ghcr.io/mxvincent/demo-graphql:0.1.6
+          image: ghcr.io/mxvincent/demo-graphql:0.1.7
           imagePullPolicy: Always
           name: app-server
           ports:
@@ -80,7 +80,7 @@ metadata:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: staging
     app.kubernetes.io/name: demo-graphql
-    app.kubernetes.io/version: 0.1.6
+    app.kubernetes.io/version: 0.1.7
   name: demo-graphql-app-server
   namespace: staging-demo-graphql
 spec:
@@ -99,7 +99,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: staging
     app.kubernetes.io/name: demo-graphql
-    app.kubernetes.io/version: 0.1.6
+    app.kubernetes.io/version: 0.1.7
   name: demo-graphql-config-files-secrets
   namespace: staging-demo-graphql
 spec:
@@ -150,7 +150,7 @@ metadata:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: staging
     app.kubernetes.io/name: demo-graphql
-    app.kubernetes.io/version: 0.1.6
+    app.kubernetes.io/version: 0.1.7
   name: demo-graphql-app-server
   namespace: staging-demo-graphql
 spec:
