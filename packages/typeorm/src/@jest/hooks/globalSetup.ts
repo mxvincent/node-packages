@@ -1,8 +1,8 @@
 import { LogLevel, setLogLevel } from '@mxvincent/logger'
 import 'dotenv/config'
 import * as process from 'process'
-import { DataSource, DataSourceOptions } from 'typeorm'
-import { closeAllDatabaseConnections, initializeDataSource } from '../../helpers/connections'
+import { DataSourceOptions } from 'typeorm'
+import { closeAllDatabaseConnections, initializeDataSource, PostgresDatabaseSource } from '../../helpers/connections'
 import { testDatasource, TESTING_DATABASE_NAME } from '../database/dataSource'
 
 if (process.env.LOG_LEVEL) {
@@ -20,7 +20,7 @@ const mainDataSourceOptions = {
 
 export default async function globalSetup() {
 	// Drop (if exists) and create testing database
-	const mainDataSource = new DataSource(mainDataSourceOptions)
+	const mainDataSource = new PostgresDatabaseSource(mainDataSourceOptions)
 	await initializeDataSource(mainDataSource, { runMigrations: false })
 	await mainDataSource.query(`DROP DATABASE IF EXISTS "${TESTING_DATABASE_NAME}";`)
 	await mainDataSource.query(

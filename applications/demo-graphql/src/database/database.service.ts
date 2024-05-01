@@ -5,11 +5,11 @@ import { TransactionManager } from '@database/transaction-manager.service'
 import {
 	createPostgresDataSource,
 	CreatePostgresDataSourceOptions,
-	DataSource,
 	EntityManager,
 	ObjectLiteral,
 	ObjectType
 } from '@mxvincent/typeorm'
+import { PostgresDatabaseSource } from '@mxvincent/typeorm/dist'
 import { Injectable, Scope } from '@nestjs/common'
 
 export const createDataSource = (configOverrides?: Partial<CreatePostgresDataSourceOptions>) => {
@@ -23,15 +23,15 @@ export const createDataSource = (configOverrides?: Partial<CreatePostgresDataSou
 	})
 }
 
-export const accountDataSource = createDataSource()
+export const accountDataSource = createDataSource({})
 export const getDataSource = () => accountDataSource
 
 @Injectable({ scope: Scope.REQUEST })
 export class Database {
-	dataSource: DataSource
+	dataSource: PostgresDatabaseSource
 	transaction: TransactionManager
 
-	constructor(dataSource: DataSource) {
+	constructor(dataSource: PostgresDatabaseSource) {
 		this.dataSource = dataSource
 		this.transaction = new TransactionManager(dataSource)
 		this.query = this.dataSource.query

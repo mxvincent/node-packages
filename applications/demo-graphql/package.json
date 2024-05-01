@@ -14,7 +14,8 @@
 		"code:check": "tsc --noEmit",
 		"code:check:watch": "tsc --noEmit --watch",
 		"start:app-server": "node --watch  -r tsconfig-paths/register -r dotenv/config -r @swc/register  src/app-server.ts",
-		"start:seed-database": "node -r reflect-metadata -r tsconfig-paths/register -r dotenv/config -r @swc/register src/scripts/seedDatabase.ts",
+		"start:seed-database": "node -r reflect-metadata -r tsconfig-paths/register -r dotenv/config -r @swc/register src/scripts/database-seed.ts",
+		"start:sandbox": "node -r reflect-metadata -r tsconfig-paths/register -r dotenv/config -r @swc/register src/scripts/sandbox.ts",
 		"test:all": "jest --config jest.config.ts",
 		"test:all:watch": "jest --config jest.config.js --watch"
 	},

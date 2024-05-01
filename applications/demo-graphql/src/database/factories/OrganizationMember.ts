@@ -5,8 +5,7 @@ import {
 	organizationMemberRoles
 } from '@database/entities/OrganizationMember'
 import { User } from '@database/entities/User'
-import { hydrate } from '@mxvincent/typeorm'
-import { randomArrayItem } from '@mxvincent/utils'
+import { hydrate, randomArrayItem } from '@mxvincent/utils'
 
 export const organizationMemberFactory = (options: {
 	organization: Organization

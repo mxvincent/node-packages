@@ -5,12 +5,26 @@ import { User, UserProperties } from '@database/entities/User'
 import { faker } from '@faker-js/faker'
 import { logger } from '@mxvincent/logger'
 import { DataSource, EntityManager, ObjectType } from '@mxvincent/typeorm'
+import { closeAllDatabaseConnections } from '@mxvincent/typeorm/dist'
 import { Alphabet, randomArrayItem, randomString } from '@mxvincent/utils'
 import { randomInt } from 'crypto'
+import process from 'node:process'
 import { range } from 'ramda'
 
+const startingTime = Date.now()
+
+const info = (message: string, data: Record<string, unknown> = {}) => {
+	logger.info(
+		{
+			heap: `${(process.memoryUsage().heapUsed / (1024 * 1024)).toFixed(3)}MB`,
+			...data
+		},
+		`(${(Date.now() - startingTime) / 1000}s) ${message}`
+	)
+}
+
 const truncateTable = (manager: EntityManager, table: string) => {
-	logger.info(`truncate ${table}`)
+	info(`truncate ${table}`)
 	return manager.query(`TRUNCATE TABLE "${config.database.schema}"."${table}" CASCADE`)
 }
 
@@ -114,11 +128,11 @@ export async function seedAccountDatabase(dataSource: DataSource) {
 	await truncateTable(dataSource.manager, 'OrganizationMember')
 	await truncateTable(dataSource.manager, 'Organization')
 	await truncateTable(dataSource.manager, 'User')
-	const batchCount = 10
+	const batchCount = 200
 	for (let i = 1; i <= batchCount; i++) {
 		logger.info(`create resources batch ${i}/${batchCount}`)
-		const organizationIds = await createOrganizations(dataSource.manager, 10_000)
-		const userIds = await createUsers(dataSource.manager, 50_000)
+		const organizationIds = await createOrganizations(dataSource.manager, 1_000)
+		const userIds = await createUsers(dataSource.manager, 5_000)
 		await createOrganizationMembers(dataSource.manager, organizationIds, userIds)
 	}
 	logger.info(
@@ -129,4 +143,6 @@ export async function seedAccountDatabase(dataSource: DataSource) {
 		},
 		`resources created (${(Date.now() - start) / 1_000}s)`
 	)
+	await closeAllDatabaseConnections(dataSource)
+	process.exit()
 }

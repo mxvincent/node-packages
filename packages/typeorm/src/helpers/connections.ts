@@ -2,6 +2,7 @@ import { logger } from '@mxvincent/logger'
 import { isString } from '@mxvincent/utils'
 import { pick } from 'ramda'
 import { DataSource } from 'typeorm'
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { PinoLoggerAdapter } from '../adapters/PinoLoggerAdapter'
 import { runMigrations } from './migrations'
 import { setPrimaryKeyColumns } from './primaryKey'
@@ -10,14 +11,17 @@ export interface InitializeDataSourceOptions {
 	runMigrations: boolean
 }
 
+export class PostgresDatabaseSource extends DataSource {
+	declare options: PostgresConnectionOptions
+}
+
 export const initializeDataSource = async (
-	dataSource: DataSource,
+	dataSource: PostgresDatabaseSource,
 	options?: InitializeDataSourceOptions
 ): Promise<DataSource> => {
 	if (dataSource.isInitialized) {
 		throw new Error(`DataSource ${dataSource.options.database} is already initialized`)
 	}
-
 	await dataSource.initialize()
 
 	// configure primary keys for pagination helpers
@@ -107,8 +111,8 @@ export type CreatePostgresDataSourceOptions = {
 	pool?: PostgresConnectionPoolOptions
 }
 
-export const createPostgresDataSource = (options: CreatePostgresDataSourceOptions): DataSource => {
-	return new DataSource({
+export const createPostgresDataSource = (options: CreatePostgresDataSourceOptions) => {
+	return new PostgresDatabaseSource({
 		schema: 'public',
 		type: 'postgres',
 		host: options.host ?? '127.0.0.1',

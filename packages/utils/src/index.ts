@@ -29,14 +29,10 @@ export { isNumber } from './guards/isNumber'
 export { isString } from './guards/isString'
 
 /**
- * Miscellaneous
- */
-export { wait } from './misc/wait'
-
-/**
  * Object
  */
 export { removeUndefinedProperties } from './object/removeUndefinedProperties'
+export * from './object/hydrate'
 
 /**
  * String

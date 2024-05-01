@@ -4,7 +4,7 @@ export type EnvironmentVariableMapping = {
 	[key: string]: string | EnvironmentVariableMapping
 }
 
-const getEnv = (name: string): string | undefined => process.env[name]
+const getEnv = (name: string, defaultValue?: string): string | typeof defaultValue => process.env[name] ?? defaultValue
 
 export const getEnvironmentVariables = (mapping: EnvironmentVariableMapping): JsonObject => {
 	return Object.entries(mapping)

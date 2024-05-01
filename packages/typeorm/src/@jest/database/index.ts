@@ -1,6 +1,6 @@
 import { includes } from 'ramda'
-import { DataSource, EntityManager, QueryRunner } from 'typeorm'
-import { closeAllDatabaseConnections, initializeDataSource } from '../../helpers/connections'
+import { EntityManager, QueryRunner } from 'typeorm'
+import { closeAllDatabaseConnections, initializeDataSource, PostgresDatabaseSource } from '../../helpers/connections'
 import { testDatasource } from './dataSource'
 import { Author } from './entities/Author'
 import { DateContainer } from './entities/DateContainer'
@@ -11,7 +11,7 @@ export { Author, DateContainer, Post }
 
 export const factories = { createAuthors, createDateContainers }
 
-export const setupTestingDatabase = async (database: DataSource): Promise<QueryRunner> => {
+export const setupTestingDatabase = async (database: PostgresDatabaseSource): Promise<QueryRunner> => {
 	await initializeDataSource(database)
 	if (includes(database.options.type, ['better-sqlite3', 'sqlite'])) {
 		await database.synchronize(true)

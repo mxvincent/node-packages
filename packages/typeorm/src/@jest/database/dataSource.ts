@@ -1,12 +1,12 @@
-import { DataSource } from 'typeorm'
 import { PinoLoggerAdapter } from '../../adapters/PinoLoggerAdapter'
+import { PostgresDatabaseSource } from '../../helpers/connections'
 import { Author } from './entities/Author'
 import { DateContainer } from './entities/DateContainer'
 import { Post } from './entities/Post'
 
 export const TESTING_DATABASE_NAME = 'typeorm'
 
-export const testDatasource = new DataSource({
+export const testDatasource = new PostgresDatabaseSource({
 	type: 'postgres',
 	host: process.env.DB_HOST ?? '127.0.0.1',
 	port: Number(process.env.DB_PORT ?? '5432'),
