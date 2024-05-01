@@ -1,5 +1,11 @@
 # demo-graphql
 
+## 0.1.8
+
+### Patch Changes
+
+- [`2478ef6`](https://github.com/mxvincent/node-packages/commit/2478ef64be0262dabe6ae3704ee6855e7f6244f2) Thanks [@mxvincent](https://github.com/mxvincent)! - Update DataSource provider.
+
 ## 0.1.7
 
 ### Patch Changes
