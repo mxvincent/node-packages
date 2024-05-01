@@ -40,13 +40,13 @@ export class DemoGraphql extends ApplicationChart {
 	}
 
 	get config(): ComponentConfig {
-		const environment = new Environment(this.context, {
-			CONFIG_FILE_PATH: `/app/config.json`
-		})
+		const CONFIG_FILE_PATH = `/app/config.json`
+		const environment = new Environment(this.context, { CONFIG_FILE_PATH })
 		const files = new ConfigFiles(this.context, {
 			'config.json': configFileContent(this.context, this.secrets)
 		})
-		return { environment, files, mountPath: '/app' }
+		// TODO: handle per file mount paths
+		return { environment, files, mountPath: CONFIG_FILE_PATH }
 	}
 
 	get secrets() {

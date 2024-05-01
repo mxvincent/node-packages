@@ -57,7 +57,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
-            - mountPath: /app
+            - mountPath: /app/config.json
               name: secret-demo-graphql-config-files
               subPath: config.json
       dnsPolicy: ClusterFirst
