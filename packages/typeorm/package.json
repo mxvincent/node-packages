@@ -1,6 +1,6 @@
 {
   "name": "@mxvincent/typeorm",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": "https://github.com/mxvincent/node-packages/tree/main/packages/database-typeorm",
   "private": true,
   "main": "./dist/index.js",

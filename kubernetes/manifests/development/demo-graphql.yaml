@@ -5,11 +5,11 @@ metadata:
     secret.reloader.stakater.com/reload: demo-graphql-config-files
   labels:
     app.kubernetes.io/component: app-server
-    app.kubernetes.io/instance: production
+    app.kubernetes.io/instance: development
     app.kubernetes.io/name: demo-graphql
     app.kubernetes.io/version: 0.1.6
   name: demo-graphql-app-server
-  namespace: production-demo-graphql
+  namespace: development-demo-graphql
 spec:
   minReadySeconds: 0
   progressDeadlineSeconds: 600
@@ -26,7 +26,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/component: app-server
-        app.kubernetes.io/instance: production
+        app.kubernetes.io/instance: development
         app.kubernetes.io/name: demo-graphql
         app.kubernetes.io/version: 0.1.6
         cdk8s.io/metadata.addr: demo-graphql-app-server-c8feae02
@@ -78,11 +78,11 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/component: app-server
-    app.kubernetes.io/instance: production
+    app.kubernetes.io/instance: development
     app.kubernetes.io/name: demo-graphql
     app.kubernetes.io/version: 0.1.6
   name: demo-graphql-app-server
-  namespace: production-demo-graphql
+  namespace: development-demo-graphql
 spec:
   externalIPs: []
   ports:
@@ -97,29 +97,29 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   labels:
-    app.kubernetes.io/instance: production
+    app.kubernetes.io/instance: development
     app.kubernetes.io/name: demo-graphql
     app.kubernetes.io/version: 0.1.6
   name: demo-graphql-config-files-secrets
-  namespace: production-demo-graphql
+  namespace: development-demo-graphql
 spec:
   data:
     - remoteRef:
         conversionStrategy: Default
         decodingStrategy: None
-        key: name:production-demo-graphql
+        key: name:development-demo-graphql
         metadataPolicy: None
         property: DATABASE_USERNAME
         version: latest
-      secretKey: PRODUCTION_DEMO_GRAPHQL_DATABASE_USERNAME
+      secretKey: DEVELOPMENT_DEMO_GRAPHQL_DATABASE_USERNAME
     - remoteRef:
         conversionStrategy: Default
         decodingStrategy: None
-        key: name:production-demo-graphql
+        key: name:development-demo-graphql
         metadataPolicy: None
         property: DATABASE_PASSWORD
         version: latest
-      secretKey: PRODUCTION_DEMO_GRAPHQL_DATABASE_PASSWORD
+      secretKey: DEVELOPMENT_DEMO_GRAPHQL_DATABASE_PASSWORD
   refreshInterval: 1h
   secretStoreRef:
     kind: ClusterSecretStore
@@ -129,7 +129,7 @@ spec:
     name: demo-graphql-config-files
     template:
       data:
-        config.json: '{"logLevel":"info","database":{"type":"postgres","host":"postgres-15-postgresql.postgres-15.svc.cluster.local","port":5432,"database":"production-demo-graphql","username":"PRODUCTION_DEMO_GRAPHQL_DATABASE_USERNAME | toString","password":"PRODUCTION_DEMO_GRAPHQL_DATABASE_PASSWORD | toString"}}'
+        config.json: '{"logLevel":"info","database":{"type":"postgres","host":"postgres-15-postgresql.postgres-15.svc.cluster.local","port":5432,"database":"development-demo-graphql","username":"DEVELOPMENT_DEMO_GRAPHQL_DATABASE_USERNAME | toString","password":"DEVELOPMENT_DEMO_GRAPHQL_DATABASE_PASSWORD | toString"}}'
       engineVersion: "2"
 ---
 apiVersion: networking.k8s.io/v1
@@ -140,14 +140,14 @@ metadata:
     ingress.kubernetes.io/ssl-redirect: "true"
   labels:
     app.kubernetes.io/component: app-server
-    app.kubernetes.io/instance: production
+    app.kubernetes.io/instance: development
     app.kubernetes.io/name: demo-graphql
     app.kubernetes.io/version: 0.1.6
   name: demo-graphql-app-server
-  namespace: production-demo-graphql
+  namespace: development-demo-graphql
 spec:
   rules:
-    - host: demo-graphql.row.ovh
+    - host: development.demo-graphql.row.ovh
       http:
         paths:
           - backend:
@@ -159,5 +159,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - demo-graphql.row.ovh
+        - development.demo-graphql.row.ovh
       secretName: demo-graphql-app-server-cert
