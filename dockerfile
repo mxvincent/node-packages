@@ -13,8 +13,6 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /app
 
-#RUN apk update
-#RUN apk add --no-cache libc6-compat
 RUN corepack enable
 RUN corepack prepare pnpm@$PNPM_VERSION --activate
 RUN pnpm install -g turbo@$TURBO_VERSION
@@ -47,13 +45,13 @@ COPY --from=pruner /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=pruner /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 
 # First install dependencies (as they change less often)
-RUN #--mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --ignore-scripts
+RUN pnpm install --frozen-lockfile --ignore-scripts
 RUN pnpm install --ignore-scripts
 
 # Copy source code of isolated workspaces
 COPY --from=pruner /app/out/full/ .
 RUN pnpm turbo run build:swc
-RUN #--mount=type=cache,id=pnpm,target=~/.pnpm-store pnpm prune --prod --no-optional --config.ignore-scripts=true
+RUN pnpm prune --prod --no-optional --config.ignore-scripts=true
 RUN rm -rf ./**/*/src
 RUN rm -rf ./**/*/node_modules
 RUN pnpm install --prod --no-optional --ignore-scripts --frozen-lockfile
@@ -70,4 +68,6 @@ ENV LOG_LEVEL info
 ENV APP_SERVER_HOST 0.0.0.0
 ENV APP_SERVER_PORT 4000
 
-COPY --from=builder /app /app
+USER node
+
+COPY --from=builder --chown=node:node /app /app
