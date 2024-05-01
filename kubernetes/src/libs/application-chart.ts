@@ -33,17 +33,20 @@ export abstract class ApplicationChart {
 	 * Attempts to instantiate a component linked to the type of options passed as a parameter
 	 */
 	registerComponent<T extends ComponentOptions>(options: T) {
+		const context = this.context.extends({
+			component: options.name
+		})
 		if (options instanceof CronJobOptions) {
-			return new CronJobFactory(this.context, options)
+			return new CronJobFactory(context, options)
 		}
 		if (options instanceof DaemonOptions) {
-			return new DaemonFactory(this.context, options)
+			return new DaemonFactory(context, options)
 		}
 		if (options instanceof JobOptions) {
-			return new JobFactory(this.context, options)
+			return new JobFactory(context, options)
 		}
 		if (options instanceof WebServiceOptions) {
-			return new WebServiceFactory(this.context, options)
+			return new WebServiceFactory(context, options)
 		}
 	}
 }

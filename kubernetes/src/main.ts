@@ -1,13 +1,9 @@
 import { DemoGraphql } from '@charts/demo-graphql'
-import { ApplicationContext } from '@libs/application-context'
+import { Context } from '@libs/context'
 import { synthesizeAllResources } from '@libs/environment'
-import { inspect } from 'node:util'
 
-const production: ApplicationContext[] = [new ApplicationContext('production', 'demo-graphql')]
+new DemoGraphql(new Context('development', 'demo-graphql'))
 
-for (const context of [...production]) {
-	const chart = new DemoGraphql(context)
-	console.log(inspect(chart.context.environment, { colors: true, depth: 10 }))
-}
+new DemoGraphql(new Context('production', 'demo-graphql'))
 
 synthesizeAllResources()

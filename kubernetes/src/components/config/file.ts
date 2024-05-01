@@ -1,4 +1,3 @@
-import { ComponentContext } from '@components/component-context'
 import { ExternalSecretV1Beta1, ExternalSecretV1Beta1SpecTargetCreationPolicy } from '@imports/external-secrets.io'
 import { Context } from '@libs/context'
 import {
@@ -63,7 +62,7 @@ export class ConfigFiles {
 	 */
 	#id(suffix?: string) {
 		const components: string[] = []
-		if (this.context instanceof ComponentContext) {
+		if (this.context.component) {
 			components.push(this.context.component)
 		}
 		components.push(this.#name)

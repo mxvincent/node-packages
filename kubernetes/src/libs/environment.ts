@@ -1,6 +1,6 @@
 import { App as CDKScope } from 'cdk8s/lib/app'
 
-export const environments = ['production', 'staging'] as const
+export const environments = ['development', 'production', 'staging'] as const
 export type Environment = (typeof environments)[number]
 
 const scopes: Record<string, CDKScope> = {}

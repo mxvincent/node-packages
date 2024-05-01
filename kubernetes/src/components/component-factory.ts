@@ -1,4 +1,3 @@
-import { ComponentContext } from '@components/component-context'
 import { ComponentOptions } from '@components/component-options'
 import { Context } from '@libs/context'
 import { ReloaderAnnotation } from '@libs/extentions/reloader'
@@ -6,15 +5,11 @@ import { getContainerResources } from '@libs/resources'
 import { AbstractPod, Container, ContainerProps } from 'cdk8s-plus-27'
 
 export abstract class ComponentFactory<Options extends ComponentOptions> {
-	protected readonly context: ComponentContext
+	protected readonly context: Context
 	protected readonly options: Options
 
 	constructor(context: Context, options: Options) {
-		if (context instanceof ComponentContext) {
-			this.context = context
-		} else {
-			this.context = new ComponentContext(context, options.name)
-		}
+		this.context = context
 		this.options = options
 		this.createManifests()
 	}
