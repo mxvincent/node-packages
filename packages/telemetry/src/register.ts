@@ -1,4 +1,4 @@
-import { validateOrFail } from '@hello-aria/json-schema'
+import { validate } from '@mxvincent/json-schema'
 import { diag } from '@opentelemetry/api'
 import { TelemetryConfigKey } from './config/enums'
 import { TelemetryConfigSchema } from './config/schemas'
@@ -6,7 +6,7 @@ import { getConfigValue, isTelemetryEnabled } from './config/values'
 import { initializeTelemetrySdk } from './sdk/sdk'
 
 if (isTelemetryEnabled) {
-	const config = validateOrFail(TelemetryConfigSchema)({
+	const config = validate(TelemetryConfigSchema, {
 		service: {
 			namespace: getConfigValue(TelemetryConfigKey.SERVICE_NAMESPACE),
 			name: getConfigValue(TelemetryConfigKey.SERVICE_NAME),

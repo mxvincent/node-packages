@@ -1,4 +1,3 @@
-// Expected attributes that OpenTelemetry adds to correlate logs with spans
 import * as process from 'node:process'
 import { LoggerOptions } from 'pino'
 import { isTelemetryEnabled } from '../config/values'
