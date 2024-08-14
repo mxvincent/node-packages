@@ -9,6 +9,7 @@
 		"node": ">=18.14.0"
 	},
 	"scripts": {
+		"build": "turbo run build:tsc",
 		"build:packages": "turbo run build:tsc --filter='./packages/*'",
 		"clean": "rm -rf out && turbo run clean --parallel",
 		"changeset": "changeset add",

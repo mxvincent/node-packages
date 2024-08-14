@@ -1,10 +1,10 @@
-version: "3.9"
+name: node_packages
 services:
   postgres:
-    image: postgres:14-alpine
+    image: postgres:16-alpine
     environment:
-      POSTGRES_USER: node-packages
-      POSTGRES_PASSWORD: node-packages
+      POSTGRES_USER: mxvincent
+      POSTGRES_PASSWORD: mxvincent
     ports:
       - "5432:5432"
     volumes:
@@ -12,14 +12,25 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
     environment:
-      RABBITMQ_DEFAULT_USER: node-packages
-      RABBITMQ_DEFAULT_PASS: node-packages
-      RABBITMQ_DEFAULT_VHOST: node-packages
+      RABBITMQ_DEFAULT_USER: mxvincent
+      RABBITMQ_DEFAULT_PASS: mxvincent
+      RABBITMQ_DEFAULT_VHOST: mxvincent
     ports:
       - "5672:5672"
       - "15672:15672"
     volumes:
       - "rabbitmq-data:/var/lib/rabbitmq"
+  jaeger:
+    image: jaegertracing/all-in-one:1.59
+    platform: linux/arm64
+    environment:
+      - COLLECTOR_OTLP_GRPC_HOST_PORT=0.0.0.0:4317
+      - COLLECTOR_OTLP_HTTP_HOST_PORT=0.0.0.0:4318
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
 volumes:
   rabbitmq-data:
   postgres-data:
+
