@@ -15,7 +15,7 @@
 		"start:schema": "node --watch -r @swc/register src/schema.ts"
 	},
 	"dependencies": {
-		"@mxvincent/logger": "workspace:*",
+		"@mxvincent/telemetry": "workspace:*",
 		"@mxvincent/json-schema": "workspace:*",
 		"@mxvincent/utils": "workspace:*"
 	},
