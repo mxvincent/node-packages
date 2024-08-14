@@ -115,7 +115,7 @@ export class ConfigFiles {
 					name: secretName,
 					creationPolicy: ExternalSecretV1Beta1SpecTargetCreationPolicy.OWNER,
 					template: {
-						engineVersion: '2',
+						engineVersion: 'v2',
 						data: stringData
 					}
 				},
