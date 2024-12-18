@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "module": {
+    "type": "commonjs"
+  },
+  "jsc": {
+    "baseUrl": "./src",
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true,
+      "dynamicImport": true
+    },
+    "transform": {
+      "decoratorMetadata": true,
+      "legacyDecorator": true
+    },
+    "paths": {
+      "@/*": ["./*"],
+      "@api/*": ["./api/*"],
+      "@database/*": ["./database/*"]
+    },
+    "target": "es2020"
+  }
+}
