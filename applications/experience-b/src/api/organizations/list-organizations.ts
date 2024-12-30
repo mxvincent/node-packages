@@ -1,5 +1,5 @@
+import { endpoint } from '@/core/endpoint'
 import { QueryParametersSchema } from '@/core/schemas'
-import { endpoint } from '@/plugins/endpoint'
 import { OrganizationSchema } from '@/schemas/organization'
 import { parseQueryParameters } from '@database/helpers'
 import { OrganizationRepository } from '@database/repositories/organization'

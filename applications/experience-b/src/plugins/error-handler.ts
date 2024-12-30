@@ -9,5 +9,7 @@ export const fastifyErrorHandler: FastifyPluginAsync = plugin(
 			return reply.send(error)
 		})
 	},
-	{ fastify: '5.x' }
+	{
+		fastify: '5.x'
+	}
 )

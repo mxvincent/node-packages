@@ -1,5 +1,5 @@
+import { endpoint } from '@/core/endpoint'
 import { ResourceNotFoundError } from '@/errors/resource'
-import { endpoint } from '@/plugins/endpoint'
 import { OrganizationSchema } from '@/schemas/organization'
 import { OrganizationRepository } from '@database/repositories/organization'
 import { Type } from '@mxvincent/json-schema'
