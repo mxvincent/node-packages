@@ -10,7 +10,7 @@
 	],
 	"commit": false,
 	"fixed": [],
-	"ignore": ["kubernetes", "@action/build-planner"],
+	"ignore": ["kubernetes", "@action/*"],
 	"linked": [],
 	"privatePackages": {
 		"version": true,

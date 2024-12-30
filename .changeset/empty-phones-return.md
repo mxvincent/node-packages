@@ -11,4 +11,4 @@
 '@mxvincent/typeorm': minor
 ---
 
-next
+Initial release 🚀
