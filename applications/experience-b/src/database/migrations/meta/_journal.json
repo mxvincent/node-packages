@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1715163650218,
+      "tag": "0000_nifty_dexter_bennett",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1722771889835,
+      "tag": "0001_cynical_union_jack",
+      "breakpoints": true
+    }
+  ]
+}
