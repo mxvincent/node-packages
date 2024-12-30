@@ -1,5 +1,11 @@
 # experience-b
 
+## 0.1.1
+
+### Patch Changes
+
+- [#3](https://github.com/mxvincent/node-packages/pull/3) [`e45a030`](https://github.com/mxvincent/node-packages/commit/e45a030f1544a420d657533057c068eb7fcb3dd0) Thanks [@mxvincent](https://github.com/mxvincent)! - Configure json schema compiler with a fastify plugin
+
 ## 0.1.0
 
 ### Minor Changes
