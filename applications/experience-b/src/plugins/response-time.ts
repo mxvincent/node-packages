@@ -7,5 +7,7 @@ export const fastifyResponseTime: FastifyPluginAsync = plugin(
 			void response.header('x-response-time', response.elapsedTime)
 		})
 	},
-	{ fastify: '5.x' }
+	{
+		fastify: '5.x'
+	}
 )

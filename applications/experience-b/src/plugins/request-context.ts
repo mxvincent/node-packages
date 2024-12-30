@@ -36,5 +36,7 @@ export const fastifyRequestContext: FastifyPluginAsync = plugin(
 			requestContext.run(context, done)
 		})
 	},
-	{ fastify: '5.x' }
+	{
+		fastify: '5.x'
+	}
 )

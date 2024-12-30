@@ -21,5 +21,7 @@ export const fastifyAuth = plugin(
 			}
 		})
 	},
-	{ fastify: '5.x' }
+	{
+		fastify: '5.x'
+	}
 )

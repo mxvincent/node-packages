@@ -23,5 +23,7 @@ export const fastifyRequestLogger: FastifyPluginAsync = plugin(
 			)
 		})
 	},
-	{ fastify: '5.x' }
+	{
+		fastify: '5.x'
+	}
 )
