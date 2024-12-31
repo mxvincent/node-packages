@@ -1,5 +1,17 @@
 # experience-b
 
+## 0.1.2
+
+### Patch Changes
+
+- [`6ae6461`](https://github.com/mxvincent/node-packages/commit/6ae6461689ca59c2a0f3d7407f045e8f5153ef5a) Thanks [@mxvincent](https://github.com/mxvincent)! - Standardizes configurations
+
+- Updated dependencies [[`6ae6461`](https://github.com/mxvincent/node-packages/commit/6ae6461689ca59c2a0f3d7407f045e8f5153ef5a)]:
+  - @mxvincent/core@0.1.1
+  - @mxvincent/json-schema@0.1.1
+  - @mxvincent/query-params-serializer@1.0.1
+  - @mxvincent/telemetry@0.1.1
+
 ## 0.1.1
 
 ### Patch Changes

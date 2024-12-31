@@ -1,5 +1,13 @@
 # @mxvincent/typeorm
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`6ae6461`](https://github.com/mxvincent/node-packages/commit/6ae6461689ca59c2a0f3d7407f045e8f5153ef5a)]:
+  - @mxvincent/core@0.1.1
+  - @mxvincent/telemetry@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
