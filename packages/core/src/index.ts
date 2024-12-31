@@ -14,6 +14,8 @@ export * from './crypto/uuid'
 
 export * from './enums/country'
 export * from './enums/currency'
+export * from './enums/environment'
+export * from './enums/time-zone'
 
 export * from './errors/http'
 export * from './errors/validation'

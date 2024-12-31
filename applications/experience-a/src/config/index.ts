@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import { ApiConfigEnvironmentMapping, ApiConfigSchema } from '@app/config/api'
 import { loadConfig } from '@app/core/config.service'
-import { Environment } from '@app/types/Environment'
-import { TimeZone } from '@app/types/TimeZone'
+import { Environment, TimeZone } from '@mxvincent/core'
 import { Static, Type } from '@mxvincent/json-schema'
 import { LogLevel } from '@mxvincent/telemetry'
 import { DatabaseConfigEnvironmentMapping, DatabaseConfigSchema } from './database'
@@ -10,7 +9,7 @@ import { DatabaseConfigEnvironmentMapping, DatabaseConfigSchema } from './databa
 export const AppConfigSchema = Type.Object({
 	logLevel: Type.Enum(LogLevel, { default: 'info' }),
 	timeZone: Type.Enum(TimeZone, { default: TimeZone.UTC }),
-	environment: Type.Enum(Environment, { default: Environment.development }),
+	environment: Type.Enum(Environment, { default: Environment.DEVELOPMENT }),
 	database: DatabaseConfigSchema,
 	api: ApiConfigSchema
 })

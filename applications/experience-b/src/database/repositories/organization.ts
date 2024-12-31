@@ -1,9 +1,9 @@
 import { Organization } from '@/database/schemas/organizations'
 import { OrganizationRepositoryInterface } from '@/interfaces/organization'
-import { database } from '@database/database'
+import { database } from '@database/client'
 import { countRows, transformFilter } from '@database/helpers'
 import { PaginationManager } from '@database/helpers/pagination'
-import { schema } from '@database/schema'
+import { tables } from '@database/schema'
 import { Filter, Page, Pagination, Sort } from '@mxvincent/query-params'
 import { and, eq } from 'drizzle-orm'
 
@@ -15,9 +15,9 @@ type ColumnAlias = keyof typeof OrganizationRepository.PARAMETERS
 
 export class OrganizationRepository implements OrganizationRepositoryInterface {
 	static readonly PARAMETERS = {
-		id: schema.organization.id,
-		name: schema.organization.name,
-		createdAt: schema.organization.createdAt
+		id: tables.organization.id,
+		name: tables.organization.name,
+		createdAt: tables.organization.createdAt
 	}
 
 	async list(options: {
@@ -41,19 +41,19 @@ export class OrganizationRepository implements OrganizationRepositoryInterface {
 				},
 				where: and(...filters, pager.where(options.pagination))
 			}),
-			totalCount: await countRows(schema.organization, and(...filters))
+			totalCount: await countRows(tables.organization, and(...filters))
 		})
 	}
 
 	async getById(id: string): Promise<Organization | null> {
 		const organization = await database.query.organization.findFirst({
-			where: eq(schema.organization, id)
+			where: eq(tables.organization, id)
 		})
 		return organization ?? null
 	}
 
 	async create(values: Organization): Promise<Organization> {
-		const [organization] = await database.insert(schema.organization).values(values).returning()
+		const [organization] = await database.insert(tables.organization).values(values).returning()
 		return organization
 	}
 }

@@ -1,10 +1,10 @@
-import { database, postgresClient } from '@database/database'
+import { database, postgresClient } from '@database/client'
 import { logger } from '@mxvincent/telemetry'
 import { sql } from 'drizzle-orm'
 
 try {
-	await database.execute(sql`truncate public.organization cascade `)
-	await database.execute(sql`truncate public.user cascade `)
+	await database.execute(sql`TRUNCATE public.organization CASCADE `)
+	await database.execute(sql`TRUNCATE public.user CASCADE `)
 	console.info('Database content deleted')
 } catch (error) {
 	logger.error(error)

@@ -15,9 +15,18 @@
       "legacyDecorator": true
     },
     "paths": {
-      "@/*": ["./*"],
-      "@api/*": ["./api/*"],
-      "@database/*": ["./database/*"]
+      "@/*": [
+        "./*"
+      ],
+      "@api/*": [
+        "./api/*"
+      ],
+      "@core/*": [
+        "./core/*"
+      ],
+      "@database/*": [
+        "./database/*"
+      ]
     },
     "target": "es2020"
   }

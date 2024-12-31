@@ -1,13 +1,12 @@
-import { schema } from '@/database/schema'
+import { tables } from '@/database/schema'
 import { OrganizationMember } from '@/database/schemas/organization-members'
 import { User } from '@/database/schemas/users'
-import { database, postgresClient } from '@database/database'
+import { database, postgresClient } from '@database/client'
 import { factories } from '@database/factories'
-import { organizationFactory } from '@database/factories/organization'
 import { countRows } from '@database/helpers'
 import { Organization } from '@database/schemas/organizations'
 import { randomArrayItem, TextSequence } from '@mxvincent/core'
-import { logger } from '@mxvincent/telemetry'
+import { logger, serializers } from '@mxvincent/telemetry'
 import { randomInt } from 'crypto'
 import { PgTable } from 'drizzle-orm/pg-core'
 import { PgInsertValue } from 'drizzle-orm/pg-core/query-builders/insert'
@@ -19,11 +18,6 @@ const reportPerformance = (mark: string, message: string, ...rest: unknown[]) =>
 	logger.debug(`(${time}) ${message} (${duration}s)`, ...rest)
 }
 
-const sequences = {
-	users: new TextSequence('user', await countRows(schema.user)),
-	organizations: new TextSequence('organization', await countRows(schema.organization))
-}
-
 const insert = async <TableType extends PgTable, DataType extends PgInsertValue<TableType>>(
 	table: TableType,
 	values: DataType[]
@@ -32,10 +26,7 @@ const insert = async <TableType extends PgTable, DataType extends PgInsertValue<
 	return values
 }
 
-const createUsers = times(() => factories.user({ username: sequences.users.next() }))
-const createOrganizations = times(() => organizationFactory({ name: sequences.organizations.next() }))
-
-const createOrganizationMember = (data: { organizations: Organization[]; users: User[] }): OrganizationMember[] => {
+const populateOrganization = (data: { organizations: Organization[]; users: User[] }): OrganizationMember[] => {
 	return data.organizations.flatMap((organization: Organization) => {
 		const members = new WeakSet<User>()
 		const getUser = (): User => {
@@ -68,45 +59,50 @@ enum Mark {
 	createOrganizationMembers = 'CREATE_ORGANIZATION_MEMBER'
 }
 
-async function seed(chunkId: number) {
-	performance.mark(Mark.createUsers)
-	const users = await insert(schema.user, createUsers(50_000))
-	reportPerformance(Mark.createUsers, `[#${chunkId}] ${users.length} users created`)
-
-	performance.mark(Mark.createOrganizations)
-	const organizations = await insert(schema.organization, createOrganizations(10_000))
-	reportPerformance(Mark.createOrganizations, `[#${chunkId}] ${organizations.length} organizations created`)
-
-	performance.mark(Mark.createOrganizationMembers)
-	const organizationMembers = await insert(
-		schema.organizationMember,
-		createOrganizationMember({ organizations, users })
-	)
-	reportPerformance(
-		Mark.createOrganizationMembers,
-		`[#${chunkId}] ${organizationMembers.length} organization members created`
-	)
-
-	return {
-		organizations: organizations.length,
-		organizationMembers: organizationMembers.length,
-		users: users.length
-	}
-}
-
-try {
+const main = async () => {
 	performance.mark(Mark.start)
-	for (let i = 0; i < 20; i++) {
+
+	const sequences = {
+		users: new TextSequence('user', await countRows(tables.user)),
+		organizations: new TextSequence('organization', await countRows(tables.organization))
+	}
+
+	const createUsers = times(() => factories.user({ username: sequences.users.next() }))
+	const createOrganizations = times(() => factories.organization({ name: sequences.organizations.next() }))
+
+	const seed = async (chunkId: number) => {
+		performance.mark(Mark.createUsers)
+		const users = await insert(tables.user, createUsers(10_000))
+		reportPerformance(Mark.createUsers, `[#${chunkId}] ${users.length} users created`)
+
+		performance.mark(Mark.createOrganizations)
+		const organizations = await insert(tables.organization, createOrganizations(2_000))
+		reportPerformance(Mark.createOrganizations, `[#${chunkId}] ${organizations.length} organizations created`)
+
+		performance.mark(Mark.createOrganizationMembers)
+		const organizationMembers = await insert(tables.organizationMember, populateOrganization({ organizations, users }))
+		reportPerformance(
+			Mark.createOrganizationMembers,
+			`[#${chunkId}] ${organizationMembers.length} organization members created`
+		)
+
+		return {
+			organizations: organizations.length,
+			organizationMembers: organizationMembers.length,
+			users: users.length
+		}
+	}
+
+	for (let i = 0; i < 8; i++) {
 		await seed(i)
 	}
 	reportPerformance(Mark.start, 'Seed operation completed', {
 		organizations: sequences.organizations.value,
 		users: sequences.users.value,
-		organizationMember: await countRows(schema.organizationMember)
+		organizationMember: await countRows(tables.organizationMember)
 	})
-} catch (error) {
-	console.error(error)
-} finally {
-	await postgresClient.end()
-	await process.exit(0)
 }
+
+main()
+	.catch((error) => logger.fatal({ error: serializers.error(error) }))
+	.finally(() => postgresClient.end())

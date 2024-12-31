@@ -11,6 +11,7 @@
 		"paths": {
 			"@/*": ["./*"],
 			"@api/*": ["./api/*"],
+			"@core/*": ["./core/*"],
 			"@database/*": ["./database/*"]
 		}
 	}
