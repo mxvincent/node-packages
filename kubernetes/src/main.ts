@@ -1,11 +1,11 @@
-import { DemoGraphql } from '@charts/demo-graphql'
-import { Context } from '@libs/context'
-import { synthesizeAllResources } from '@libs/environment'
+import { Experience } from '@charts/experience'
+import { Context } from '@helpers/context'
+import { synthesizeAllResources } from '@helpers/scope'
 
-/**
- * Demo graphql
- */
-new DemoGraphql(new Context('staging', 'demo-graphql'))
-new DemoGraphql(new Context('production', 'demo-graphql'))
+new Experience(new Context('development', 'experience-a'))
+new Experience(new Context('production', 'experience-a'))
+
+new Experience(new Context('development', 'experience-b'))
+new Experience(new Context('production', 'experience-b'))
 
 synthesizeAllResources()

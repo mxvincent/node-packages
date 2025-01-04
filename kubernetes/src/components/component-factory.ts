@@ -1,7 +1,7 @@
 import { ComponentOptions } from '@components/component-options'
-import { Context } from '@libs/context'
-import { ReloaderAnnotation } from '@libs/extentions/reloader'
-import { getContainerResources } from '@libs/resources'
+import { Context } from '@helpers/context'
+import { getContainerResources } from '@helpers/resources'
+import { ReloaderAnnotation } from '@plugins/reloader'
 import { AbstractPod, Container, ContainerProps } from 'cdk8s-plus-27'
 
 export abstract class ComponentFactory<Options extends ComponentOptions> {
@@ -30,6 +30,8 @@ export abstract class ComponentFactory<Options extends ComponentOptions> {
 		}
 	}
 
+	abstract createManifests(): void
+
 	protected mountConfiguration(pod: AbstractPod, container: Container) {
 		const { config } = this.options
 		if (!config) {
@@ -47,6 +49,4 @@ export abstract class ComponentFactory<Options extends ComponentOptions> {
 			pod.metadata.addAnnotation(ReloaderAnnotation.RELOAD_ON_SECRET_CHANGE, secrets)
 		}
 	}
-
-	abstract createManifests(): void
 }

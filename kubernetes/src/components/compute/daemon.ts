@@ -1,6 +1,6 @@
 import { ComponentFactory } from '@components/component-factory'
 import { ComponentOptions } from '@components/component-options'
-import { LABEL_COMPONENT } from '@libs/labels'
+import { LABEL_COMPONENT } from '@helpers/labels'
 import { Deployment } from 'cdk8s-plus-27'
 
 export class DaemonOptions extends ComponentOptions {

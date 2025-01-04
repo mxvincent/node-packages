@@ -1,8 +1,13 @@
-import { Application } from '@libs/application'
-import { Environment, getEnvironmentScope } from '@libs/environment'
-import { LABEL_COMPONENT, LABEL_INSTANCE, LABEL_NAME, LABEL_VERSION } from '@libs/labels'
-import { getRevision } from '@libs/revision'
+import { LABEL_COMPONENT, LABEL_INSTANCE, LABEL_NAME, LABEL_VERSION } from '@helpers/labels'
+import { getRevision } from '@helpers/revision'
+import { getApplicationScope } from '@helpers/scope'
 import { Chart as CDKChart } from 'cdk8s/lib/chart'
+
+export const applications = ['experience-a', 'experience-b'] as const
+export type Application = (typeof applications)[number]
+
+export const environments = ['development', 'production', 'staging'] as const
+export type Environment = (typeof environments)[number]
 
 export class Context {
 	readonly namespace: `${Environment}-${Application}`
@@ -24,19 +29,11 @@ export class Context {
 		this.revision = options.revision ?? getRevision(application, environment)
 		this.chart =
 			options.chart ??
-			new CDKChart(getEnvironmentScope(this.environment), this.application, {
+			new CDKChart(getApplicationScope(application), this.environment, {
 				namespace: this.namespace,
 				labels: this.labels,
 				disableResourceNameHashes: true
 			})
-	}
-
-	extends(options: Required<Pick<Context, 'component'>>) {
-		return new Context(this.environment, this.application, {
-			chart: this.chart,
-			revision: this.revision,
-			component: options.component
-		})
 	}
 
 	get image(): string {
@@ -53,6 +50,14 @@ export class Context {
 			labels[LABEL_COMPONENT] = this.component
 		}
 		return labels
+	}
+
+	extends(options: Required<Pick<Context, 'component'>>) {
+		return new Context(this.environment, this.application, {
+			chart: this.chart,
+			revision: this.revision,
+			component: options.component
+		})
 	}
 }
 

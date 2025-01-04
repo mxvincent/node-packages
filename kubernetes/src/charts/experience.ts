@@ -2,16 +2,9 @@ import { ComponentConfig } from '@components/component-config'
 import { WebServiceOptions } from '@components/compute/web-service'
 import { Environment } from '@components/config/environment'
 import { ConfigFiles } from '@components/config/file'
-import { ApplicationChart } from '@libs/application-chart'
-import { Context, Provider } from '@libs/context'
-import { ExternalSecret } from '@libs/extentions/external-secret'
-import { IngressConfig } from '@libs/extentions/ingress'
-
-const ingressConfig: Provider<IngressConfig> = ({ application, environment }) => {
-	return {
-		host: environment === 'production' ? `${application}.row.ovh` : `${environment}.${application}.row.ovh`
-	}
-}
+import { ApplicationChart } from '@helpers/chart'
+import { Context } from '@helpers/context'
+import { ExternalSecret } from '@plugins/external-secret'
 
 const configFileContent = (context: Context, secrets: ExternalSecret) => ({
 	logLevel: 'info',
@@ -25,13 +18,12 @@ const configFileContent = (context: Context, secrets: ExternalSecret) => ({
 	}
 })
 
-export class DemoGraphql extends ApplicationChart {
+export class Experience extends ApplicationChart {
 	get components() {
 		return [
 			new WebServiceOptions({
 				name: 'app-server',
-				command: ['node', '/app/applications/demo-graphql/dist/app-server.js'],
-				ingress: ingressConfig(this.context),
+				command: ['node', '/app/applications/experience-a/dist/app-server.js'],
 				replicas: 2,
 				config: this.config,
 				image: this.context.image
@@ -41,7 +33,9 @@ export class DemoGraphql extends ApplicationChart {
 
 	get config(): ComponentConfig {
 		const CONFIG_FILE_PATH = `/app/config.json`
-		const environment = new Environment(this.context, { CONFIG_FILE_PATH })
+		const environment = new Environment(this.context, {
+			CONFIG_FILE_PATH
+		})
 		const files = new ConfigFiles(this.context, {
 			'config.json': configFileContent(this.context, this.secrets)
 		})
