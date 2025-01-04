@@ -1,7 +1,6 @@
-import { getApplicationDirectory } from '@libs/misc'
+import { Application, Environment } from '@helpers/context'
+import { getApplicationDirectory } from '@helpers/misc'
 import { readFileSync } from 'node:fs'
-import { Application } from './application'
-import { Environment } from './environment'
 
 /**
  * You can use this map to pin version

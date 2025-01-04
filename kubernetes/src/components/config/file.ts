@@ -1,10 +1,6 @@
 import { ExternalSecretV1Beta1, ExternalSecretV1Beta1SpecTargetCreationPolicy } from '@imports/external-secrets.io'
 import { Context } from '@libs/context'
-import {
-	EXTERNAL_SECRET_REFRESH_INTERVAL,
-	EXTERNAL_SECRET_STORE,
-	ExternalSecretRef
-} from '@libs/extentions/external-secret'
+import { EXTERNAL_SECRET_REFRESH_INTERVAL, EXTERNAL_SECRET_STORE, ExternalSecretRef } from '@plugins/external-secret'
 import { Names } from 'cdk8s'
 import { AbstractPod, Container, ISecret, Secret, Volume } from 'cdk8s-plus-27'
 
@@ -16,6 +12,7 @@ export interface ConfigFilesMountOptions {
 	path: string
 	files?: string[]
 }
+
 /**
  * Config file value
  */
@@ -36,9 +33,9 @@ export type ConfigFilesOptions = {
 
 export class ConfigFiles {
 	readonly context: Context
-	readonly #name: string
 	readonly templates: Record<string, ConfigFilesTemplate> = {}
 	readonly secretRefs: Record<string, ExternalSecretRef> = {}
+	readonly #name: string
 	#secret?: ISecret
 
 	constructor(context: Context, data: Record<string, ConfigFilesValueWithSecretRef>, options?: ConfigFilesOptions) {
@@ -55,38 +52,6 @@ export class ConfigFiles {
 	 */
 	get secret() {
 		return (this.#secret ??= this.createManifests())
-	}
-
-	/**
-	 * Generate an identifier for generated resources
-	 */
-	#id(suffix?: string) {
-		const components: string[] = []
-		if (this.context.component) {
-			components.push(this.context.component)
-		}
-		components.push(this.#name)
-		if (suffix) {
-			components.push(suffix)
-		}
-		return components.join('-')
-	}
-
-	#transform(value: ConfigFilesValueWithSecretRef): ConfigFilesTemplate {
-		if (typeof value === 'boolean' || typeof value === 'number' || typeof value === 'string') {
-			return value
-		}
-		if (value instanceof ExternalSecretRef) {
-			this.secretRefs[value.key] = value
-			return value.placeholder()
-		}
-		if (Array.isArray(value)) {
-			return value.map((item) => this.#transform(item))
-		}
-		return Object.entries(value).reduce(
-			(record, [key, value]) => Object.assign(record, { [key]: this.#transform(value) }),
-			{}
-		)
 	}
 
 	createManifests(): ISecret {
@@ -137,5 +102,37 @@ export class ConfigFiles {
 		for (const subPath of options.files ?? Object.keys(this.templates)) {
 			options.container.mount(options.path, volume, { subPath })
 		}
+	}
+
+	/**
+	 * Generate an identifier for generated resources
+	 */
+	#id(suffix?: string) {
+		const components: string[] = []
+		if (this.context.component) {
+			components.push(this.context.component)
+		}
+		components.push(this.#name)
+		if (suffix) {
+			components.push(suffix)
+		}
+		return components.join('-')
+	}
+
+	#transform(value: ConfigFilesValueWithSecretRef): ConfigFilesTemplate {
+		if (typeof value === 'boolean' || typeof value === 'number' || typeof value === 'string') {
+			return value
+		}
+		if (value instanceof ExternalSecretRef) {
+			this.secretRefs[value.key] = value
+			return value.placeholder()
+		}
+		if (Array.isArray(value)) {
+			return value.map((item) => this.#transform(item))
+		}
+		return Object.entries(value).reduce(
+			(record, [key, value]) => Object.assign(record, { [key]: this.#transform(value) }),
+			{}
+		)
 	}
 }

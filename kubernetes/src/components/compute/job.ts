@@ -1,7 +1,7 @@
 import { ComponentFactory } from '@components/component-factory'
 import { ComponentOptions } from '@components/component-options'
-import { ArgoCDAnnotation, ArgocdHook, ArgocdHookDeletePolicy } from '@libs/extentions/argocd'
-import { LABEL_COMPONENT } from '@libs/labels'
+import { LABEL_COMPONENT } from '@helpers/labels'
+import { ArgoCDAnnotation, ArgocdHook, ArgocdHookDeletePolicy } from '@plugins/argocd'
 import { Duration } from 'cdk8s'
 import { Job, RestartPolicy } from 'cdk8s-plus-27'
 

@@ -4,7 +4,7 @@ import {
 	ExternalSecretV1Beta1SpecTargetCreationPolicy
 } from '@imports/external-secrets.io'
 import { Context } from '@libs/context'
-import { EXTERNAL_SECRET_REFRESH_INTERVAL } from '@libs/extentions/external-secret'
+import { EXTERNAL_SECRET_REFRESH_INTERVAL } from '@plugins/external-secret'
 
 import { Names } from 'cdk8s'
 import { EnvValue, ISecret, Secret } from 'cdk8s-plus-27'
@@ -14,9 +14,9 @@ export type EnvironmentValue = string | ExternalSecretV1Beta1SpecDataRemoteRef
 export class Environment {
 	readonly context: Context
 	readonly values: Record<string, EnvValue> = {}
-	readonly #externalSecretValues: Record<string, ExternalSecretV1Beta1SpecDataRemoteRef> = {}
 	readonly resourceId = 'environment-variables'
 	secret?: ISecret
+	readonly #externalSecretValues: Record<string, ExternalSecretV1Beta1SpecDataRemoteRef> = {}
 
 	constructor(context: Context, values: Record<string, EnvironmentValue>) {
 		this.context = context

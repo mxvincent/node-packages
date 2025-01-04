@@ -10,13 +10,24 @@
     "parser": {
       "syntax": "typescript",
       "decorators": true,
-      "dynamicImport": true,
+      "dynamicImport": true
     },
     "paths": {
-      "@components/*": ["./components/*"],
-      "@charts/*": ["./charts/*"],
-      "@imports/*": ["./imports/*"],
-      "@libs/*": ["./libs/*"]
+      "@charts/*": [
+        "./charts/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@plugins/*": [
+        "./plugins/*"
+      ],
+      "@imports/*": [
+        "./imports/*"
+      ],
+      "@helpers/*": [
+        "./helpers/*"
+      ]
     },
     "target": "es2020"
   }

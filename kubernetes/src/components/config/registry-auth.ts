@@ -1,6 +1,6 @@
 import { ExternalSecretV1Beta1, ExternalSecretV1Beta1SpecTargetCreationPolicy } from '@imports/external-secrets.io'
 import { Context } from '@libs/context'
-import { EXTERNAL_SECRET_REFRESH_INTERVAL } from '@libs/extentions/external-secret'
+import { EXTERNAL_SECRET_REFRESH_INTERVAL } from '@plugins/external-secret'
 
 import { Names } from 'cdk8s'
 import { ISecret, Secret } from 'cdk8s-plus-27'
