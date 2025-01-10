@@ -7,7 +7,7 @@
 		"rootDir": "./src",
 		"baseUrl": "./src",
 		"outDir": "./dist",
-		"module": "ESNext",
+		"module": "CommonJS",
 		"paths": {
 			"@/*": ["./*"],
 			"@api/*": ["./api/*"],

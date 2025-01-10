@@ -3,8 +3,11 @@
 	"version": "0.1.2",
 	"private": true,
 	"main": "./src/main.ts",
+	"imports": {
+
+	},
 	"scripts": {
-		"build:swc": "swc ./src -d ./dist",
+		"build:swc": "swc ./src -d ./dist --strip-leading-paths",
 		"build:tsc": "tsc",
 		"build:watch": "pnpm run build:swc --watch",
 		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
@@ -13,11 +16,11 @@
 		"code:check:watch": "tsc --noEmit --watch",
 		"db:generate": "pnpm exec drizzle-kit generate --config=src/database/config.ts",
 		"db:migrate": "pnpm exec drizzle-kit migrate --config=src/database/config.ts",
-		"db:seed": "node -r @swc/register src/database/commands/seed.ts",
-		"db:trucate": "node -r @swc/register src/database/commands/truncate.ts",
-		"run:app-server": "node -r @swc/register src/app-server.ts",
-		"run:sandbox": "node -r @swc/register src/sandbox.ts",
-		"watch:app-server": "node -r @swc/register --watch src/app-server.ts"
+		"db:seed": "node -r @swc-node/register src/database/commands/seed.ts",
+		"db:trucate": "node -r @swc-node/register src/database/commands/truncate.ts",
+		"run:app-server": "node -r @swc-node/register src/app-server.ts",
+		"run:sandbox": "node -r @swc-node/register src/sandbox.ts",
+		"dev:app-server": "node -r @swc-node/register --watch src/app-server.ts"
 	},
 	"dependencies": {
 		"@faker-js/faker": "^9.3.0",

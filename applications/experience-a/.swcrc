@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/swcrc",
+  "$schema": "https://swc.rs/schema.json",
   "module": {
     "type": "commonjs"
   },
@@ -15,10 +15,18 @@
       "legacyDecorator": true
     },
     "paths": {
-      "@app/*": ["./*"],
-      "@database/*": ["./database/*"],
-      "@module/*": ["./modules/*"],
-      "@jest/*": ["./@jest/*"]
+      "@app/*": [
+        "./*"
+      ],
+      "@database/*": [
+        "./database/*"
+      ],
+      "@module/*": [
+        "./modules/*"
+      ],
+      "@jest/*": [
+        "./@jest/*"
+      ]
     },
     "target": "es2020"
   }

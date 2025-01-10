@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/swcrc",
   "jsc": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "parser": {
       "syntax": "typescript",
       "decorators": true,
@@ -12,10 +12,18 @@
       "legacyDecorator": true
     },
     "paths": {
-      "@app/*": ["./*"],
-      "@database/*": ["./database/*"],
-      "@module/*": ["./modules/*"],
-      "@jest/*": ["./@jest/*"]
+      "@app/*": [
+        "./*"
+      ],
+      "@database/*": [
+        "./database/*"
+      ],
+      "@module/*": [
+        "./modules/*"
+      ],
+      "@jest/*": [
+        "./@jest/*"
+      ]
     },
     "target": "es2022"
   }
