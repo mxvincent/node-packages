@@ -1,5 +1,11 @@
 # experience-b
 
+## 0.1.3
+
+### Patch Changes
+
+- [`f960bdf`](https://github.com/mxvincent/node-packages/commit/f960bdf404ed5ccf4973c205f450dba0bb053c85) Thanks [@mxvincent](https://github.com/mxvincent)! - Rework configuration
+
 ## 0.1.2
 
 ### Patch Changes
