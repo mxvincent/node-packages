@@ -1,5 +1,5 @@
-import { resourceColumns } from '@/database/helpers/schemas'
-import { organizationMember } from '@/database/schemas/organization-members'
+import { resourceColumns } from '#/database/helpers/schemas'
+import { organizationMember } from '#/database/schemas/organization-members'
 import { relations } from 'drizzle-orm'
 import { pgTable, text } from 'drizzle-orm/pg-core'
 

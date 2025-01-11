@@ -1,4 +1,4 @@
-import { Database, getDataSource } from '@database/database.service'
+import { Database, getDataSource } from '#/database/database.service'
 import { closeAllDatabaseConnections, initializeDataSource, PostgresDatabaseSource } from '@mxvincent/typeorm'
 import { FactoryProvider, Module, OnModuleDestroy, OnModuleInit } from '@nestjs/common'
 

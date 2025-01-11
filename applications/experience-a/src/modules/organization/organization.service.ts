@@ -1,11 +1,11 @@
-import { Database } from '@database/database.service'
-import { Organization, OrganizationAttributes, OrganizationUniqueProperties } from '@database/entities/Organization'
+import { Database } from '#/database/database.service'
+import { Organization, OrganizationAttributes, OrganizationUniqueProperties } from '#/database/entities/Organization'
 import {
 	OrganizationMember,
 	OrganizationMemberProperties,
 	OrganizationMemberUniqueProperties
-} from '@database/entities/OrganizationMember'
-import { User } from '@database/entities/User'
+} from '#/database/entities/OrganizationMember'
+import { User } from '#/database/entities/User'
 import { ConflictError, NotImplementedError } from '@mxvincent/core'
 import { GQLConnection, ListQueryParameter } from '@mxvincent/query-params'
 import { DeletableResource, Not } from '@mxvincent/typeorm'

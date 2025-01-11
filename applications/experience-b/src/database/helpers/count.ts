@@ -1,4 +1,4 @@
-import { database } from '@database/client'
+import { database } from '#/database/client'
 import { count } from 'drizzle-orm'
 import { PgTableWithColumns } from 'drizzle-orm/pg-core'
 import { SQL } from 'drizzle-orm/sql/sql'

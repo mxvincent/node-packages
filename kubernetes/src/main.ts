@@ -1,11 +1,12 @@
-import { Experience } from '@charts/experience'
-import { Context } from '@helpers/context'
-import { synthesizeAllResources } from '@helpers/scope'
+import { ExperienceA } from '#/charts/experience-a'
+import { ExperienceB } from '#/charts/experience-b'
+import { Context } from '#/helpers/context'
+import { synthesizeAllResources } from '#/helpers/scope'
 
-new Experience(new Context('development', 'experience-a'))
-new Experience(new Context('production', 'experience-a'))
+new ExperienceA(new Context('development', 'experience-a'))
+new ExperienceA(new Context('production', 'experience-a'))
 
-new Experience(new Context('development', 'experience-b'))
-new Experience(new Context('production', 'experience-b'))
+new ExperienceB(new Context('development', 'experience-b'))
+new ExperienceB(new Context('production', 'experience-b'))
 
 synthesizeAllResources()

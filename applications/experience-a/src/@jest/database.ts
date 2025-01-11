@@ -1,5 +1,5 @@
-import { config } from '@app/config'
-import { createDataSource, Database } from '@database/database.service'
+import { config } from '#/core/config.service'
+import { createDataSource, Database } from '#/database/database.service'
 import { closeAllDatabaseConnections, DataSource, initializeDataSource } from '@mxvincent/typeorm'
 import { testConfig } from './config'
 

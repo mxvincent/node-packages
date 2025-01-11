@@ -1,6 +1,6 @@
-import { config } from '@app/config'
-import { Repository } from '@database/repository.service'
-import { TransactionManager } from '@database/transaction-manager.service'
+import { config } from '#/core/config.service'
+import { Repository } from '#/database/repository.service'
+import { TransactionManager } from '#/database/transaction-manager.service'
 
 import {
 	createPostgresDataSource,

@@ -1,5 +1,5 @@
-import { ComponentConfig } from '@components/component-config'
-import { ImageRegistryAuth } from '@components/config/registry-auth'
+import { ComponentConfig } from '#/components/component-config'
+import { ImageRegistryAuth } from '#/components/config/registry-auth'
 
 export abstract class ComponentOptions {
 	readonly name: string

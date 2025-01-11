@@ -4,24 +4,18 @@
     "type": "commonjs"
   },
   "jsc": {
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "parser": {
       "syntax": "typescript"
     },
     "paths": {
-      "@/*": [
+      "@*": [
         "./*"
       ],
-      "@api/*": [
-        "./api/*"
-      ],
-      "@core/*": [
-        "./core/*"
-      ],
-      "@database/*": [
-        "./database/*"
+      "#jest/*": [
+        "./@jest/*"
       ]
     },
-    "target": "es2022"
+    "target": "es2020"
   }
 }

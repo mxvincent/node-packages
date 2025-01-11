@@ -1,12 +1,12 @@
-import { GQLUser } from '@app/modules/user/user.schema'
-import { GQLConflictError, GQLNotFoundError } from '@app/schemas/errors.schema'
-import { createConnectionType } from '@app/schemas/pagination.schema'
-import { UUID } from '@app/schemas/scalars.schema'
 import {
 	OrganizationMember,
 	OrganizationMemberRole,
 	organizationMemberRoles
-} from '@database/entities/OrganizationMember'
+} from '#/database/entities/OrganizationMember'
+import { GQLUser } from '#/modules/user/user.schema'
+import { GQLConflictError, GQLNotFoundError } from '#/schemas/errors.schema'
+import { createConnectionType } from '#/schemas/pagination.schema'
+import { UUID } from '#/schemas/scalars.schema'
 import { createUnionType, Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { GQLOrganization } from './organization.schema'
 

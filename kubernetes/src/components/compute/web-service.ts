@@ -1,8 +1,8 @@
-import { ComponentFactory } from '@components/component-factory'
-import { ComponentOptions } from '@components/component-options'
-import { LABEL_COMPONENT } from '@helpers/labels'
-import { CertManagerAnnotation } from '@plugins/cert-manager'
-import { IngressAnnotation, IngressAnnotations, IngressConfig, NginxIngressAnnotation } from '@plugins/ingress'
+import { ComponentFactory } from '#/components/component-factory'
+import { ComponentOptions } from '#/components/component-options'
+import { LABEL_COMPONENT } from '#/helpers/labels'
+import { CertManagerAnnotation } from '#/plugins/cert-manager'
+import { IngressAnnotation, IngressAnnotations, IngressConfig, NginxIngressAnnotation } from '#/plugins/ingress'
 import { Deployment, Ingress, IngressBackend, Secret } from 'cdk8s-plus-27'
 
 export class WebServiceOptions extends ComponentOptions {

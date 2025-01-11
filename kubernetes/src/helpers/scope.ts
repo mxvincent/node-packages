@@ -1,4 +1,4 @@
-import { Application, Environment } from '@helpers/context'
+import { Application, Environment } from '#/helpers/context'
 import { App as CDKScope } from 'cdk8s/lib/app'
 
 const applicationScopes: Record<string, CDKScope> = {}

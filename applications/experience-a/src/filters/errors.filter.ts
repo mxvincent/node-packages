@@ -1,4 +1,4 @@
-import { GQLConflictError, GQLNotFoundError } from '@app/schemas/errors.schema'
+import { GQLConflictError, GQLNotFoundError } from '#/schemas/errors.schema'
 import { ConflictError, NotFoundError } from '@mxvincent/core'
 import { logger } from '@mxvincent/telemetry'
 import { ResourceNotFoundError } from '@mxvincent/typeorm'

@@ -1,4 +1,4 @@
-import { Database } from '@database/database.service'
+import { Database } from '#/database/database.service'
 import { Injectable, Logger, ServiceUnavailableException } from '@nestjs/common'
 
 export type ServiceStatus = {

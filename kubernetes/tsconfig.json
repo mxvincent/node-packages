@@ -1,6 +1,6 @@
 {
 	"include": ["./src/charts/**/*", "./src/components/**/*", "./src/helpers/**/*", "./src/plugins/**/*", "./src/*.ts"],
-	"exclude": ["node_modules"],
+	"exclude": ["node_modules", "src/imports"],
 	"compilerOptions": {
 		"target": "es2022",
 		"module": "CommonJS",
@@ -11,11 +11,7 @@
 		"skipLibCheck": true,
 		"types": ["node"],
 		"paths": {
-			"@charts/*": ["./charts/*"],
-			"@components/*": ["./components/*"],
-			"@helpers/*": ["./helpers/*"],
-			"@imports/*": ["./imports/*"],
-			"@plugins/*": ["./plugins/*"]
+			"#/*": ["./*"]
 		}
 	}
 }

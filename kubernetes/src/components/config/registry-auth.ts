@@ -1,7 +1,12 @@
-import { ExternalSecretV1Beta1, ExternalSecretV1Beta1SpecTargetCreationPolicy } from '@imports/external-secrets.io'
-import { Context } from '@libs/context'
-import { EXTERNAL_SECRET_REFRESH_INTERVAL } from '@plugins/external-secret'
-
+import { Context } from '#/helpers/context'
+import {
+	ExternalSecretV1Beta1,
+	ExternalSecretV1Beta1SpecDataRemoteRefConversionStrategy,
+	ExternalSecretV1Beta1SpecDataRemoteRefDecodingStrategy,
+	ExternalSecretV1Beta1SpecSecretStoreRefKind,
+	ExternalSecretV1Beta1SpecTargetCreationPolicy
+} from '#/imports/external-secrets.io'
+import { EXTERNAL_SECRET_REFRESH_INTERVAL } from '#/plugins/external-secret'
 import { Names } from 'cdk8s'
 import { ISecret, Secret } from 'cdk8s-plus-27'
 
@@ -25,7 +30,10 @@ export class ImageRegistryAuth {
 		const secret = Secret.fromSecretName(chart, this.resourceId, secretName)
 		new ExternalSecretV1Beta1(chart, `${this.resourceId}-secret`, {
 			spec: {
-				secretStoreRef: { kind: 'ClusterSecretStore', name: 'scaleway' },
+				secretStoreRef: {
+					kind: ExternalSecretV1Beta1SpecSecretStoreRefKind.CLUSTER_SECRET_STORE,
+					name: 'scaleway'
+				},
 				refreshInterval: EXTERNAL_SECRET_REFRESH_INTERVAL,
 				target: {
 					name: secretName,
@@ -41,8 +49,8 @@ export class ImageRegistryAuth {
 					{
 						secretKey: 'secret',
 						remoteRef: {
-							conversionStrategy: 'Default',
-							decodingStrategy: 'None',
+							conversionStrategy: ExternalSecretV1Beta1SpecDataRemoteRefConversionStrategy.DEFAULT,
+							decodingStrategy: ExternalSecretV1Beta1SpecDataRemoteRefDecodingStrategy.NONE,
 							key: `name:${this.externalSecretName}`,
 							version: 'latest'
 						}

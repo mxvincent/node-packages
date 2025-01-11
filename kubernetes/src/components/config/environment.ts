@@ -1,10 +1,11 @@
+import { Context } from '#/helpers/context'
 import {
 	ExternalSecretV1Beta1,
 	ExternalSecretV1Beta1SpecDataRemoteRef,
+	ExternalSecretV1Beta1SpecSecretStoreRefKind,
 	ExternalSecretV1Beta1SpecTargetCreationPolicy
-} from '@imports/external-secrets.io'
-import { Context } from '@libs/context'
-import { EXTERNAL_SECRET_REFRESH_INTERVAL } from '@plugins/external-secret'
+} from '#/imports/external-secrets.io'
+import { EXTERNAL_SECRET_REFRESH_INTERVAL } from '#/plugins/external-secret'
 
 import { Names } from 'cdk8s'
 import { EnvValue, ISecret, Secret } from 'cdk8s-plus-27'
@@ -69,7 +70,10 @@ export class Environment {
 		new ExternalSecretV1Beta1(this.context.chart, 'env-secrets', {
 			spec: {
 				refreshInterval: EXTERNAL_SECRET_REFRESH_INTERVAL,
-				secretStoreRef: { kind: 'ClusterSecretStore', name: 'scaleway' },
+				secretStoreRef: {
+					kind: ExternalSecretV1Beta1SpecSecretStoreRefKind.CLUSTER_SECRET_STORE,
+					name: 'scaleway'
+				},
 				target: {
 					name: secret.name,
 					creationPolicy: ExternalSecretV1Beta1SpecTargetCreationPolicy.OWNER

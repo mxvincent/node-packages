@@ -1,5 +1,5 @@
-import { UserModule } from '@app/modules/user/user.module'
-import { DatabaseModule } from '@database/database.module'
+import { DatabaseModule } from '#/database/database.module'
+import { UserModule } from '#/modules/user/user.module'
 import { forwardRef, Module } from '@nestjs/common'
 import { OrganizationMemberResolver } from './organization-member.resolver'
 import { OrganizationResolver } from './organization.resolver'

@@ -1,8 +1,8 @@
+import { config } from '#/core/config.service'
+import { HealthModule } from '#/modules/health/health.module'
+import { OrganizationModule } from '#/modules/organization/organization.module'
+import { UserModule } from '#/modules/user/user.module'
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
-import { config } from '@app/config'
-import { HealthModule } from '@module/health/health.module'
-import { OrganizationModule } from '@module/organization/organization.module'
-import { UserModule } from '@module/user/user.module'
 import { Environment } from '@mxvincent/core'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
@@ -26,9 +26,9 @@ import { LoggerModule } from 'nestjs-pino'
 		HealthModule,
 		GraphQLModule.forRoot<ApolloDriverConfig>({
 			driver: ApolloDriver,
-			autoSchemaFile: config.environment !== Environment.PRODUCTION ? 'schema.gql' : true,
+			autoSchemaFile: config.app.environment !== Environment.PRODUCTION ? 'schema.gql' : true,
 			playground: false,
-			plugins: config.environment !== Environment.PRODUCTION ? [ApolloServerPluginLandingPageLocalDefault()] : []
+			plugins: config.app.environment !== Environment.PRODUCTION ? [ApolloServerPluginLandingPageLocalDefault()] : []
 		})
 	]
 })

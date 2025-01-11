@@ -1,14 +1,14 @@
-import { PinoLoggerAdapter } from '@app/core/logger.service'
+import { config } from '#/core/config.service'
+import { PinoLoggerAdapter } from '#/core/logger.service'
+import { AppModule } from '#/modules/app.module'
 import { logger } from '@mxvincent/telemetry'
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
-import { config } from './config'
 
 async function appServer(): Promise<void> {
-	logger.info(`[Config] environment: ${config.environment}`)
-	logger.info(`[Config] time zone: ${config.timeZone}`)
-	logger.info(`[Config] log level: ${config.logLevel}`)
+	logger.info(`[Config] environment: ${config.app.environment}`)
+	logger.info(`[Config] time zone: ${config.app.timeZone}`)
+	logger.info(`[Config] log level: ${config.app.logLevel}`)
 
 	const app = await NestFactory.create(AppModule, {
 		bufferLogs: true,
@@ -17,10 +17,10 @@ async function appServer(): Promise<void> {
 	})
 	app.useGlobalPipes(new ValidationPipe())
 
-	await app.listen(config.api.server.port)
+	await app.listen(config.server.port)
 
-	const url = new URL(`http://${config.api.server.host}:${config.api.server.port}`)
-	url.pathname = config.api.graphqlPath
+	const url = new URL(`http://${config.server.host}:${config.server.port}`)
+	url.pathname = config.graphql.path
 	logger.info(`🚀 Apollo server ready at ${url}`)
 }
 

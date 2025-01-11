@@ -1,4 +1,4 @@
-import { Organization } from '@database/schemas/organizations'
+import { Organization } from '#/database/schemas/organizations'
 import { Filter, Page, Pagination, Sort } from '@mxvincent/query-params'
 
 export type OrganizationSort = Sort<'id' | 'createdAt' | 'name'>

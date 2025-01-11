@@ -1,5 +1,5 @@
-import { Database } from '@database/database.service'
-import { User, UserProperties, UserUniqueProperties } from '@database/entities/User'
+import { Database } from '#/database/database.service'
+import { User, UserProperties, UserUniqueProperties } from '#/database/entities/User'
 import { ConflictError } from '@mxvincent/core'
 import { GQLConnection, ListQueryParameter } from '@mxvincent/query-params'
 import { DeletableResource, Not } from '@mxvincent/typeorm'

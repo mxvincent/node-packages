@@ -1,24 +1,28 @@
-import { ComponentConfig } from '@components/component-config'
-import { WebServiceOptions } from '@components/compute/web-service'
-import { Environment } from '@components/config/environment'
-import { ConfigFiles } from '@components/config/file'
-import { ApplicationChart } from '@helpers/chart'
-import { Context } from '@helpers/context'
-import { ExternalSecret } from '@plugins/external-secret'
+import { ComponentConfig } from '#/components/component-config'
+import { WebServiceOptions } from '#/components/compute/web-service'
+import { Environment } from '#/components/config/environment'
+import { ConfigFiles } from '#/components/config/file'
+import { ApplicationChart } from '#/helpers/chart'
+import { Context } from '#/helpers/context'
+import { PostgresConfig } from '#/helpers/secrets'
+import { ExternalSecret } from '#/plugins/external-secret'
 
 const configFileContent = (context: Context, secrets: ExternalSecret) => ({
-	logLevel: 'info',
+	app: {
+		logLevel: 'info',
+		timeZone: 'UTC'
+	},
 	database: {
 		type: 'postgres',
-		host: 'postgres-15-postgresql.postgres-15.svc.cluster.local',
-		port: 5432,
-		database: secrets.ref('POSTGRES_DATABASE'),
-		username: secrets.ref('POSTGRES_USERNAME'),
-		password: secrets.ref('POSTGRES_PASSWORD')
+		host: secrets.ref(PostgresConfig.HOST),
+		port: secrets.ref(PostgresConfig.PORT),
+		database: secrets.ref(PostgresConfig.DATABASE),
+		username: secrets.ref(PostgresConfig.USERNAME),
+		password: secrets.ref(PostgresConfig.PASSWORD)
 	}
 })
 
-export class Experience extends ApplicationChart {
+export class ExperienceA extends ApplicationChart {
 	get components() {
 		return [
 			new WebServiceOptions({

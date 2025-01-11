@@ -1,5 +1,5 @@
-import { config } from '@app/config'
-import { createDataSource } from '@database/database.service'
+import { config } from '#/core/config.service'
+import { createDataSource } from '#/database/database.service'
 import { testConfig } from '@jest/config'
 import { getWorkerDatabaseName, templateDatabaseName } from '@jest/database'
 import { logger } from '@mxvincent/telemetry'

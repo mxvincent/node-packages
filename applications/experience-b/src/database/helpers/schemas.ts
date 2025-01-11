@@ -1,4 +1,4 @@
-import { generateIso8601 } from '@/database/helpers/factories'
+import { generateIso8601 } from '#/database/helpers/factories'
 import { generateUUID } from '@mxvincent/core'
 import { timestamp, uuid } from 'drizzle-orm/pg-core'
 
