@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: production
     app.kubernetes.io/name: experience-b
-    app.kubernetes.io/version: 0.1.2
+    app.kubernetes.io/version: 0.1.3
   name: production-app-server
   namespace: production-experience-b
 spec:
@@ -28,7 +28,7 @@ spec:
         app.kubernetes.io/component: app-server
         app.kubernetes.io/instance: production
         app.kubernetes.io/name: experience-b
-        app.kubernetes.io/version: 0.1.2
+        app.kubernetes.io/version: 0.1.3
         cdk8s.io/metadata.addr: production-app-server-c8ba8bde
     spec:
       automountServiceAccountToken: false
@@ -39,7 +39,7 @@ spec:
           env:
             - name: CONFIG_FILE_PATH
               value: /app/config.json
-          image: ghcr.io/mxvincent/experience-b:0.1.2
+          image: ghcr.io/mxvincent/experience-b:0.1.3
           imagePullPolicy: Always
           name: app-server
           ports:
@@ -83,7 +83,7 @@ metadata:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: production
     app.kubernetes.io/name: experience-b
-    app.kubernetes.io/version: 0.1.2
+    app.kubernetes.io/version: 0.1.3
   name: production-app-server
   namespace: production-experience-b
 spec:
@@ -102,7 +102,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: production
     app.kubernetes.io/name: experience-b
-    app.kubernetes.io/version: 0.1.2
+    app.kubernetes.io/version: 0.1.3
   name: production-config-files-secrets
   namespace: production-experience-b
 spec:
