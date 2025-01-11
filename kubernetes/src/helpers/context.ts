@@ -1,6 +1,6 @@
-import { LABEL_COMPONENT, LABEL_INSTANCE, LABEL_NAME, LABEL_VERSION } from '@helpers/labels'
-import { getRevision } from '@helpers/revision'
-import { getApplicationScope } from '@helpers/scope'
+import { LABEL_COMPONENT, LABEL_INSTANCE, LABEL_NAME, LABEL_VERSION } from '#/helpers/labels'
+import { getRevision } from '#/helpers/revision'
+import { getApplicationScope } from '#/helpers/scope'
 import { Chart as CDKChart } from 'cdk8s/lib/chart'
 
 export const applications = ['experience-a', 'experience-b'] as const

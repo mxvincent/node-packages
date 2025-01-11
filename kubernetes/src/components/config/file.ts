@@ -1,6 +1,10 @@
-import { ExternalSecretV1Beta1, ExternalSecretV1Beta1SpecTargetCreationPolicy } from '@imports/external-secrets.io'
-import { Context } from '@libs/context'
-import { EXTERNAL_SECRET_REFRESH_INTERVAL, EXTERNAL_SECRET_STORE, ExternalSecretRef } from '@plugins/external-secret'
+import { Context } from '#/helpers/context'
+import {
+	ExternalSecretV1Beta1,
+	ExternalSecretV1Beta1SpecTargetCreationPolicy,
+	ExternalSecretV1Beta1SpecTargetTemplateEngineVersion
+} from '#/imports/external-secrets.io'
+import { EXTERNAL_SECRET_REFRESH_INTERVAL, EXTERNAL_SECRET_STORE, ExternalSecretRef } from '#/plugins/external-secret'
 import { Names } from 'cdk8s'
 import { AbstractPod, Container, ISecret, Secret, Volume } from 'cdk8s-plus-27'
 
@@ -80,7 +84,7 @@ export class ConfigFiles {
 					name: secretName,
 					creationPolicy: ExternalSecretV1Beta1SpecTargetCreationPolicy.OWNER,
 					template: {
-						engineVersion: 'v2',
+						engineVersion: ExternalSecretV1Beta1SpecTargetTemplateEngineVersion.V2,
 						data: stringData
 					}
 				},

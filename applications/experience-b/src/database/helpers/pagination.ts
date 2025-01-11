@@ -1,4 +1,4 @@
-import { ColumnMapping } from '@database/helpers'
+import { ColumnMapping } from '#/database/helpers'
 import { base64Decode, base64Encode, invariant } from '@mxvincent/core'
 import { Page, Pagination, Sort, SortDirection } from '@mxvincent/query-params'
 import { and, asc, desc, eq, gt, lt, or, SQL } from 'drizzle-orm'

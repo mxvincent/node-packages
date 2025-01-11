@@ -1,9 +1,9 @@
-import { ComponentOptions } from '@components/component-options'
-import { CronJobFactory, CronJobOptions } from '@components/compute/cron-job'
-import { DaemonFactory, DaemonOptions } from '@components/compute/daemon'
-import { JobFactory, JobOptions } from '@components/compute/job'
-import { WebServiceFactory, WebServiceOptions } from '@components/compute/web-service'
-import { Context } from '@helpers/context'
+import { ComponentOptions } from '#/components/component-options'
+import { CronJobFactory, CronJobOptions } from '#/components/compute/cron-job'
+import { DaemonFactory, DaemonOptions } from '#/components/compute/daemon'
+import { JobFactory, JobOptions } from '#/components/compute/job'
+import { WebServiceFactory, WebServiceOptions } from '#/components/compute/web-service'
+import { Context } from '#/helpers/context'
 
 /**
  * Application chart is the top level abstraction for deploying a complete application to Kubernetes.

@@ -12,20 +12,8 @@
       "dynamicImport": true
     },
     "paths": {
-      "@charts/*": [
-        "./charts/*"
-      ],
-      "@components/*": [
-        "./components/*"
-      ],
-      "@plugins/*": [
-        "./plugins/*"
-      ],
-      "@imports/*": [
-        "./imports/*"
-      ],
-      "@helpers/*": [
-        "./helpers/*"
+      "#/*": [
+        "./*"
       ]
     },
     "target": "es2020"

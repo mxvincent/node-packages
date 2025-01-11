@@ -1,4 +1,4 @@
-import { Database } from '@database/database.service'
+import { Database } from '#/database/database.service'
 import { GQLConnection, ListQueryParameter, Page } from '@mxvincent/query-params'
 import {
 	DeepPartial,

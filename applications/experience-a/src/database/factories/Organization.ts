@@ -1,4 +1,4 @@
-import { Organization } from '@database/entities/Organization'
+import { Organization } from '#/database/entities/Organization'
 import { faker } from '@faker-js/faker'
 import { deletableResourceFactory, hydrate } from '@mxvincent/typeorm'
 

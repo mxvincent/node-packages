@@ -1,40 +1,63 @@
-import { AppConfig, AppConfigEnvironmentMapping, AppConfigSchema } from '@app/config'
-import { getEnvironmentVariables, getPackageRootPath, readJsonFileSync } from '@mxvincent/core'
-import { JsonSchemaValidationError, validate } from '@mxvincent/json-schema'
+import * as app from '#/config/app'
+import * as database from '#/config/database'
+import * as graphql from '#/config/graphql'
+import * as server from '#/config/server'
+import {
+	Environment,
+	EnvironmentVariableMapping,
+	getEnvironmentVariables,
+	getPackageRootPath,
+	readJsonFileSync
+} from '@mxvincent/core'
+import { JsonSchemaValidationError, Static, TSchema, Type, validate } from '@mxvincent/json-schema'
 import { logger, serializers } from '@mxvincent/telemetry'
 import process from 'node:process'
 import { mergeDeepRight } from 'ramda'
 
-export const getConfigFilePath = (): string => {
+const getConfigFilePath = (): string => {
 	if (process.env.CONFIG_FILE_PATH) {
 		return process.env.CONFIG_FILE_PATH
 	}
 	const packageRootPath = getPackageRootPath(__dirname)
 	const environment = process.env.NODE_ENV
-	if (!environment || environment === 'test') {
+	if (!environment || environment === Environment.TEST) {
 		return `${packageRootPath}/config.example.json`
 	}
 	return `${packageRootPath}/config.json`
 }
 
-let config: AppConfig | undefined
-
-export const loadConfig = (): AppConfig => {
-	if (config) {
-		return config
-	}
+const loadConfig = <T extends TSchema>(schema: T, environment?: EnvironmentVariableMapping): Static<T> => {
 	try {
-		const configFromEnv = getEnvironmentVariables(AppConfigEnvironmentMapping)
+		const configFromEnv = environment ? getEnvironmentVariables(environment) : {}
 		const configFromFile = readJsonFileSync(getConfigFilePath())
-		return validate(AppConfigSchema, mergeDeepRight(configFromFile, configFromEnv), {
+		return validate(schema, mergeDeepRight(configFromFile, configFromEnv), {
 			coerce: true
 		})
 	} catch (error) {
-		// eslint-disable-next-line no-console
-		console.error(error)
 		if (error instanceof JsonSchemaValidationError) {
-			logger.fatal({ error: serializers.error(error) }, error.message)
+			logger.fatal(
+				{
+					validation: error.errors,
+					error: serializers.error(error)
+				},
+				error.message
+			)
 		}
 		throw error
 	}
 }
+
+export const config = loadConfig(
+	Type.Object({
+		app: app.schema,
+		database: database.schema,
+		graphql: graphql.schema,
+		server: server.schema
+	}),
+	{
+		app: app.environment,
+		database: database.environment,
+		graphql: graphql.environment,
+		server: server.environment
+	}
+)

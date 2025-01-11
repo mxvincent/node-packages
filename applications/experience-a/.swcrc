@@ -15,16 +15,10 @@
       "legacyDecorator": true
     },
     "paths": {
-      "@app/*": [
+      "#/*": [
         "./*"
       ],
-      "@database/*": [
-        "./database/*"
-      ],
-      "@module/*": [
-        "./modules/*"
-      ],
-      "@jest/*": [
+      "#/jest/*": [
         "./@jest/*"
       ]
     },

@@ -1,10 +1,10 @@
-import { config } from '@app/config'
-import { accountDataSource } from '@database/database.service'
+import { config } from '#/core/config.service'
+import { accountDataSource } from '#/database/database.service'
 import { logger, setLogLevel } from '@mxvincent/telemetry'
 import { initializeDataSource } from '@mxvincent/typeorm'
 
 async function main(): Promise<void> {
-	setLogLevel(config.logLevel)
+	setLogLevel(config.app.logLevel)
 	await initializeDataSource(accountDataSource, { runMigrations: false })
 }
 

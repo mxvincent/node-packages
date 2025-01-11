@@ -1,0 +1,160 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: production-config-files
+  labels:
+    app.kubernetes.io/component: app-server
+    app.kubernetes.io/instance: production
+    app.kubernetes.io/name: experience-a
+    app.kubernetes.io/version: 0.1.1
+  name: production-app-server
+  namespace: production-experience-a
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 2
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: production-app-server-c8ba8bde
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: app-server
+        app.kubernetes.io/instance: production
+        app.kubernetes.io/name: experience-a
+        app.kubernetes.io/version: 0.1.1
+        cdk8s.io/metadata.addr: production-app-server-c8ba8bde
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - command:
+            - node
+            - /app/applications/experience-a/dist/app-server.js
+          env:
+            - name: CONFIG_FILE_PATH
+              value: /app/config.json
+          image: ghcr.io/mxvincent/experience-a:0.1.1
+          imagePullPolicy: Always
+          name: app-server
+          ports:
+            - containerPort: 4000
+              name: http
+          resources:
+            limits:
+              memory: 250Mi
+            requests:
+              cpu: 50m
+              memory: 100Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /app/config.json
+              name: secret-production-config-files
+              subPath: config.json
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: secret-production-config-files
+          secret:
+            secretName: production-config-files
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: app-server
+    app.kubernetes.io/instance: production
+    app.kubernetes.io/name: experience-a
+    app.kubernetes.io/version: 0.1.1
+  name: production-app-server
+  namespace: production-experience-a
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 4000
+      targetPort: 4000
+  selector:
+    cdk8s.io/metadata.addr: production-app-server-c8ba8bde
+  type: ClusterIP
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  labels:
+    app.kubernetes.io/instance: production
+    app.kubernetes.io/name: experience-a
+    app.kubernetes.io/version: 0.1.1
+  name: production-config-files-secrets
+  namespace: production-experience-a
+spec:
+  data:
+    - remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
+        key: name:production-experience-a
+        metadataPolicy: None
+        property: POSTGRES_HOST
+        version: latest
+      secretKey: PRODUCTION_EXPERIENCE_A_POSTGRES_HOST
+    - remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
+        key: name:production-experience-a
+        metadataPolicy: None
+        property: POSTGRES_PORT
+        version: latest
+      secretKey: PRODUCTION_EXPERIENCE_A_POSTGRES_PORT
+    - remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
+        key: name:production-experience-a
+        metadataPolicy: None
+        property: POSTGRES_DATABASE
+        version: latest
+      secretKey: PRODUCTION_EXPERIENCE_A_POSTGRES_DATABASE
+    - remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
+        key: name:production-experience-a
+        metadataPolicy: None
+        property: POSTGRES_USERNAME
+        version: latest
+      secretKey: PRODUCTION_EXPERIENCE_A_POSTGRES_USERNAME
+    - remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
+        key: name:production-experience-a
+        metadataPolicy: None
+        property: POSTGRES_PASSWORD
+        version: latest
+      secretKey: PRODUCTION_EXPERIENCE_A_POSTGRES_PASSWORD
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: scaleway
+  target:
+    creationPolicy: Owner
+    name: production-config-files
+    template:
+      data:
+        config.json: '{"app":{"logLevel":"info","timeZone":"UTC"},"database":{"type":"postgres","host":"{{ .PRODUCTION_EXPERIENCE_A_POSTGRES_HOST | toString }}","port":"{{ .PRODUCTION_EXPERIENCE_A_POSTGRES_PORT | toString }}","database":"{{ .PRODUCTION_EXPERIENCE_A_POSTGRES_DATABASE | toString }}","username":"{{ .PRODUCTION_EXPERIENCE_A_POSTGRES_USERNAME | toString }}","password":"{{ .PRODUCTION_EXPERIENCE_A_POSTGRES_PASSWORD | toString }}"}}'
+      engineVersion: v2

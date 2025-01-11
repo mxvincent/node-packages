@@ -1,6 +1,6 @@
-import * as app from '@/config/app'
-import * as database from '@/config/database'
-import * as server from '@/config/server'
+import * as app from '#/config/app'
+import * as database from '#/config/database'
+import * as server from '#/config/server'
 import {
 	Environment,
 	EnvironmentVariableMapping,

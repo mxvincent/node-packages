@@ -1,7 +1,7 @@
-import { ComponentOptions } from '@components/component-options'
-import { Context } from '@helpers/context'
-import { getContainerResources } from '@helpers/resources'
-import { ReloaderAnnotation } from '@plugins/reloader'
+import { ComponentOptions } from '#/components/component-options'
+import { Context } from '#/helpers/context'
+import { getContainerResources } from '#/helpers/resources'
+import { ReloaderAnnotation } from '#/plugins/reloader'
 import { AbstractPod, Container, ContainerProps } from 'cdk8s-plus-27'
 
 export abstract class ComponentFactory<Options extends ComponentOptions> {

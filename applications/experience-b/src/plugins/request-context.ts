@@ -1,4 +1,4 @@
-import { Actor } from '@/plugins/auth'
+import { Actor } from '#plugins/auth'
 import { logger } from '@mxvincent/telemetry'
 import { FastifyInstance, FastifyPluginAsync } from 'fastify'
 import plugin from 'fastify-plugin'

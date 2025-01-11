@@ -1,5 +1,5 @@
-import { Application, Environment } from '@helpers/context'
-import { getApplicationDirectory } from '@helpers/misc'
+import { Application, Environment } from '#/helpers/context'
+import { getApplicationDirectory } from '#/helpers/misc'
 import { readFileSync } from 'node:fs'
 
 /**

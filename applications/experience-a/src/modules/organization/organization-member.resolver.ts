@@ -1,10 +1,10 @@
-import { ConflictErrorFilter, NotFoundErrorFilter } from '@app/filters/errors.filter'
-import { GQLConflictError } from '@app/schemas/errors.schema'
-import { Organization } from '@database/entities/Organization'
-import { OrganizationMember } from '@database/entities/OrganizationMember'
-import { User } from '@database/entities/User'
-import { GQLUser } from '@module/user/user.schema'
-import { UserService } from '@module/user/user.service'
+import { Organization } from '#/database/entities/Organization'
+import { OrganizationMember } from '#/database/entities/OrganizationMember'
+import { User } from '#/database/entities/User'
+import { ConflictErrorFilter, NotFoundErrorFilter } from '#/filters/errors.filter'
+import { GQLUser } from '#/modules/user/user.schema'
+import { UserService } from '#/modules/user/user.service'
+import { GQLConflictError } from '#/schemas/errors.schema'
 import { UseFilters } from '@nestjs/common'
 import { Args, Mutation, Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import {
@@ -20,7 +20,10 @@ import { OrganizationService } from './organization.service'
 @Resolver(() => GQLOrganizationMember)
 @UseFilters(ConflictErrorFilter, NotFoundErrorFilter)
 export class OrganizationMemberResolver {
-	constructor(readonly organizationService: OrganizationService, readonly userService: UserService) {}
+	constructor(
+		readonly organizationService: OrganizationService,
+		readonly userService: UserService
+	) {}
 
 	@ResolveField(() => GQLOrganization)
 	async organization(@Parent() member: OrganizationMember): Promise<Organization> {

@@ -1,5 +1,5 @@
-import { User } from '@database/entities/User'
-import { factories } from '@database/factories.provider'
+import { User } from '#/database/entities/User'
+import { factories } from '#/database/factories.provider'
 import { useIsolatedDatabase } from '@jest/database'
 import { ListQueryParameter, Pagination } from '@mxvincent/query-params'
 import { In, Pager, ResourceNotFoundError } from '@mxvincent/typeorm'

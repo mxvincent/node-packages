@@ -1,6 +1,6 @@
-import { ComponentFactory } from '@components/component-factory'
-import { ComponentOptions } from '@components/component-options'
-import { LABEL_COMPONENT } from '@helpers/labels'
+import { ComponentFactory } from '#/components/component-factory'
+import { ComponentOptions } from '#/components/component-options'
+import { LABEL_COMPONENT } from '#/helpers/labels'
 import { Cron } from 'cdk8s'
 import { ConcurrencyPolicy, CronJob, RestartPolicy } from 'cdk8s-plus-27'
 

@@ -1,5 +1,5 @@
-import { config } from '@core/config'
-import { relations, tables } from '@database/schema'
+import { config } from '#/core/config'
+import { relations, tables } from '#/database/schema'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
 

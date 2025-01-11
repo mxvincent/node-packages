@@ -1,8 +1,15 @@
-import { ExternalSecretSpecSecretStoreRef, ExternalSecretV1Beta1SpecDataRemoteRef } from '@imports/external-secrets.io'
+import {
+	ExternalSecretV1Beta1SpecDataRemoteRef,
+	ExternalSecretV1Beta1SpecDataRemoteRefConversionStrategy,
+	ExternalSecretV1Beta1SpecDataRemoteRefDecodingStrategy,
+	ExternalSecretV1Beta1SpecDataRemoteRefMetadataPolicy,
+	ExternalSecretV1Beta1SpecSecretStoreRef,
+	ExternalSecretV1Beta1SpecSecretStoreRefKind
+} from '#/imports/external-secrets.io'
 
 export const EXTERNAL_SECRET_REFRESH_INTERVAL = '1h'
-export const EXTERNAL_SECRET_STORE: ExternalSecretSpecSecretStoreRef = {
-	kind: 'ClusterSecretStore',
+export const EXTERNAL_SECRET_STORE: ExternalSecretV1Beta1SpecSecretStoreRef = {
+	kind: ExternalSecretV1Beta1SpecSecretStoreRefKind.CLUSTER_SECRET_STORE,
 	name: 'scaleway'
 }
 /**
@@ -19,15 +26,11 @@ export class ExternalSecretRef {
 		this.remoteRef = {
 			key: `name:${secretName}`,
 			property: options.property,
-			conversionStrategy: 'Default',
-			decodingStrategy: 'None',
+			conversionStrategy: ExternalSecretV1Beta1SpecDataRemoteRefConversionStrategy.DEFAULT,
+			decodingStrategy: ExternalSecretV1Beta1SpecDataRemoteRefDecodingStrategy.NONE,
 			version: 'latest',
-			metadataPolicy: 'None'
+			metadataPolicy: ExternalSecretV1Beta1SpecDataRemoteRefMetadataPolicy.NONE
 		}
-	}
-
-	private formatId(value: string): string {
-		return value.replace(/-/g, '_').toUpperCase()
 	}
 
 	/**
@@ -45,6 +48,10 @@ export class ExternalSecretRef {
 	 */
 	placeholder(transform: SecretValueTransformHelper = 'toString') {
 		return `{{ .${this.key} | ${transform} }}`
+	}
+
+	private formatId(value: string): string {
+		return value.replace(/-/g, '_').toUpperCase()
 	}
 }
 

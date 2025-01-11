@@ -1,4 +1,4 @@
-import { database, postgresClient } from '@database/client'
+import { database, postgresClient } from '#/database/client'
 import { logger, serializers } from '@mxvincent/telemetry'
 import { migrate } from 'drizzle-orm/postgres-js/migrator'
 import * as path from 'node:path'

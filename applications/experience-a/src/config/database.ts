@@ -1,15 +1,15 @@
 import { Type } from '@mxvincent/json-schema'
 
-export const DatabaseConfigSchema = Type.Object({
+export const schema = Type.Object({
 	host: Type.String({ default: '127.0.0.1' }),
 	port: Type.Integer({ default: 5432 }),
 	schema: Type.Literal('public', { default: 'public' }),
-	database: Type.String({ default: 'experience-b' }),
+	database: Type.String({ default: 'experience-a' }),
 	username: Type.String({ default: 'node-packages' }),
 	password: Type.String({ default: 'node-packages' })
 })
 
-export const DatabaseConfigEnvironmentMapping = {
+export const environment = {
 	host: 'DB_HOST',
 	port: 'DB_PORT',
 	database: 'DB_DATABASE',
