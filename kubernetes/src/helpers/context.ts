@@ -30,7 +30,6 @@ export class Context {
 		this.chart =
 			options.chart ??
 			new CDKChart(getApplicationScope(application), this.environment, {
-				namespace: this.namespace,
 				labels: this.labels,
 				disableResourceNameHashes: true
 			})

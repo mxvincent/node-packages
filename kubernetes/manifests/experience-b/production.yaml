@@ -9,7 +9,6 @@ metadata:
     app.kubernetes.io/name: experience-b
     app.kubernetes.io/version: 0.1.3
   name: production-app-server
-  namespace: production-experience-b
 spec:
   minReadySeconds: 0
   progressDeadlineSeconds: 600
@@ -85,7 +84,6 @@ metadata:
     app.kubernetes.io/name: experience-b
     app.kubernetes.io/version: 0.1.3
   name: production-app-server
-  namespace: production-experience-b
 spec:
   externalIPs: []
   ports:
@@ -104,7 +102,6 @@ metadata:
     app.kubernetes.io/name: experience-b
     app.kubernetes.io/version: 0.1.3
   name: production-config-files-secrets
-  namespace: production-experience-b
 spec:
   data:
     - remoteRef:
