@@ -1,5 +1,11 @@
 # experience-b
 
+## 0.1.4
+
+### Patch Changes
+
+- [`dc5a638`](https://github.com/mxvincent/node-packages/commit/dc5a638ac61c087ceb490600a0c82aab72bad5eb) Thanks [@mxvincent](https://github.com/mxvincent)! - Update dockerfile
+
 ## 0.1.3
 
 ### Patch Changes
