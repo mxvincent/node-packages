@@ -51,7 +51,7 @@ jobs:
           context: .
           file: ./dockerfile
           build-args: |
-            BUILDER_IMAGE=node:22-slim
+            BUILDER_IMAGE=node:22-alpine
             RUNNER_IMAGE=gcr.io/distroless/nodejs22-debian12
             TURBO_VERSION=2.3.1
             NPM_REGISTRY_TOKEN=${{ secrets.GITHUB_TOKEN }}
