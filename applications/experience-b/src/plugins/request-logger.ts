@@ -1,4 +1,4 @@
-import { requestContext } from '#plugins/request-context'
+import { requestContext } from '#/plugins/request-context'
 import { FastifyInstance, FastifyPluginAsync } from 'fastify'
 import plugin from 'fastify-plugin'
 

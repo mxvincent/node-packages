@@ -1,7 +1,7 @@
 import { endpoint } from '#/core/endpoint'
 import { OrganizationRepository } from '#/database/repositories/organization'
+import { ResourceNotFoundError } from '#/errors/resource'
 import { OrganizationSchema } from '#/schemas/organization'
-import { ResourceNotFoundError } from '#errors/resource'
 import { Type } from '@mxvincent/json-schema'
 
 const schema = {

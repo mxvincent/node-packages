@@ -15,9 +15,9 @@
 		"db:migrate": "pnpm exec drizzle-kit migrate --config=src/database/config.ts",
 		"db:seed": "node -r @swc-node/register src/database/commands/seed.ts",
 		"db:trucate": "node -r @swc-node/register src/database/commands/truncate.ts",
-		"run:app-server": "node -r @swc-node/register src/app-server.ts",
 		"run:sandbox": "node -r @swc-node/register src/sandbox.ts",
-		"dev:app-server": "node -r @swc-node/register --watch src/app-server.ts"
+		"dev:app-server": "node -r @swc-node/register --watch src/app-server.ts",
+		"run:app-server": "node dist/app-server.js"
 	},
 	"dependencies": {
 		"@faker-js/faker": "^9.3.0",

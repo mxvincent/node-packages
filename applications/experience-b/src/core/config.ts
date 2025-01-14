@@ -29,7 +29,12 @@ const getConfigFilePath = (): string => {
 const loadConfig = memoize(<T extends TSchema>(schema: T, environment?: EnvironmentVariableMapping): Static<T> => {
 	try {
 		const configFromEnv = environment ? getEnvironmentVariables(environment) : {}
-		const configFromFile = readJsonFileSync(getConfigFilePath())
+		let configFromFile = {}
+		try {
+			configFromFile = readJsonFileSync(getConfigFilePath())
+		} catch (error) {
+			logger.error({ error }, 'Failed to read config file')
+		}
 		return validate(schema, mergeDeepRight(configFromFile, configFromEnv), {
 			coerce: true
 		})

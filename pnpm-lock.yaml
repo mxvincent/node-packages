@@ -133,9 +133,6 @@ importers:
       '@apollo/server':
         specifier: 4.9.3
         version: 4.9.3(graphql@16.10.0)
-      '@faker-js/faker':
-        specifier: ^8.0.2
-        version: 8.4.1
       '@mxvincent/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -200,6 +197,9 @@ importers:
         specifier: ^0.3.17
         version: 0.3.20(pg@8.13.1)
     devDependencies:
+      '@faker-js/faker':
+        specifier: ^8.0.2
+        version: 8.4.1
       '@mxvincent/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -6213,8 +6213,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.8.0-dev.20250110:
-    resolution: {integrity: sha512-+qwHVEvUm4CeQGtZIvlwE8HmRFcBMV4F/8OPKv+mIyGRGx4Chrj2v0VCsReVJwRdjjs6Dat/lPzkJW1E18+eOg==}
+  typescript@5.8.0-dev.20250113:
+    resolution: {integrity: sha512-P0/9dr0Rwfs+XMXz2OyX9rVUu84x0qKUlTMDytq5GentLY1ebkyOHQSxvVeU/7L3hzrLFvdM4tVnuQJme1Webw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -9806,7 +9806,7 @@ snapshots:
     dependencies:
       semver: 7.6.3
       shelljs: 0.8.5
-      typescript: 5.8.0-dev.20250110
+      typescript: 5.8.0-dev.20250113
 
   drizzle-kit@0.30.1:
     dependencies:
@@ -12958,7 +12958,7 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  typescript@5.8.0-dev.20250110: {}
+  typescript@5.8.0-dev.20250113: {}
 
   uid@2.0.2:
     dependencies:

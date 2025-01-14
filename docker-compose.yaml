@@ -30,6 +30,18 @@ services:
       - "16686:16686"
       - "4317:4317"
       - "4318:4318"
+  app:
+    image: ghcr.io/mxvincent/experience-b:latest
+    command:
+      - node
+      - /app/dist/app-server.js
+    platform: linux/arm64
+    environment:
+      - NODE_ENV=production
+      - SERVER_HOST=0.0.0.0
+      - POSTGRES_DATABASE=experience-a
+    ports:
+      - "4000:4000"
 volumes:
   rabbitmq-data:
   postgres-data:

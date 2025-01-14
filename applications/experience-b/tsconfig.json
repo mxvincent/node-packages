@@ -9,8 +9,8 @@
 		"outDir": "./dist",
 		"module": "CommonJS",
 		"paths": {
-			"#*": ["./*"],
-			"#jest/*": ["./@jest/*"]
+			"#/*": ["./*"],
+			"#/jest/*": ["./@jest/*"]
 		}
 	}
 }

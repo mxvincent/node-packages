@@ -9,7 +9,7 @@
       "syntax": "typescript"
     },
     "paths": {
-      "@*": [
+      "#/*": [
         "./*"
       ],
       "#jest/*": [

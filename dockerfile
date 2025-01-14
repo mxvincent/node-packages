@@ -1,19 +1,18 @@
-ARG BUILDER_IMAGE=node:22-slim
+ARG BUILDER_IMAGE=node:22-alpine
 ARG RUNNER_IMAGE=gcr.io/distroless/nodejs22-debian12
 ARG TURBO_VERSION=2.3.1
 
+
+
 ###
-# Base image for following stages
+# Base image (except for runner)
 ###
 FROM ${BUILDER_IMAGE} AS base
 
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-
-WORKDIR /app
-
 RUN corepack enable
-RUN pnpm install -g turbo@$TURBO_VERSION
+RUN npm install -g turbo@$TURBO_VERSION
+RUN pnpm config set store-dir ~/.pnpm-store
+
 
 
 ###
@@ -23,51 +22,50 @@ FROM base AS pruner
 
 ARG APPLICATION_NAME
 
+WORKDIR /app
 COPY . .
-
 RUN pnpm turbo prune --docker --scope=$APPLICATION_NAME
 
 
+
 ###
-# Install dependencies and build application
+# Build applications
 ###
 FROM base AS builder
 
+ARG APPLICATION_NAME
 ARG NPM_REGISTRY_TOKEN
 
+WORKDIR /app
 RUN echo "//npm.pkg.github.com/:_authToken=$NPM_REGISTRY_TOKEN" >> .npmrc
 
-# Copy lockfile and package.json's of isolated workspaces
+# Install dependencies
 COPY --from=pruner /app/out/json/ .
-COPY --from=pruner /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-COPY --from=pruner /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
+RUN --mount=type=cache,id=pnpm,target=~/.pnpm-store pnpm install --frozen-lockfile --ignore-scripts
 
-# First install dependencies (as they change less often)
-RUN pnpm install --frozen-lockfile --ignore-scripts
-RUN pnpm install --ignore-scripts
+# Copy source code
+COPY --from=pruner /app/out/full/ /app
 
-# Copy source code of isolated workspaces
-COPY --from=pruner /app/out/full/ .
-RUN pnpm turbo run build:swc
-RUN pnpm prune --prod --no-optional --config.ignore-scripts=true
-RUN rm -rf ./**/*/src
-RUN rm -rf ./**/*/node_modules
-RUN pnpm install --prod --no-optional --ignore-scripts --frozen-lockfile
+# Build application
+RUN  pnpm turbo run build:swc
+
+# Generate application subset with production dependencies
+RUN --mount=type=cache,id=pnpm,target=~/.pnpm-store pnpm deploy --prod --ignore-scripts --filter=$APPLICATION_NAME /tmp/deploy
+
 
 
 ###
-# Application packager
+# Application runner
 ###
 FROM ${RUNNER_IMAGE} AS runner
 
-WORKDIR /app
-
-# Define some environment variables
 ENV NODE_ENV=production
 ENV LOG_LEVEL=info
 ENV APP_SERVER_HOST=0.0.0.0
 ENV APP_SERVER_PORT=4000
 
-USER node
+WORKDIR /app
 
-COPY --from=builder --chown=node:node /app /app
+COPY --from=builder /tmp/deploy .
+
+CMD ["node", "/app/dist/app-server.js"]
