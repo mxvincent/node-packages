@@ -1,5 +1,14 @@
 # @mxvincent/telemetry
 
+## 0.1.2
+
+### Patch Changes
+
+- [`e4fb5c6`](https://github.com/mxvincent/node-packages/commit/e4fb5c65d775e615bfe7061fefe2faf5c2a75c8b) Thanks [@mxvincent](https://github.com/mxvincent)! - Update dependecies
+
+- Updated dependencies [[`e4fb5c6`](https://github.com/mxvincent/node-packages/commit/e4fb5c65d775e615bfe7061fefe2faf5c2a75c8b)]:
+  - @mxvincent/json-schema@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
