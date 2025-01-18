@@ -1,21 +1,21 @@
 {
-  "$schema": "https://json.schemastore.org/swcrc",
+  "$schema": "https://swc.rs/schema.json",
   "module": {
     "type": "commonjs"
   },
   "jsc": {
     "baseUrl": "./src",
     "parser": {
-      "syntax": "typescript"
+      "syntax": "typescript",
+      "decorators": true
     },
     "paths": {
       "#/*": [
         "./*"
       ],
-      "#jest/*": [
+      "#/jest/*": [
         "./@jest/*"
       ]
-    },
-    "target": "es2020"
+    }
   }
 }

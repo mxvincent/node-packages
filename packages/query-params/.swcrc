@@ -1,15 +1,17 @@
 {
-  "$schema": "https://json.schemastore.org/swcrc",
+  "$schema": "https://swc.rs/schema.json",
   "module": {
     "type": "commonjs"
   },
   "jsc": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "parser": {
-      "syntax": "typescript",
-      "decorators": true,
-      "dynamicImport": true
+      "syntax": "typescript"
     },
-    "target": "es2020"
+    "paths": {
+      "#/*": [
+        "./*"
+      ]
+    }
   }
 }

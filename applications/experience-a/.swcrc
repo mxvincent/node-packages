@@ -7,12 +7,7 @@
     "baseUrl": "./src",
     "parser": {
       "syntax": "typescript",
-      "decorators": true,
-      "dynamicImport": true
-    },
-    "transform": {
-      "decoratorMetadata": true,
-      "legacyDecorator": true
+      "decorators": true
     },
     "paths": {
       "#/*": [
@@ -21,7 +16,6 @@
       "#/jest/*": [
         "./@jest/*"
       ]
-    },
-    "target": "es2020"
+    }
   }
 }

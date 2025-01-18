@@ -1,22 +1,17 @@
 {
-  "$schema": "https://json.schemastore.org/swcrc",
+  "$schema": "https://swc.rs/schema.json",
+  "module": {
+    "type": "commonjs"
+  },
   "jsc": {
     "baseUrl": "./src",
     "parser": {
-      "syntax": "typescript",
-      "decorators": true,
-      "dynamicImport": true
-    },
-    "transform": {
-      "decoratorMetadata": true,
-      "legacyDecorator": true
+      "syntax": "typescript"
     },
     "paths": {
-      "@app/*": ["./*"],
-      "@database/*": ["./database/*"],
-      "@module/*": ["./modules/*"],
-      "@jest/*": ["./@jest/*"]
-    },
-    "target": "es2022"
+      "#/*": [
+        "./*"
+      ]
+    }
   }
 }
