@@ -19,19 +19,19 @@
 		"code:check-watch": "tsc --noEmit --watch"
 	},
 	"dependencies": {
-		"@sinclair/typebox": "^0.33.9",
+		"@sinclair/typebox": "^0.34.14",
 		"jsonwebtoken": "^9.0.2",
 		"jwks-rsa": "^3.1.0",
 		"ramda": "^0.30.1",
-		"uuid": "^10.0.0"
+		"uuid": "^11.0.5"
 	},
 	"devDependencies": {
 		"@mxvincent/tsconfig": "workspace:*",
-		"@types/jsonwebtoken": "^9.0.6",
+		"@types/jsonwebtoken": "^9.0.7",
 		"@types/node-jose": "^1.1.13",
-		"@types/ramda": "^0.30.1",
+		"@types/ramda": "^0.30.2",
 		"@types/uuid": "^10.0.0",
-		"msw": "^2.4.2",
+		"msw": "^2.7.0",
 		"node-forge": "^1.3.1"
 	}
 }

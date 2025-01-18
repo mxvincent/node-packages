@@ -10,7 +10,7 @@ export type Options<T, K extends keyof T> = { [P in K]-?: T[P] } & Partial<Omit<
 export type DeepPartial<T> = T extends object
 	? {
 			[P in keyof T]?: DeepPartial<T[P]>
-	  }
+		}
 	: T
 
 export const recursiveDirname = (iteration: number, path: string): string => {

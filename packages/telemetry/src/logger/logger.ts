@@ -5,6 +5,6 @@ import { LogLevel } from './types'
 export const logger = pino(getLoggerOptions())
 
 export const setLogLevel = (level: LogLevel): void => {
-  logger.level = level
-  logger.debug(`[Logger] Set log level to ${level}`)
+	logger.level = level
+	logger.debug(`[Logger] Set log level to ${level}`)
 }

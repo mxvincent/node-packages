@@ -1,5 +1,5 @@
 export type ObjectConstructor<T> = {
-	new(): T
+	new (): T
 }
 
 export class ObjectLiteral {}
