@@ -1,5 +1,11 @@
 # experience-a
 
+## 0.1.5
+
+### Patch Changes
+
+- [#20](https://github.com/mxvincent/node-packages/pull/20) [`5b0ea0d`](https://github.com/mxvincent/node-packages/commit/5b0ea0dce2af4b513f0920e00f68cee523624989) Thanks [@mxvincent](https://github.com/mxvincent)! - Disable strict peer dependency
+
 ## 0.1.4
 
 ### Patch Changes
