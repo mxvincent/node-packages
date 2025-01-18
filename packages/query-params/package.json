@@ -13,7 +13,7 @@
 		"build:tsc": "tsc",
 		"build:watch": "pnpm run build:tsc --watch",
 		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
-		"code:lint": "eslint",
+		"code:lint": "eslint src",
 		"code:check": "tsc --noEmit",
 		"code:check-watch": "tsc --noEmit --watch",
 		"test:all": "jest"
@@ -22,7 +22,6 @@
 		"ramda": "^0.28.0"
 	},
 	"devDependencies": {
-		"@mxvincent/eslint-config": "workspace:*",
 		"@mxvincent/tsconfig": "workspace:*",
 		"@types/ramda": "^0.29.2"
 	}

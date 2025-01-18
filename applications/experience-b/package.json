@@ -8,7 +8,7 @@
 		"build:tsc": "tsc",
 		"build:watch": "pnpm run build:swc --watch",
 		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
-		"code:lint": "eslint",
+		"code:lint": "eslint src",
 		"code:check": "tsc --noEmit",
 		"code:check:watch": "tsc --noEmit --watch",
 		"db:generate": "pnpm exec drizzle-kit generate --config=src/database/config.ts",
@@ -20,7 +20,7 @@
 		"run:app-server": "node dist/app-server.js"
 	},
 	"dependencies": {
-		"@faker-js/faker": "^9.3.0",
+		"@faker-js/faker": "^9.4.0",
 		"@fastify/auth": "^5.0.2",
 		"@fastify/cors": "^10.0.1",
 		"@fastify/error": "^4.0.0",
@@ -41,7 +41,6 @@
 		"ramda": "^0.30.1"
 	},
 	"devDependencies": {
-		"@mxvincent/eslint-config": "workspace:*",
 		"@mxvincent/tsconfig": "workspace:*",
 		"@types/lodash": "^4.17.7",
 		"@types/ramda": "^0.30.1"

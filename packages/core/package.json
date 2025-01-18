@@ -14,7 +14,7 @@
 		"build:tsc": "tsc",
 		"build:watch": "pnpm run build:tsc --watch",
 		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
-		"code:lint": "eslint",
+		"code:lint": "eslint src",
 		"code:check": "tsc --noEmit",
 		"code:check-watch": "tsc --noEmit --watch"
 	},
@@ -26,7 +26,6 @@
 		"uuid": "^10.0.0"
 	},
 	"devDependencies": {
-		"@mxvincent/eslint-config": "workspace:*",
 		"@mxvincent/tsconfig": "workspace:*",
 		"@types/jsonwebtoken": "^9.0.6",
 		"@types/node-jose": "^1.1.13",

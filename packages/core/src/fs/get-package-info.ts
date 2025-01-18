@@ -22,6 +22,7 @@ export const getPackageInfo = (options: GetPackageInfoOptions): PackageInfo => {
 		const packageJson = readJsonFileSync<PackageInfo>(options.packageJsonFilePath ?? 'package.json')
 		return buildResult(packageJson)
 	} catch (error) {
+		console.error(error)
 		return buildResult(options.defaultValues ?? {})
 	}
 }

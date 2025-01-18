@@ -27,7 +27,6 @@ const customRandom = (alphabet: string, defaultSize: number, getRandom: (bytesLe
 	const step = Math.ceil((1.6 * mask * defaultSize) / alphabet.length)
 	return (size = defaultSize) => {
 		let id = ''
-		// eslint-disable-next-line no-constant-condition
 		while (true) {
 			const bytes = getRandom(step)
 			let i = step

@@ -14,7 +14,7 @@
 		"build:swc": "swc ./src -d ./dist --strip-leading-paths",
 		"build:swc:watch": "pnpm run build:swc --watch",
 		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
-		"code:lint": "eslint",
+		"code:lint": "eslint src",
 		"code:check": "tsc --noEmit",
 		"code:check-watch": "tsc --noEmit --watch"
 	},
@@ -46,7 +46,6 @@
 		"pino-std-serializers": "^7.0.0"
 	},
 	"devDependencies": {
-		"@mxvincent/eslint-config": "workspace:*",
 		"@mxvincent/tsconfig": "workspace:*",
 		"pino-pretty": "^11.3.0"
 	}

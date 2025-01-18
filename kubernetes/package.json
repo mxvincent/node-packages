@@ -11,13 +11,12 @@
 		"clean": "rm -rf dist src/imports",
 		"code:check": "tsc --noEmit --skipLibCheck",
 		"code:check:watch": "tsc --noEmit --watch --skipLibCheck",
-		"code:lint": "eslint --ignore-pattern 'imports/*'",
+		"code:lint": "eslint --ignore-pattern 'src/imports/*' src",
 		"import-api-resources": "kubectl get crds -o yaml > crd.yaml;pnpm cdk8s import --output src/imports;rm crd.yaml",
 		"generate-manifests": "cdk8s synth --output manifests --check-upgrade=false",
 		"debug": "node -r @swc-node/register src/main.ts"
 	},
 	"devDependencies": {
-		"@mxvincent/eslint-config": "workspace:*",
 		"@swc/register": "^0.1.10",
 		"@types/node": "^18.18.8",
 		"@types/ramda": "^0.29.3",

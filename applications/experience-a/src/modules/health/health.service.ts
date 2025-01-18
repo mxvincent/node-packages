@@ -14,21 +14,23 @@ export class HealthCheckService {
 
 	constructor(readonly database: Database) {}
 
-	private async getDatabaseStatus(): Promise<ServiceStatus['details']['database']> {
-		try {
-			await this.database.query(`SELECT 1`)
-			return 'connected'
-		} catch (error) {
-			throw new ServiceUnavailableException('Database is not available.')
-		}
-	}
-
 	async getStatus(): Promise<ServiceStatus> {
 		return {
 			status: 'ok',
 			details: {
 				database: await this.getDatabaseStatus()
 			}
+		}
+	}
+
+	private async getDatabaseStatus(): Promise<ServiceStatus['details']['database']> {
+		try {
+			await this.database.query(`SELECT 1`)
+			return 'connected'
+		} catch (error) {
+			throw new ServiceUnavailableException('Database is not available.', {
+				cause: error as Error
+			})
 		}
 	}
 }
