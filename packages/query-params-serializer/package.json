@@ -22,7 +22,6 @@
 	"dependencies": {
 		"@mxvincent/core": "workspace:*",
 		"@mxvincent/json-schema": "workspace:*",
-		"query-string": "^9.1.1",
 		"ramda": "^0.30.1"
 	},
 	"devDependencies": {
