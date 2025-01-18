@@ -1,67 +1,54 @@
 import { Pagination } from '@mxvincent/query-params'
-import qs from 'query-string'
+import { QueryStringRecord } from '../types/QueryStringRecord'
 import { parsePagination } from './parse'
 
 describe('should return pagination options', () => {
-	test('empty string', async () => {
-		expect(parsePagination(qs.parse(''), { defaultPageSize: 10 })).toStrictEqual(Pagination.forward(10))
+	test('no parameters', async () => {
+		expect(parsePagination({}, { defaultPageSize: 10 })).toStrictEqual(Pagination.forward(10))
 	})
-	test.each([
+	test.each<{ parameters: QueryStringRecord; pagination: Pagination }>([
 		{
-			queryString: 'first=2',
+			parameters: { first: '2' },
 			pagination: Pagination.forward(2)
 		},
 		{
-			queryString: 'after=cursor&first=2',
+			parameters: { first: '2', after: 'cursor' },
 			pagination: Pagination.forward(2, 'cursor')
 		},
 		{
-			queryString: 'before=cursor&first=2',
+			parameters: { first: '2', before: 'cursor' },
 			pagination: Pagination.backward(2, 'cursor')
 		}
-	])('$queryString', ({ queryString, pagination }) => {
-		expect(parsePagination(qs.parse(queryString), { defaultPageSize: 10 })).toStrictEqual(pagination)
+	])('$queryString', ({ parameters, pagination }) => {
+		expect(parsePagination(parameters)).toStrictEqual(pagination)
 	})
 })
 
 describe('should return first occurrence when a parameters is duplicated', () => {
-	test.each([
+	test.each<{ parameters: QueryStringRecord; pagination: Pagination }>([
 		{
-			queryString: 'first=2&after=abc&after=def',
+			parameters: { first: '2', after: ['abc', 'def'] },
 			pagination: Pagination.forward(2, 'abc')
 		},
 		{
-			queryString: 'first=2&before=abc&before=def',
+			parameters: { first: '2', before: ['abc', 'def'] },
 			pagination: Pagination.backward(2, 'abc')
 		},
 		{
-			queryString: 'first=10&first=50',
+			parameters: { first: ['10', '50'] },
 			pagination: Pagination.forward(10)
 		},
 		{
-			queryString: 'first=10&first=50&before=123',
+			parameters: { first: ['10', '50'], before: '123' },
 			pagination: Pagination.backward(10, '123')
 		}
-	])('$queryString', ({ queryString, pagination }) => {
-		expect(parsePagination(qs.parse(queryString), { defaultPageSize: 10 })).toStrictEqual(pagination)
+	])('$queryString', ({ parameters, pagination }) => {
+		expect(parsePagination(parameters, { defaultPageSize: 10 })).toStrictEqual(pagination)
 	})
 })
 
 describe('should ignore parameters without values', () => {
-	test.each([
-		'after',
-		'after=',
-		'after&after',
-		'after=&after',
-		'after=&after=',
-		'before',
-		'before=',
-		'before&before',
-		'before=&before',
-		'before=&before=',
-		'first',
-		'first='
-	])('%s', (input) => {
-		expect(parsePagination(qs.parse(input), { defaultPageSize: 10 })).toStrictEqual(Pagination.forward(10))
+	test.each<QueryStringRecord>([{ after: '' }, { before: '' }, { after: '', before: '' }])('%s', (parameters) => {
+		expect(parsePagination(parameters, { defaultPageSize: 10 })).toStrictEqual(Pagination.forward(10))
 	})
 })

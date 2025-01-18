@@ -94,7 +94,7 @@ const parseFilter = (filterString: string, decode = base64Decode): ComparisonFil
 /**
  * Extract filter params from parsed query string
  */
-export const parseFilters = (filters: string[] | string, decode = decodeURIComponent): Filter[] => {
+export const parse = (filters: string[] | string, decode = decodeURIComponent): Filter[] => {
 	if (is(String, filters)) {
 		return [parseFilter(filters, decode)]
 	}
