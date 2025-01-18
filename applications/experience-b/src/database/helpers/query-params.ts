@@ -11,7 +11,7 @@ import {
 	Pagination,
 	Sort
 } from '@mxvincent/query-params'
-import { parseFilters, parseSorts } from '@mxvincent/query-params-serializer'
+import { parse, parseSorts } from '@mxvincent/query-params-serializer'
 import { PgColumn } from 'drizzle-orm/pg-core'
 import * as SQLCondition from 'drizzle-orm/sql/expressions/conditions'
 import { SQL } from 'drizzle-orm/sql/sql'
@@ -100,7 +100,7 @@ export const parseQueryParameters = <Key extends string>(
 	sorts: Sort<Key>[]
 } => {
 	const pagination = Pagination.forward(query.size ?? options.defaultPaginationSize, query.after)
-	const filters = parseFilters(query.filters ?? []).filter((filter) => isAliasedComparisonFilter(filter, columns))
+	const filters = parse(query.filters ?? []).filter((filter) => isAliasedComparisonFilter(filter, columns))
 	const sorts = query.sorts
 		? parseSorts(query.sorts).filter((sort) => isAliasedSort(sort, columns))
 		: [options.defaultSort]
