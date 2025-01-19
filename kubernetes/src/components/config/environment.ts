@@ -15,7 +15,7 @@ export type EnvironmentValue = string | ExternalSecretV1Beta1SpecDataRemoteRef
 export class Environment {
 	readonly context: Context
 	readonly values: Record<string, EnvValue> = {}
-	readonly resourceId = 'environment-variables'
+	// readonly resourceId = 'environment-variables'
 	secret?: ISecret
 	readonly #externalSecretValues: Record<string, ExternalSecretV1Beta1SpecDataRemoteRef> = {}
 
@@ -33,6 +33,10 @@ export class Environment {
 		}
 	}
 
+	get #name(): string {
+		return `${this.context.name}-environment-variables`
+	}
+
 	/**
 	 * Initialize on the flight and return a secret reference
 	 * @private
@@ -40,7 +44,7 @@ export class Environment {
 	get #initializedSecret() {
 		this.secret ??= Secret.fromSecretName(
 			this.context.chart,
-			this.resourceId,
+			this.#name,
 			Names.toDnsLabel(this.context.chart, { extra: ['environment'], includeHash: false })
 		)
 		return this.secret

@@ -1,6 +1,5 @@
 import { ComponentFactory } from '#/components/component-factory'
 import { ComponentOptions } from '#/components/component-options'
-import { LABEL_COMPONENT } from '#/helpers/labels'
 import { CertManagerAnnotation } from '#/plugins/cert-manager'
 import { IngressAnnotation, IngressAnnotations, IngressConfig, NginxIngressAnnotation } from '#/plugins/ingress'
 import { Deployment, Ingress, IngressBackend, Secret } from 'cdk8s-plus-27'
@@ -23,19 +22,17 @@ export class WebServiceFactory extends ComponentFactory<WebServiceOptions> {
 		const { options, context } = this
 
 		// Configure deployment
-		const deployment = new Deployment(context.chart, options.name, {
+		const deployment = new Deployment(context.chart, context.name, {
+			metadata: context.metadata,
 			dockerRegistryAuth: options.imageRegistryAuth?.secret,
 			replicas: options.replicas,
-			podMetadata: {
-				labels: context.labels
-			},
+			podMetadata: context.metadata,
 			securityContext: {
 				fsGroup: 1000,
 				user: 1000,
 				group: 1000
 			}
 		})
-		deployment.metadata.addLabel(LABEL_COMPONENT, options.name)
 
 		// Configure deployment container
 		const container = deployment.addContainer({
@@ -52,14 +49,13 @@ export class WebServiceFactory extends ComponentFactory<WebServiceOptions> {
 		const service = deployment.exposeViaService({
 			name: deployment.name
 		})
-		service.metadata.addLabel(LABEL_COMPONENT, options.name)
 
 		// Expose application with and ingress (optional)
 		if (options.ingress) {
 			const certSecret = Secret.fromSecretName(
 				context.chart,
 				'ingress-cert-secret',
-				`${context.application}-${options.name}-cert`
+				`${context.application}-${context.component}-cert`
 			)
 			const annotation = (key: keyof IngressAnnotations, defaultValue: unknown): string => {
 				return String(options.ingress?.annotations?.[key] ?? defaultValue)
@@ -72,7 +68,7 @@ export class WebServiceFactory extends ComponentFactory<WebServiceOptions> {
 					}
 				],
 				metadata: {
-					name: deployment.name,
+					...context.metadata,
 					annotations: {
 						[CertManagerAnnotation.CERT_ISSUER]: annotation('certIssuer', 'acme'),
 						[IngressAnnotation.SSL_REDIRECT]: annotation('sslRedirect', true)
@@ -80,7 +76,6 @@ export class WebServiceFactory extends ComponentFactory<WebServiceOptions> {
 				}
 			})
 			ingress.addHostRule(options.ingress.host, options.ingress.path ?? '/', IngressBackend.fromService(service))
-			ingress.metadata.addLabel(LABEL_COMPONENT, options.name)
 			if (options.ingress.annotations?.proxyBodySize) {
 				ingress.metadata.addAnnotation(
 					NginxIngressAnnotation.PROXY_BODY_SIZE,

@@ -25,15 +25,14 @@ const configFileContent = (context: Context, secrets: ExternalSecret) => ({
 
 export class ExperienceB extends ApplicationChart {
 	get components() {
-		return [
-			new WebServiceOptions({
-				name: 'app-server',
+		return {
+			'app-server': new WebServiceOptions({
 				command: node('app-server.js'),
 				replicas: 2,
 				config: this.config,
 				image: this.context.image
 			})
-		]
+		}
 	}
 
 	get config(): ComponentConfig {
@@ -44,11 +43,10 @@ export class ExperienceB extends ApplicationChart {
 		const files = new ConfigFiles(this.context, {
 			'config.json': configFileContent(this.context, this.secrets)
 		})
-		// TODO: handle per file mount paths
-		return { environment, files, mountPath: CONFIG_FILE_PATH }
+		return { environment, files }
 	}
 
 	get secrets() {
-		return new ExternalSecret(this.context.namespace)
+		return new ExternalSecret(`${this.context.environment}-${this.context.application}`)
 	}
 }

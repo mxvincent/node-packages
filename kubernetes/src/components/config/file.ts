@@ -5,7 +5,6 @@ import {
 	ExternalSecretV1Beta1SpecTargetTemplateEngineVersion
 } from '#/imports/external-secrets.io'
 import { EXTERNAL_SECRET_REFRESH_INTERVAL, EXTERNAL_SECRET_STORE, ExternalSecretRef } from '#/plugins/external-secret'
-import { Names } from 'cdk8s'
 import { AbstractPod, Container, ISecret, Secret, Volume } from 'cdk8s-plus-27'
 
 export type JSONLike<T> = T | { [x: string]: JSONLike<T> } | Array<JSONLike<T>>
@@ -39,12 +38,13 @@ export class ConfigFiles {
 	readonly context: Context
 	readonly templates: Record<string, ConfigFilesTemplate> = {}
 	readonly secretRefs: Record<string, ExternalSecretRef> = {}
-	readonly #name: string
+	readonly secretName: string
 	#secret?: ISecret
 
 	constructor(context: Context, data: Record<string, ConfigFilesValueWithSecretRef>, options?: ConfigFilesOptions) {
 		this.context = context
-		this.#name = options?.name ?? 'config-files'
+		this.secretName = options?.name ?? `${this.context.name}-config-files`
+
 		for (const [name, value] of Object.entries(data)) {
 			this.templates[name] = this.#transform(value)
 		}
@@ -63,25 +63,28 @@ export class ConfigFiles {
 			throw new Error('ConfigFile.createManifests() should be called exactly once.')
 		}
 
+		const metadata = {
+			name: this.secretName,
+			labels: this.context.labels
+		}
+
 		const stringData: Record<string, string> = {}
 		for (const [key, value] of Object.entries(this.templates)) {
 			stringData[key] = typeof value === 'string' ? value : JSON.stringify(value)
 		}
+
 		if (!Object.keys(this.secretRefs).length) {
 			return new Secret(this.context.chart, this.#id(), { stringData })
 		}
 
-		const secretName = Names.toDnsLabel(this.context.chart, {
-			extra: [this.#id()],
-			includeHash: false
-		})
-		const secret = Secret.fromSecretName(this.context.chart, this.#id(), secretName)
-		new ExternalSecretV1Beta1(this.context.chart, this.#id('secrets'), {
+		const secret = Secret.fromSecretName(this.context.chart, this.#id('secret'), this.secretName)
+		new ExternalSecretV1Beta1(this.context.chart, this.#id('external-secret'), {
+			metadata,
 			spec: {
 				refreshInterval: EXTERNAL_SECRET_REFRESH_INTERVAL,
 				secretStoreRef: EXTERNAL_SECRET_STORE,
 				target: {
-					name: secretName,
+					name: secret.name,
 					creationPolicy: ExternalSecretV1Beta1SpecTargetCreationPolicy.OWNER,
 					template: {
 						engineVersion: ExternalSecretV1Beta1SpecTargetTemplateEngineVersion.V2,
@@ -112,15 +115,7 @@ export class ConfigFiles {
 	 * Generate an identifier for generated resources
 	 */
 	#id(suffix?: string) {
-		const components: string[] = []
-		if (this.context.component) {
-			components.push(this.context.component)
-		}
-		components.push(this.#name)
-		if (suffix) {
-			components.push(suffix)
-		}
-		return components.join('-')
+		return suffix ? `${this.secretName}-${suffix}` : this.secretName
 	}
 
 	#transform(value: ConfigFilesValueWithSecretRef): ConfigFilesTemplate {

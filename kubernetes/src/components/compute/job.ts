@@ -1,6 +1,5 @@
 import { ComponentFactory } from '#/components/component-factory'
 import { ComponentOptions } from '#/components/component-options'
-import { LABEL_COMPONENT } from '#/helpers/labels'
 import { ArgoCDAnnotation, ArgocdHook, ArgocdHookDeletePolicy } from '#/plugins/argocd'
 import { Duration } from 'cdk8s'
 import { Job, RestartPolicy } from 'cdk8s-plus-27'
@@ -23,15 +22,12 @@ export class JobFactory extends ComponentFactory<JobOptions> {
 		const { context, options } = this
 
 		// Configure job
-		const job = new Job(context.chart, options.name, {
+		const job = new Job(context.chart, context.name, {
 			dockerRegistryAuth: options.imageRegistryAuth?.secret,
 			restartPolicy: RestartPolicy.ON_FAILURE,
 			activeDeadline: options.activeDeadline,
-			podMetadata: {
-				labels: context.labels
-			}
+			podMetadata: context.metadata
 		})
-		job.metadata.addLabel(LABEL_COMPONENT, options.name)
 		job.metadata.addAnnotation(ArgoCDAnnotation.SYNC_OPTIONS, 'Replace=true')
 		if (options.hook) {
 			job.metadata.addAnnotation(ArgoCDAnnotation.HOOK, options.hook)

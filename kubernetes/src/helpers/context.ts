@@ -1,6 +1,7 @@
 import { LABEL_COMPONENT, LABEL_INSTANCE, LABEL_NAME, LABEL_VERSION } from '#/helpers/labels'
 import { getRevision } from '#/helpers/revision'
 import { getApplicationScope } from '#/helpers/scope'
+import { ObjectMeta } from '#/imports/k8s'
 import { Chart as CDKChart } from 'cdk8s/lib/chart'
 
 export const applications = ['experience-a', 'experience-b'] as const
@@ -10,7 +11,6 @@ export const environments = ['development', 'production', 'staging'] as const
 export type Environment = (typeof environments)[number]
 
 export class Context {
-	readonly namespace: `${Environment}-${Application}`
 	readonly application: Application
 	readonly component?: string
 	readonly environment: Environment
@@ -20,14 +20,14 @@ export class Context {
 	constructor(
 		environment: Environment,
 		application: Application,
-		options: Partial<Pick<Context, 'chart' | 'revision' | 'component'>> = {}
+		{ component, ...options }: Partial<Pick<Context, 'chart' | 'revision' | 'component'>> = {}
 	) {
-		this.namespace = `${environment}-${application}`
 		this.application = application
-		this.component = options.component
+		this.component = component
 		this.environment = environment
 		this.revision = options.revision ?? getRevision(application, environment)
-		this.chart =
+		// this.namespace = `${environment}-${application}`
+		this.chart = this.chart =
 			options.chart ??
 			new CDKChart(getApplicationScope(application), this.environment, {
 				labels: this.labels,
@@ -35,8 +35,8 @@ export class Context {
 			})
 	}
 
-	get image(): string {
-		return `ghcr.io/mxvincent/${this.application}:${this.revision}`
+	get name(): string {
+		return this.component ? `${this.application}-${this.component}` : this.application
 	}
 
 	get labels(): Record<string, string> {
@@ -49,6 +49,16 @@ export class Context {
 			labels[LABEL_COMPONENT] = this.component
 		}
 		return labels
+	}
+
+	get metadata(): ObjectMeta {
+		return {
+			name: this.name,
+			labels: this.labels
+		}
+	}
+	get image(): string {
+		return `ghcr.io/mxvincent/${this.application}:${this.revision}`
 	}
 
 	extends(options: Required<Pick<Context, 'component'>>) {

@@ -1,6 +1,5 @@
 import { ComponentFactory } from '#/components/component-factory'
 import { ComponentOptions } from '#/components/component-options'
-import { LABEL_COMPONENT } from '#/helpers/labels'
 import { Cron } from 'cdk8s'
 import { ConcurrencyPolicy, CronJob, RestartPolicy } from 'cdk8s-plus-27'
 
@@ -18,17 +17,14 @@ export class CronJobFactory extends ComponentFactory<CronJobOptions> {
 		const { context, options } = this
 
 		// Configure job
-		const job = new CronJob(context.chart, options.name, {
+		const job = new CronJob(context.chart, context.name, {
 			dockerRegistryAuth: options.imageRegistryAuth?.secret,
 			schedule: options.schedule,
 			concurrencyPolicy: ConcurrencyPolicy.FORBID,
 			restartPolicy: RestartPolicy.ON_FAILURE,
 			successfulJobsRetained: 2,
-			podMetadata: {
-				labels: context.labels
-			}
+			podMetadata: context.metadata
 		})
-		job.metadata.addLabel(LABEL_COMPONENT, this.options.name)
 
 		// Configure job container
 		const container = job.addContainer(this.containerProps)

@@ -19,23 +19,22 @@ export abstract class ApplicationChart {
 	 */
 	constructor(context: Context) {
 		this.context = context
-		this.components.forEach((options) => this.registerComponent(options))
+		for (const [component, options] of Object.entries(this.components)) {
+			this.registerComponent(context.extends({ component }), options)
+		}
 	}
 
 	/**
 	 * Returns options in order to instantiate one or more components
 	 */
-	protected get components(): ComponentOptions[] {
-		return []
+	protected get components(): Record<string, ComponentOptions> {
+		return {}
 	}
 
 	/**
 	 * Attempts to instantiate a component linked to the type of options passed as a parameter
 	 */
-	registerComponent<T extends ComponentOptions>(options: T) {
-		const context = this.context.extends({
-			component: options.name
-		})
+	registerComponent<T extends ComponentOptions>(context: Context, options: T) {
 		if (options instanceof CronJobOptions) {
 			return new CronJobFactory(context, options)
 		}

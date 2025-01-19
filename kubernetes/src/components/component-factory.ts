@@ -16,7 +16,7 @@ export abstract class ComponentFactory<Options extends ComponentOptions> {
 
 	protected get containerProps(): ContainerProps {
 		return {
-			name: this.options.name,
+			name: this.context.name,
 			command: this.options.command,
 			image: this.options.image,
 			resources: getContainerResources(),
@@ -39,7 +39,7 @@ export abstract class ComponentFactory<Options extends ComponentOptions> {
 		}
 		// Inject configuration
 		if (config.files) {
-			config.files.mount(pod, { container, path: config.mountPath ?? '/app' })
+			config.files.mount(pod, { container, path: '/app' })
 		}
 		// Handle application reload on secret change
 		const secrets = Object.values(config)

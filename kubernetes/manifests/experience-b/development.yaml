@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    secret.reloader.stakater.com/reload: development-config-files
+    secret.reloader.stakater.com/reload: experience-b-config-files
   labels:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: development
     app.kubernetes.io/name: experience-b
     app.kubernetes.io/version: 0.1.5
-  name: development-app-server
+  name: experience-b-app-server
 spec:
   minReadySeconds: 0
   progressDeadlineSeconds: 600
   replicas: 2
   selector:
     matchLabels:
-      cdk8s.io/metadata.addr: development-app-server-c8547929
+      cdk8s.io/metadata.addr: development-experience-b-app-server-c8797c07
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -28,7 +28,8 @@ spec:
         app.kubernetes.io/instance: development
         app.kubernetes.io/name: experience-b
         app.kubernetes.io/version: 0.1.5
-        cdk8s.io/metadata.addr: development-app-server-c8547929
+        cdk8s.io/metadata.addr: development-experience-b-app-server-c8797c07
+      name: experience-b-app-server
     spec:
       automountServiceAccountToken: false
       containers:
@@ -40,7 +41,7 @@ spec:
               value: /app/config.json
           image: ghcr.io/mxvincent/experience-b:0.1.5
           imagePullPolicy: Always
-          name: app-server
+          name: experience-b-app-server
           ports:
             - containerPort: 4000
               name: http
@@ -56,8 +57,8 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
-            - mountPath: /app/config.json
-              name: secret-development-config-files
+            - mountPath: /app
+              name: secret-experience-b-config-files
               subPath: config.json
       dnsPolicy: ClusterFirst
       hostNetwork: false
@@ -71,19 +72,18 @@ spec:
       setHostnameAsFQDN: false
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: secret-development-config-files
+        - name: secret-experience-b-config-files
           secret:
-            secretName: development-config-files
+            secretName: experience-b-config-files
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: development
     app.kubernetes.io/name: experience-b
     app.kubernetes.io/version: 0.1.5
-  name: development-app-server
+  name: experience-b-app-server
 spec:
   externalIPs: []
   ports:
@@ -91,7 +91,7 @@ spec:
       port: 4000
       targetPort: 4000
   selector:
-    cdk8s.io/metadata.addr: development-app-server-c8547929
+    cdk8s.io/metadata.addr: development-experience-b-app-server-c8797c07
   type: ClusterIP
 ---
 apiVersion: external-secrets.io/v1beta1
@@ -101,7 +101,7 @@ metadata:
     app.kubernetes.io/instance: development
     app.kubernetes.io/name: experience-b
     app.kubernetes.io/version: 0.1.5
-  name: development-config-files-secrets
+  name: experience-b-config-files
 spec:
   data:
     - remoteRef:
@@ -150,7 +150,7 @@ spec:
     name: scaleway
   target:
     creationPolicy: Owner
-    name: development-config-files
+    name: experience-b-config-files
     template:
       data:
         config.json: '{"app":{"logLevel":"info","timeZone":"UTC"},"database":{"type":"postgres","host":"{{ .DEVELOPMENT_EXPERIENCE_B_POSTGRES_HOST | toString }}","port":"{{ .DEVELOPMENT_EXPERIENCE_B_POSTGRES_PORT | toString }}","database":"{{ .DEVELOPMENT_EXPERIENCE_B_POSTGRES_DATABASE | toString }}","username":"{{ .DEVELOPMENT_EXPERIENCE_B_POSTGRES_USERNAME | toString }}","password":"{{ .DEVELOPMENT_EXPERIENCE_B_POSTGRES_PASSWORD | toString }}"}}'
