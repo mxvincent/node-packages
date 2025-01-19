@@ -1,4 +1,4 @@
-import { ComponentConfig } from '#/components/component-config'
+import { ComponentConfig, CONFIG_FILE_PATH } from '#/components/component-config'
 import { WebServiceOptions } from '#/components/compute/web-service'
 import { Environment } from '#/components/config/environment'
 import { ConfigFiles } from '#/components/config/file'
@@ -36,10 +36,7 @@ export class ExperienceA extends ApplicationChart {
 	}
 
 	get config(): ComponentConfig {
-		const CONFIG_FILE_PATH = `/app/config.json`
-		const environment = new Environment(this.context, {
-			CONFIG_FILE_PATH
-		})
+		const environment = new Environment(this.context, { CONFIG_FILE_PATH })
 		const files = new ConfigFiles(this.context, {
 			'config.json': configFileContent(this.context, this.secrets)
 		})

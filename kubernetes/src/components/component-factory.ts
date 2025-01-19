@@ -1,3 +1,4 @@
+import { CONFIG_DIRECTORY } from '#/components/component-config'
 import { ComponentOptions } from '#/components/component-options'
 import { Context } from '#/helpers/context'
 import { getContainerResources } from '#/helpers/resources'
@@ -39,7 +40,7 @@ export abstract class ComponentFactory<Options extends ComponentOptions> {
 		}
 		// Inject configuration
 		if (config.files) {
-			config.files.mount(pod, { container, path: '/app' })
+			config.files.mount(pod, { container, path: CONFIG_DIRECTORY })
 		}
 		// Handle application reload on secret change
 		const secrets = Object.values(config)

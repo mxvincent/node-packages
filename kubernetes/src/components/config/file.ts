@@ -6,6 +6,7 @@ import {
 } from '#/imports/external-secrets.io'
 import { EXTERNAL_SECRET_REFRESH_INTERVAL, EXTERNAL_SECRET_STORE, ExternalSecretRef } from '#/plugins/external-secret'
 import { AbstractPod, Container, ISecret, Secret, Volume } from 'cdk8s-plus-27'
+import { join } from 'node:path'
 
 export type JSONLike<T> = T | { [x: string]: JSONLike<T> } | Array<JSONLike<T>>
 export type ConfigFilesTemplate = JSONLike<boolean | number | string>
@@ -102,12 +103,14 @@ export class ConfigFiles {
 
 	mount(pod: AbstractPod, options: ConfigFilesMountOptions) {
 		// Add volume in pod
-		const volume = Volume.fromSecret(this.context.chart, this.#id('volume'), this.secret)
+		const volume = Volume.fromSecret(this.context.chart, this.#id('volume'), this.secret, {
+			name: 'config-files'
+		})
 		pod.addVolume(volume)
 
 		// Mount volume in containers
-		for (const subPath of options.files ?? Object.keys(this.templates)) {
-			options.container.mount(options.path, volume, { subPath })
+		for (const fileName of options.files ?? Object.keys(this.templates)) {
+			options.container.mount(join(options.path, fileName), volume, { subPath: fileName })
 		}
 	}
 

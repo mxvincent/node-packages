@@ -1,8 +1,27 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  labels:
+    app.kubernetes.io/instance: development
+    app.kubernetes.io/name: experience-a
+    app.kubernetes.io/version: 0.1.5
+  name: development-env-secrets
+spec:
+  data:
+    - secretKey: CONFIG_FILE_PATH
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: scaleway
+  target:
+    creationPolicy: Owner
+    name: development-environment
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    secret.reloader.stakater.com/reload: experience-a-config-files
+    secret.reloader.stakater.com/reload: development-environment,experience-a-config-files
   labels:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: development
@@ -38,7 +57,10 @@ spec:
             - /app/dist/app-server.js
           env:
             - name: CONFIG_FILE_PATH
-              value: /app/config.json
+              valueFrom:
+                secretKeyRef:
+                  key: CONFIG_FILE_PATH
+                  name: development-environment
           image: ghcr.io/mxvincent/experience-a:0.1.5
           imagePullPolicy: Always
           name: experience-a-app-server
@@ -57,8 +79,8 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
-            - mountPath: /app
-              name: secret-experience-a-config-files
+            - mountPath: /app/config/config.json
+              name: config-files
               subPath: config.json
       dnsPolicy: ClusterFirst
       hostNetwork: false
@@ -72,7 +94,7 @@ spec:
       setHostnameAsFQDN: false
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: secret-experience-a-config-files
+        - name: config-files
           secret:
             secretName: experience-a-config-files
 ---

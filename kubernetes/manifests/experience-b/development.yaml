@@ -57,8 +57,8 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
-            - mountPath: /app
-              name: secret-experience-b-config-files
+            - mountPath: /app/config/config.json
+              name: config-files
               subPath: config.json
       dnsPolicy: ClusterFirst
       hostNetwork: false
@@ -72,7 +72,7 @@ spec:
       setHostnameAsFQDN: false
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: secret-experience-b-config-files
+        - name: config-files
           secret:
             secretName: experience-b-config-files
 ---

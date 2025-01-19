@@ -1,7 +1,7 @@
 import { Environment } from '#/components/config/environment'
 import { ConfigFiles } from '#/components/config/file'
 
-export const CONFIG_FILE_PATH = `/app/config.json`
+export const CONFIG_DIRECTORY = '/app/config'
 
 export interface ComponentConfig {
 	files?: ConfigFiles
