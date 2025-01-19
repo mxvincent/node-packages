@@ -33,8 +33,8 @@ spec:
       automountServiceAccountToken: false
       containers:
         - command:
-            - node
-            - /app/applications/experience-a/dist/app-server.js
+            - /nodejs/bin/node
+            - /app/dist/app-server.js
           env:
             - name: CONFIG_FILE_PATH
               value: /app/config.json

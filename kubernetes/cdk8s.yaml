@@ -1,4 +1,4 @@
-app: node -r @swc/register src/main.ts
+app: node -r @swc-node/register src/main.ts
 language: typescript
 imports:
   - k8s

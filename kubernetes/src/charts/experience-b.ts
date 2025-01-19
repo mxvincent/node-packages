@@ -3,6 +3,7 @@ import { WebServiceOptions } from '#/components/compute/web-service'
 import { Environment } from '#/components/config/environment'
 import { ConfigFiles } from '#/components/config/file'
 import { ApplicationChart } from '#/helpers/chart'
+import { node } from '#/helpers/command'
 import { Context } from '#/helpers/context'
 import { PostgresConfig } from '#/helpers/secrets'
 import { ExternalSecret } from '#/plugins/external-secret'
@@ -27,7 +28,7 @@ export class ExperienceB extends ApplicationChart {
 		return [
 			new WebServiceOptions({
 				name: 'app-server',
-				command: ['node', '/app/applications/experience-b/dist/app-server.js'],
+				command: node('app-server.js'),
 				replicas: 2,
 				config: this.config,
 				image: this.context.image
