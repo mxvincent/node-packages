@@ -1,0 +1,17 @@
+{
+	"include": ["./src/charts/**/*", "./src/components/**/*", "./src/helpers/**/*", "./src/plugins/**/*", "./src/*.ts"],
+	"exclude": ["node_modules", "src/imports"],
+	"compilerOptions": {
+		"target": "es2022",
+		"module": "CommonJS",
+		"rootDir": "./src",
+		"baseUrl": "./src",
+		"outDir": "./dist",
+		"strict": true,
+		"skipLibCheck": true,
+		"types": ["node"],
+		"paths": {
+			"#/*": ["./*"]
+		}
+	}
+}
