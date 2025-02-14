@@ -58,7 +58,7 @@ RUN --mount=type=cache,id=pnpm,target=~/.pnpm-store  pnpm deploy --prod --ignore
 ###
 # Application runner
 ###
-FROM ${BUILDER_IMAGE} AS runner
+FROM ${RUNNER_IMAGE} AS runner
 
 ENV NODE_ENV=production
 ENV LOG_LEVEL=info
