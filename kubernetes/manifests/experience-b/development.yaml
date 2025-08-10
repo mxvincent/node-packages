@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: app-server
     app.kubernetes.io/instance: development
     app.kubernetes.io/name: experience-b
-    app.kubernetes.io/version: 0.0.1
+    app.kubernetes.io/version: 0.1.0
   name: experience-b-app-server
 spec:
   minReadySeconds: 0
@@ -27,7 +27,7 @@ spec:
         app.kubernetes.io/component: app-server
         app.kubernetes.io/instance: development
         app.kubernetes.io/name: experience-b
-        app.kubernetes.io/version: 0.0.1
+        app.kubernetes.io/version: 0.1.0
         cdk8s.io/metadata.addr: development-experience-b-app-server-deployment-c8c56c24
       name: experience-b-app-server
     spec:
@@ -39,7 +39,7 @@ spec:
           env:
             - name: CONFIG_FILE_PATH
               value: /app/config/config.json
-          image: ghcr.io/mxvincent/experience-b:0.0.1
+          image: ghcr.io/mxvincent/experience-b:0.1.0
           imagePullPolicy: Always
           name: app-server
           ports:
@@ -70,6 +70,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
       setHostnameAsFQDN: false
+      shareProcessNamespace: false
       terminationGracePeriodSeconds: 30
       volumes:
         - name: config
@@ -82,7 +83,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: development
     app.kubernetes.io/name: experience-b
-    app.kubernetes.io/version: 0.0.1
+    app.kubernetes.io/version: 0.1.0
   name: experience-b-app-server
 spec:
   externalIPs: []
@@ -100,7 +101,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: development
     app.kubernetes.io/name: experience-b
-    app.kubernetes.io/version: 0.0.1
+    app.kubernetes.io/version: 0.1.0
   name: experience-b-config
 spec:
   data:
@@ -159,7 +160,7 @@ spec:
         labels:
           app.kubernetes.io/instance: development
           app.kubernetes.io/name: experience-b
-          app.kubernetes.io/version: 0.0.1
+          app.kubernetes.io/version: 0.1.0
 ---
 apiVersion: batch/v1
 kind: Job
@@ -173,7 +174,7 @@ metadata:
     app.kubernetes.io/component: debug
     app.kubernetes.io/instance: development
     app.kubernetes.io/name: experience-b
-    app.kubernetes.io/version: 0.0.1
+    app.kubernetes.io/version: 0.1.0
   name: experience-b-debug
 spec:
   template:
@@ -182,7 +183,7 @@ spec:
         app.kubernetes.io/component: debug
         app.kubernetes.io/instance: development
         app.kubernetes.io/name: experience-b
-        app.kubernetes.io/version: 0.0.1
+        app.kubernetes.io/version: 0.1.0
         cdk8s.io/metadata.addr: development-experience-b-debug-c8053197
       name: experience-b-debug
     spec:
@@ -194,7 +195,7 @@ spec:
           env:
             - name: CONFIG_FILE_PATH
               value: /app/config/config.json
-          image: ghcr.io/mxvincent/experience-b:0.0.1
+          image: ghcr.io/mxvincent/experience-b:0.1.0
           imagePullPolicy: Always
           name: debug
           resources:
@@ -222,6 +223,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
       setHostnameAsFQDN: false
+      shareProcessNamespace: false
       terminationGracePeriodSeconds: 30
       volumes:
         - name: config
@@ -240,7 +242,7 @@ metadata:
     app.kubernetes.io/component: sync-database-schema
     app.kubernetes.io/instance: development
     app.kubernetes.io/name: experience-b
-    app.kubernetes.io/version: 0.0.1
+    app.kubernetes.io/version: 0.1.0
   name: experience-b-sync-database-schema
 spec:
   template:
@@ -249,7 +251,7 @@ spec:
         app.kubernetes.io/component: sync-database-schema
         app.kubernetes.io/instance: development
         app.kubernetes.io/name: experience-b
-        app.kubernetes.io/version: 0.0.1
+        app.kubernetes.io/version: 0.1.0
         cdk8s.io/metadata.addr: development-experience-b-sync-database-schema-c847e61a
       name: experience-b-sync-database-schema
     spec:
@@ -261,7 +263,7 @@ spec:
           env:
             - name: CONFIG_FILE_PATH
               value: /app/config/config.json
-          image: ghcr.io/mxvincent/experience-b:0.0.1
+          image: ghcr.io/mxvincent/experience-b:0.1.0
           imagePullPolicy: Always
           name: sync-database-schema
           resources:
@@ -289,6 +291,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
       setHostnameAsFQDN: false
+      shareProcessNamespace: false
       terminationGracePeriodSeconds: 30
       volumes:
         - name: config
