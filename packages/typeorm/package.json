@@ -1,6 +1,6 @@
 {
   "name": "@mxvincent/typeorm",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "types": "./src/index.ts",
   "source": "./src/index.ts",
