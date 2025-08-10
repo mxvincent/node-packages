@@ -1,0 +1,59 @@
+{
+  "name": "@mxvincent/telemetry",
+  "version": "0.0.0",
+  "private": true,
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./logger": {
+      "types": "./src/logger/logger.ts",
+      "default": "./dist/logger/logger.js"
+    },
+    "./register": {
+      "default": "./dist/register.js"
+    }
+  },
+  "scripts": {
+    "build:tsc": "tsc",
+    "build:swc": "swc ./src -d ./dist --strip-leading-paths",
+    "build:swc:watch": "pnpm run build:swc --watch",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+    "check:eslint": "eslint src",
+    "check:tsc": "tsc --noEmit",
+    "check:tsc-watch": "tsc --noEmit --watch"
+  },
+  "dependencies": {
+    "@mxvincent/json-schema": "workspace:*",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.57.2",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.57.2",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.57.2",
+    "@opentelemetry/instrumentation": "^0.57.2",
+    "@opentelemetry/instrumentation-amqplib": "^0.46.1",
+    "@opentelemetry/instrumentation-dns": "^0.43.1",
+    "@opentelemetry/instrumentation-fastify": "^0.44.2",
+    "@opentelemetry/instrumentation-http": "^0.57.2",
+    "@opentelemetry/instrumentation-net": "^0.43.1",
+    "@opentelemetry/instrumentation-pg": "^0.50.0",
+    "@opentelemetry/instrumentation-pino": "^0.46.1",
+    "@opentelemetry/otlp-exporter-base": "^0.57.2",
+    "@opentelemetry/resource-detector-container": "^0.5.3",
+    "@opentelemetry/resources": "^1.30.1",
+    "@opentelemetry/sdk-metrics": "^1.30.1",
+    "@opentelemetry/sdk-node": "^0.57.2",
+    "@opentelemetry/sdk-trace-base": "^1.30.1",
+    "@opentelemetry/sdk-trace-node": "^1.30.1",
+    "@opentelemetry/semantic-conventions": "^1.36.0",
+    "opentelemetry-instrumentation-sequelize": "^0.41.0",
+    "opentelemetry-instrumentation-typeorm": "^0.41.0",
+    "pino": "^9.8.0",
+    "pino-std-serializers": "^7.0.0"
+  },
+  "devDependencies": {
+    "@mxvincent/tsconfig": "workspace:*",
+    "pino-pretty": "^13.1.1"
+  }
+}

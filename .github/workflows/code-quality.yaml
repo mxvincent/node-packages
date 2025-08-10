@@ -1,0 +1,74 @@
+name: 'code-check'
+on:
+  workflow_call:
+    secrets:
+      github-token:
+        description: Token used to access GitHub dependencies
+        required: false
+jobs:
+  tsc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v4
+      - name: 'Setup NodeJS'
+        uses: ./.github/actions/setup-node
+        with:
+          github-token: ${{ secrets.github-token }}
+      - name: 'Perform typescript type checking'
+        run: pnpm run check:tsc
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v4
+      - name: 'Setup NodeJS'
+        uses: ./.github/actions/setup-node
+        with:
+          github-token: ${{ secrets.github-token }}
+      - name: 'Lint sources'
+        run: pnpm run check:eslint
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        options: >- # postgres container does not provide a health check
+          --health-cmd pg_isready
+          --health-interval 1s
+          --health-timeout 1s
+          --health-retries 30
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+        ports:
+          - 5432:5432
+      rabbitmq:
+        image: rabbitmq:4-management-alpine
+        env:
+          RABBITMQ_DEFAULT_USER: ci
+          RABBITMQ_DEFAULT_PASS: ci
+          RABBITMQ_DEFAULT_VHOST: ci
+        ports:
+          - "5672:5672"
+          - "15672:15672"
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v4
+      - name: 'Setup NodeJS'
+        uses: ./.github/actions/setup-node
+        with:
+          github-token: ${{ secrets.github-token }}
+      - name: 'Run all tests'
+        run: pnpm run test:all
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: ci
+          DB_USERNAME: ci
+          DB_PASSWORD: ci
+          AMQP_HOST: 127.0.0.1
+          AMQP_PORT: 5672
+          AMQP_USERNAME: ci
+          AMQP_PASSWORD: ci
+          AMQP_VHOST: ci

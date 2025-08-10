@@ -1,0 +1,44 @@
+{
+	"name": "experience-c",
+	"version": "0.0.0",
+	"private": true,
+	"main": "./dist/index.js",
+	"types": "./src/index.ts",
+	"scripts": {
+		"build:swc": "swc ./src -d ./dist --strip-leading-paths",
+		"build:tsc": "tsc",
+		"build:watch": "pnpm run build:swc --watch",
+		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+		"check:eslint": "eslint src",
+		"check:tsc": "tsc --noEmit",
+		"check:tsc:watch": "tsc --noEmit --watch",
+		"test:all": "jest",
+		"test:all:watch": "jest --watch",
+		"cmd": "node --env-file-if-exists=.env -r @swc-node/register",
+		"cmd:app-server": "pnpm cmd --watch -- src/command/start-api-server.ts",
+		"cmd:sync-database-schema": "pnpm cmd -- src/command/sync-database-schema.ts",
+		"cmd:seed-database": "pnpm cmd --watch -- src/command/seed-database.ts"
+	},
+	"dependencies": {
+		"@apollo/server": "4.12.2",
+		"@mxvincent/core": "workspace:*",
+		"@mxvincent/json-schema": "workspace:*",
+		"@mxvincent/query-params": "workspace:*",
+		"@mxvincent/telemetry": "workspace:*",
+		"@mxvincent/typeorm": "workspace:*",
+		"graphql": "^16.11.0",
+		"graphql-fields": "^2.0.3",
+		"pg": "^8.16.3",
+		"ramda": "^0.30.1",
+		"reflect-metadata": "^0.2.2",
+		"tiny-invariant": "^1.3.3",
+		"tsconfig-paths": "^4.2.0",
+		"typeorm": "^0.3.25"
+	},
+	"devDependencies": {
+		"@faker-js/faker": "^9.9.0",
+		"@mxvincent/tsconfig": "workspace:*",
+		"@types/graphql-fields": "^1.3.9",
+		"@types/ramda": "^0.30.2"
+	}
+}

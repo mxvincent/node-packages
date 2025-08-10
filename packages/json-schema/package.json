@@ -1,0 +1,31 @@
+{
+  "name": "@mxvincent/json-schema",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "source": "./src/index.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build:swc": "swc ./src -d ./dist  --strip-leading-paths",
+    "build:tsc": "tsc",
+    "build:watch": "pnpm run build:tsc --watch",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+    "check:eslint": "eslint src",
+    "check:tsc": "tsc --noEmit",
+    "check:tsc-watch": "tsc --noEmit --watch"
+  },
+  "dependencies": {
+    "@mxvincent/core": "workspace:*",
+    "@sinclair/typebox": "^0.34.38",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "ramda": "^0.30.1"
+  },
+  "devDependencies": {
+    "@mxvincent/tsconfig": "workspace:*",
+    "@types/ramda": "^0.30.2"
+  }
+}

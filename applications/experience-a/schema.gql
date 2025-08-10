@@ -1,0 +1,240 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type PageInfo {
+  startCursor: String
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+}
+
+type User {
+  """Resource unique identifier (UUIDv4)"""
+  id: UUID!
+
+  """Resource creation date (ISO8601)"""
+  createdAt: DateTime!
+
+  """Last resource update date (ISO8601)"""
+  updatedAt: DateTime!
+  email: String!
+  firstName: String!
+  lastName: String!
+  username: String!
+}
+
+"""An UUID v4 hexadecimal representation."""
+scalar UUID
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserEdge {
+  cursor: String
+  node: User!
+}
+
+type UserConnection {
+  """
+  [WARNING] For performance, do not include this field. Count records matching filters
+  """
+  totalCount: Int!
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+}
+
+type Organization {
+  """Resource unique identifier (UUIDv4)"""
+  id: UUID!
+
+  """Resource creation date (ISO8601)"""
+  createdAt: DateTime!
+
+  """Last resource update date (ISO8601)"""
+  updatedAt: DateTime!
+  name: String!
+  members(
+    """Return n first edges (min=1,max=100)"""
+    first: Int! = 10
+    after: String
+    before: String
+  ): OrganizationMemberConnection!
+}
+
+type OrganizationEdge {
+  cursor: String
+  node: Organization!
+}
+
+type OrganizationConnection {
+  """
+  [WARNING] For performance, do not include this field. Count records matching filters
+  """
+  totalCount: Int!
+  edges: [OrganizationEdge!]!
+  pageInfo: PageInfo!
+}
+
+type OrganizationMember {
+  organization: Organization!
+  role: OrganizationMemberRole!
+  user: User!
+}
+
+enum OrganizationMemberRole {
+  admin
+  developer
+  owner
+}
+
+type OrganizationMemberEdge {
+  cursor: String
+  node: OrganizationMember!
+}
+
+type OrganizationMemberConnection {
+  """
+  [WARNING] For performance, do not include this field. Count records matching filters
+  """
+  totalCount: Int!
+  edges: [OrganizationMemberEdge!]!
+  pageInfo: PageInfo!
+}
+
+type Query {
+  organizations(
+    """Return n first edges (min=1,max=100)"""
+    first: Int! = 10
+    after: String
+    before: String
+    sort: OrganizationSort! = {direction: ASC, field: id}
+  ): OrganizationConnection!
+  organization(where: FindOrganizationWhere!): Organization
+  users(
+    """Return n first edges (min=1,max=100)"""
+    first: Int! = 10
+    after: String
+    before: String
+    sort: UserSort! = {direction: DESC, field: id}
+  ): UserConnection!
+  user(where: FindUserWhere!): User
+}
+
+input OrganizationSort {
+  direction: SortDirection!
+  field: OrganizationSortField!
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+enum OrganizationSortField {
+  id
+  createdAt
+}
+
+input FindOrganizationWhere {
+  id: UUID
+  name: String
+}
+
+input UserSort {
+  direction: SortDirection!
+  field: UserSortField!
+}
+
+enum UserSortField {
+  id
+  createdAt
+}
+
+input FindUserWhere {
+  id: UUID
+  email: String
+  username: String
+}
+
+type Mutation {
+  createOrganization(input: CreateOrganizationInput!): CreateOrganizationResult!
+  updateOrganization(where: FindOrganizationWhere!, input: UpdateOrganizationInput!): UpdateOrganizationResult
+  deleteOrganization(where: FindOrganizationWhere!): GQLDeleteResult
+  addOrganizationMember(input: GQLAddOrganizationMemberInput!): AddOrganizationMemberResult!
+  removeOrganizationMember(where: GQLOrganizationMemberWhere!): GQLRemoveOrganizationMemberResult
+  createUser(input: CreateUserInput!): CreateUserResult!
+  updateUser(where: FindUserWhere!, input: UpdateUserInput!): UpdateUserResult
+  deleteUser(where: FindUserWhere!): GQLDeleteResult
+}
+
+union CreateOrganizationResult = Organization | ConflictError
+
+type ConflictError {
+  """Error code."""
+  code: String!
+
+  """Error message."""
+  message: String!
+}
+
+input CreateOrganizationInput {
+  name: String!
+}
+
+union UpdateOrganizationResult = Organization | ConflictError
+
+input UpdateOrganizationInput {
+  name: String
+}
+
+type GQLDeleteResult {
+  """Resource unique identifier (UUIDv4)"""
+  id: UUID!
+}
+
+union AddOrganizationMemberResult = OrganizationMember | ConflictError | NotFoundError
+
+type NotFoundError {
+  """Error code."""
+  code: String!
+
+  """Error message."""
+  message: String!
+}
+
+input GQLAddOrganizationMemberInput {
+  organizationId: UUID!
+  userId: UUID!
+  role: OrganizationMemberRole!
+}
+
+type GQLRemoveOrganizationMemberResult {
+  organizationId: UUID!
+  userId: UUID!
+}
+
+input GQLOrganizationMemberWhere {
+  organizationId: UUID!
+  userId: UUID!
+}
+
+union CreateUserResult = User | ConflictError
+
+input CreateUserInput {
+  email: String!
+  username: String!
+  firstName: String!
+  lastName: String!
+}
+
+union UpdateUserResult = User | ConflictError
+
+input UpdateUserInput {
+  email: String
+  username: String
+  firstName: String
+  lastName: String
+}

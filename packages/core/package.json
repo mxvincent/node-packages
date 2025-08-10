@@ -1,0 +1,37 @@
+{
+  "name": "@mxvincent/core",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "source": "./src/index.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./errors/*": "./dist/errors/*.js"
+  },
+  "scripts": {
+    "build:swc": "swc ./src -d ./dist --strip-leading-paths",
+    "build:tsc": "tsc",
+    "build:watch": "pnpm run build:tsc --watch",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+    "check:eslint": "eslint src",
+    "check:tsc": "tsc --noEmit",
+    "check:tsc:watch": "tsc --noEmit --watch"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.34.38",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.2.0",
+    "ramda": "^0.30.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@mxvincent/tsconfig": "workspace:*",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node-jose": "^1.1.13",
+    "@types/ramda": "^0.30.2",
+    "@types/uuid": "^10.0.0",
+    "msw": "^2.10.4",
+    "node-forge": "^1.3.1"
+  }
+}

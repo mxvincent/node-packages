@@ -1,0 +1,47 @@
+{
+  "name": "experience-b",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/main.ts",
+  "scripts": {
+    "build:swc": "swc ./src -d ./dist --strip-leading-paths",
+    "build:tsc": "tsc",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+    "check:eslint": "eslint src",
+    "check:tsc": "tsc --noEmit",
+    "check:tsc:watch": "tsc --noEmit --watch",
+    "db:generate": "pnpm exec drizzle-kit generate --config=src/database/config.ts",
+    "db:migrate": "pnpm exec drizzle-kit migrate --config=src/database/config.ts",
+    "db:seed": "node -r @swc-node/register src/database/commands/seed.ts",
+    "db:trucate": "node -r @swc-node/register src/database/commands/truncate.ts",
+    "dev": "node --env-file-if-exists=.env -r @swc-node/register",
+    "dev:app-server": "pnpm dev --watch -- src/app-server.ts",
+    "dev:sandbox": "pnpm dev -- src/sandbox.ts"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.9.0",
+    "@fastify/auth": "^5.0.2",
+    "@fastify/cors": "^10.1.0",
+    "@fastify/error": "^4.2.0",
+    "@fastify/helmet": "^13.0.1",
+    "@fastify/swagger": "^9.5.1",
+    "@fastify/type-provider-typebox": "^5.2.0",
+    "@mxvincent/core": "workspace:*",
+    "@mxvincent/json-schema": "workspace:*",
+    "@mxvincent/query-params": "workspace:^",
+    "@mxvincent/query-params-serializer": "workspace:^",
+    "@mxvincent/telemetry": "workspace:*",
+    "drizzle-orm": "^0.38.4",
+    "fastify": "^5.4.0",
+    "fastify-plugin": "^5.0.1",
+    "lodash": "^4.17.21",
+    "postgres": "^3.4.7",
+    "ramda": "^0.30.1"
+  },
+  "devDependencies": {
+    "@mxvincent/tsconfig": "workspace:*",
+    "@types/lodash": "^4.17.20",
+    "@types/ramda": "^0.30.2",
+    "drizzle-kit": "^0.30.6"
+  }
+}

@@ -1,0 +1,32 @@
+name: 'setup-node'
+description: 'Setup NodeJS'
+inputs:
+  github-token:
+    description: Token used to access GitHub dependencies
+    required: false
+  node-version:
+    description: NodeJS version
+    default: '22'
+runs:
+  using: composite
+  steps:
+    - name: Inject token into .npmrc
+      shell: bash
+      run: ./.github/actions/setup-node/configure-npm.sh
+      env:
+        GITHUB_TOKEN: '${{ inputs.github-token }}'
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        run_install: false
+    - name: Setup NodeJS
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: pnpm
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install
+    - name: Configure turbo cache
+      uses: rharkor/caching-for-turbo@v2.2.5
+

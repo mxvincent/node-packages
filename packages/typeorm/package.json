@@ -1,0 +1,36 @@
+{
+  "name": "@mxvincent/typeorm",
+  "version": "0.0.0",
+  "private": true,
+  "types": "./src/index.ts",
+  "source": "./src/index.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build:swc": "swc ./src -d ./dist --strip-leading-paths",
+    "build:tsc": "tsc",
+    "build:watch": "pnpm run build:swc --watch",
+    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+    "check:eslint": "eslint src",
+    "check:tsc": "tsc --noEmit",
+    "check:tsc-watch": "tsc --noEmit --watch",
+    "test:all": "jest",
+    "script:create-users": "ts-node ./src/scripts/createUsers.ts"
+  },
+  "dependencies": {
+    "@mxvincent/core": "workspace:*",
+    "@mxvincent/query-params": "workspace:*",
+    "@mxvincent/telemetry": "workspace:*",
+    "ramda": "^0.30.1",
+    "tiny-invariant": "^1.3.3"
+  },
+  "devDependencies": {
+    "@mxvincent/tsconfig": "workspace:*",
+    "@types/ramda": "0.30.2"
+  },
+  "peerDependencies": {
+    "pg": "^8.11.0",
+    "typeorm": "^0.3.25"
+  }
+}

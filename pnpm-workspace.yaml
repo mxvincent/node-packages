@@ -1,0 +1,16 @@
+packages:
+  - applications/*
+  - packages/*
+  - config/*
+  - kubernetes
+  - playground
+  - .github/actions/*
+
+onlyBuiltDependencies:
+  - '@apollo/protobufjs'
+  - '@nestjs/core'
+  - '@swc/core'
+  - esbuild
+  - msw
+  - nestjs-pino
+  - protobufjs

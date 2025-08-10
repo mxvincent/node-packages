@@ -1,0 +1,26 @@
+name: node-packages
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: mxvincent
+      POSTGRES_PASSWORD: mxvincent
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: mxvincent
+      RABBITMQ_DEFAULT_PASS: mxvincent
+      RABBITMQ_DEFAULT_VHOST: mxvincent
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - "rabbitmq-data:/var/lib/rabbitmq"
+volumes:
+  rabbitmq-data:
+  postgres-data:
+

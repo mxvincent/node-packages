@@ -1,0 +1,10 @@
+{
+	"extends": "@mxvincent/tsconfig/commonjs.json",
+	"include": ["src"],
+	"exclude": ["*.test.ts", "*.stub.ts", "node_modules", "dist/**/*"],
+	"compilerOptions": {
+		"rootDir": "./src",
+		"baseUrl": "./src",
+		"outDir": "./dist"
+	}
+}
