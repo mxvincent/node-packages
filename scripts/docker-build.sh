@@ -4,7 +4,7 @@ BASE_PATH=$(dirname $(dirname $0))
 
 cd $BASE_PATH
 
-APPLICATION_NAME="${1:-experience-b}"
+APPLICATION_NAME="${1:-experience-a}"
 DOCKER_IMAGE=ghcr.io/mxvincent/$APPLICATION_NAME
 DOCKER_TAG=latest
 

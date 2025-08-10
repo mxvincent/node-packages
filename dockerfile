@@ -34,14 +34,13 @@ RUN pnpm turbo prune --docker --scope=$APPLICATION_NAME
 FROM base AS builder
 
 ARG APPLICATION_NAME
-ARG NPM_REGISTRY_TOKEN
 
 WORKDIR /app
 RUN echo "//npm.pkg.github.com/:_authToken=$NPM_REGISTRY_TOKEN" >> .npmrc
 
 # Install dependencies
 COPY --from=pruner /app/out/json/ .
-RUN --mount=type=cache,id=pnpm,target=~/.pnpm-store pnpm install --frozen-lockfile --ignore-scripts
+RUN --mount=type=cache,id=pnpm,target=~/.pnpm-store pnpm install --ignore-scripts
 
 # Copy source code
 COPY --from=pruner /app/out/full/ /app
@@ -61,9 +60,9 @@ RUN --mount=type=cache,id=pnpm,target=~/.pnpm-store  pnpm deploy --prod --ignore
 FROM ${RUNNER_IMAGE} AS runner
 
 ENV NODE_ENV=production
-ENV LOG_LEVEL=info
 ENV SERVER_HOST=0.0.0.0
 ENV SERVER_PORT=4000
+ENV TELEMETRY_LOG_LEVEL=info
 
 WORKDIR /app
 

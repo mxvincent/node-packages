@@ -1,7 +1,13 @@
-**/node_modules/**
-**/dist/**
-tsconfig*
-docker.sh
+.changeset
+.github
+git
+.gitignore
+*.md
+docs
+kubernetes
+scripts
+node_modules
+dist
 dockerfile
 out
 

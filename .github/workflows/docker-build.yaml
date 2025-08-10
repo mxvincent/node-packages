@@ -59,9 +59,10 @@ jobs:
           build-args: |
             BUILDER_IMAGE=node:22-slim
             RUNNER_IMAGE=gcr.io/distroless/nodejs22-debian12
-            TURBO_VERSION=2.3.1
-            NPM_REGISTRY_TOKEN=${{ secrets.GITHUB_TOKEN }}
+            TURBO_VERSION=2.5.5
             APPLICATION_NAME=${{ inputs.application }}
+          secret-envs:
+            NPM_REGISTRY_TOKEN=${{ secrets.GITHUB_TOKEN }}
           platforms: linux/amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}

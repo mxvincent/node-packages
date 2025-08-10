@@ -14,3 +14,4 @@ onlyBuiltDependencies:
   - msw
   - nestjs-pino
   - protobufjs
+injectWorkspacePackages: true

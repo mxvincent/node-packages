@@ -15,7 +15,7 @@
 		"changeset:tag": "changeset tag",
 		"check:tsc": "turbo run check:tsc --filter=!'@action/*'",
 		"check:eslint": "turbo run check:eslint --filter=!'@action/*'",
-    "test:all": "turbo run test:all",
+		"test:all": "turbo run test:all",
 		"modules:clean": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +",
 		"modules:info": "find . -name \"node_modules\" -type d -prune | xargs du -chs",
 		"modules:install": "pnpm run modules:clean && pnpm install",
