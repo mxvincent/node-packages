@@ -1,4 +1,4 @@
-import { NonEmptyArray } from '@mxvincent/core'
+import { NonEmptyArray, xor } from '@mxvincent/core'
 import {
 	ComparisonFilter,
 	Filter,
@@ -8,7 +8,7 @@ import {
 	Sort,
 	SortDirection
 } from '@mxvincent/query-params'
-import { clone, xor } from 'ramda'
+import { clone } from 'es-toolkit'
 import { ObjectLiteral, ObjectType, SelectQueryBuilder } from 'typeorm'
 import { applyFilters } from './filters/applyFilters'
 import { getPrimaryKeyColumns } from './helpers/primary-key'
@@ -51,7 +51,7 @@ export class Sorter<T extends ObjectLiteral> {
 	protected readonly sorts: NonEmptyArray<Sort>
 
 	/**
-	 * Create collection sorter
+	 * Create a collection sorter
 	 */
 	constructor(
 		protected entity: ObjectType<T>,
@@ -67,15 +67,15 @@ export class Sorter<T extends ObjectLiteral> {
 	}
 
 	/**
-	 * We need to clone provided query
-	 * Base query should only be filtered and parametrized
+	 * We need to clone the provided query
+	 * The base query should only be filtered and parametrized
 	 */
 	cloneInitialQuery() {
 		return clone(this[query])
 	}
 
 	/**
-	 * Apply sortableKeys parameters then query database without pagination
+	 * Apply sortableKeys parameters then query the database without pagination
 	 */
 	async getSortedCollection(): Promise<T[]> {
 		const query = this.cloneInitialQuery()
@@ -86,7 +86,7 @@ export class Sorter<T extends ObjectLiteral> {
 	/**
 	 * Apply sorts to the given query builder instance
 	 * SQLite null values are considered bigger than non-null values like PostgreSQL
-	 * We can invert sort order with second parameter to allow backward pagination
+	 * We can invert sort order with the second parameter to allow backward pagination
 	 */
 	protected applySorts(query: SelectQueryBuilder<T>, isBackwardPagination = false) {
 		for (const sort of this.sorts) {

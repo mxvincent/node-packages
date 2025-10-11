@@ -10,7 +10,7 @@ import { logger, serializers } from '@mxvincent/telemetry'
 import { randomInt } from 'crypto'
 import { PgTable } from 'drizzle-orm/pg-core'
 import { PgInsertValue } from 'drizzle-orm/pg-core/query-builders/insert'
-import { splitEvery, times } from 'ramda'
+import { chunk, times } from 'es-toolkit/compat'
 
 const reportPerformance = (mark: string, message: string, context: Record<string, unknown> = {}) => {
 	const time = new Date().toLocaleTimeString()
@@ -22,7 +22,7 @@ const insert = async <TableType extends PgTable, DataType extends PgInsertValue<
 	table: TableType,
 	values: DataType[]
 ) => {
-	await Promise.all(splitEvery(5_000, values).map((chunkValues) => database.insert(table).values(chunkValues)))
+	await Promise.all(chunk(values, 5_000).map((chunkValues) => database.insert(table).values(chunkValues)))
 	return values
 }
 
@@ -38,10 +38,10 @@ const populateOrganization = (data: { organizations: Organization[]; users: User
 			return user
 		}
 		return [
-			...times(() => 'owner', 1),
-			...times(() => 'admin', randomInt(0, 11)),
-			...times(() => 'reviewer', randomInt(0, 21)),
-			...times(() => 'developer', randomInt(0, 101))
+			...times(1, () => 'owner'),
+			...times(randomInt(0, 11), () => 'admin'),
+			...times(randomInt(0, 21), () => 'reviewer'),
+			...times(randomInt(0, 101), () => 'developer')
 		].map((role) => {
 			return factories.organizationMember({
 				organization,
@@ -67,16 +67,19 @@ const main = async () => {
 		organizations: new TextSequence('organization', await countRows(tables.organization))
 	}
 
-	const createUsers = times(() => factories.user({ username: sequences.users.next() }))
-	const createOrganizations = times(() => factories.organization({ name: sequences.organizations.next() }))
-
 	const seed = async (chunkId: number) => {
 		performance.mark(Mark.createUsers)
-		const users = await insert(tables.user, createUsers(10_000))
+		const users = await insert(
+			tables.user,
+			times(10_000, () => factories.user({ username: sequences.users.next() }))
+		)
 		reportPerformance(Mark.createUsers, `[#${chunkId}] ${users.length} users created`)
 
 		performance.mark(Mark.createOrganizations)
-		const organizations = await insert(tables.organization, createOrganizations(2_000))
+		const organizations = await insert(
+			tables.organization,
+			times(2_000, () => factories.organization({ name: sequences.organizations.next() }))
+		)
 		reportPerformance(Mark.createOrganizations, `[#${chunkId}] ${organizations.length} organizations created`)
 
 		performance.mark(Mark.createOrganizationMembers)

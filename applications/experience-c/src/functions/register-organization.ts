@@ -2,7 +2,7 @@ import { context } from '#/core/context'
 import { Organization } from '#/database/entities/Organization'
 import { factories } from '#/database/factories'
 import { logger } from '@mxvincent/telemetry'
-import { times } from 'ramda'
+import { times } from 'es-toolkit/compat'
 
 export interface RegisterOrganizationsArgs {
 	itemsCount: number
@@ -13,7 +13,7 @@ export async function registerOrganizations(parent: unknown, args: RegisterOrgan
 	let count = initialCount
 	await context.database.transaction(async (manager) => {
 		const batch = await manager.save(
-			times(() => factories.organization({ name: `${String(count++).padStart(10, '0')}` }), args.itemsCount),
+			times(args.itemsCount, () => factories.organization({ name: `${String(count++).padStart(10, '0')}` })),
 			{ chunk: 500 }
 		)
 		organizations.push(...batch)

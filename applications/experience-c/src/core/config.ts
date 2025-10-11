@@ -4,8 +4,8 @@ import * as server from '#/config/server'
 import { DeriveJsonType, Environment, getPackageRootPath, readJsonFileSync } from '@mxvincent/core'
 import { JsonSchemaValidationError, Static, TSchema, Type, validate } from '@mxvincent/json-schema'
 import { logger, serializers } from '@mxvincent/telemetry'
+import { merge } from 'es-toolkit'
 import process from 'node:process'
-import { mergeDeepRight } from 'ramda'
 
 const getConfigFilePath = (): string => {
 	if (process.env.CONFIG_FILE_PATH) {
@@ -22,7 +22,7 @@ const getConfigFilePath = (): string => {
 const loadConfig = <T extends TSchema>(schema: T, configFromEnv: DeriveJsonType<Static<T>>): Static<T> => {
 	try {
 		const configFromFile = readJsonFileSync(getConfigFilePath())
-		return validate(schema, mergeDeepRight(configFromFile, configFromEnv), {
+		return validate(schema, merge(configFromFile, configFromEnv), {
 			coerce: true
 		})
 	} catch (error) {

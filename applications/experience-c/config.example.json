@@ -3,7 +3,7 @@
 		"type": "postgres",
 		"host": "localhost",
 		"port": 5432,
-		"database": "node-packages",
+		"database": "test",
 		"username": "node-packages",
 		"password": "node-packages"
 	}

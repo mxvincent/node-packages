@@ -7,8 +7,8 @@ import { Alphabet, randomArrayItem, randomString } from '@mxvincent/core'
 import { logger } from '@mxvincent/telemetry'
 import { DataSource, EntityManager, ObjectType } from '@mxvincent/typeorm'
 import { randomInt } from 'crypto'
+import { range } from 'es-toolkit'
 import process from 'node:process'
-import { range } from 'ramda'
 
 const startingTime = Date.now()
 

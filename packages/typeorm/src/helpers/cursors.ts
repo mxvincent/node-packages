@@ -1,4 +1,4 @@
-import { isNil } from 'ramda'
+import { isNil } from 'es-toolkit'
 
 export type CursorRelativePosition = 'after' | 'before'
 

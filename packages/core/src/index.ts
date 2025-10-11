@@ -1,6 +1,7 @@
 export * from './array/random-array-item'
 export * from './array/is-in-array'
 export * from './array/as-array'
+export * from './array/sort'
 
 export * from './auth/errors'
 export * from './auth/jwt'
@@ -34,6 +35,8 @@ export * from './guards/number'
 export * from './guards/string'
 
 export * from './json/buffer'
+
+export * from './logical/xor'
 
 export * from './number/range'
 

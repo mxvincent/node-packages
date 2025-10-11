@@ -3,8 +3,8 @@ import { factories } from '#/database/factories.provider'
 import { useIsolatedDatabase } from '@jest/database'
 import { ListQueryParameter, Pagination } from '@mxvincent/query-params'
 import { In, Pager, ResourceNotFoundError } from '@mxvincent/typeorm'
+import { times } from 'es-toolkit/compat'
 import { randomUUID } from 'node:crypto'
-import { times } from 'ramda'
 import { Repository } from './repository.service'
 
 const database = useIsolatedDatabase()
@@ -22,7 +22,7 @@ describe('Repository.getGQLConnection()', () => {
 	test('should return 10 first users', async () => {
 		await database.manager.save(
 			User,
-			times(() => factories.user(), 20)
+			times(20, () => factories.user())
 		)
 		const connection = await repository.getConnection(new ListQueryParameter({ pagination: Pagination.forward(10) }))
 		expect(connection.edges).toHaveLength(10)
@@ -41,7 +41,7 @@ describe('Repository.getPage()', () => {
 	test('should return 10 first users', async () => {
 		await database.manager.save(
 			User,
-			times(() => factories.user(), 20)
+			times(20, () => factories.user())
 		)
 		const page = await repository.getPage(new ListQueryParameter({ pagination: Pagination.forward(10) }))
 		expect(page.data).toHaveLength(10)

@@ -11,7 +11,7 @@ import {
 	NullComparisonFilter,
 	ValueComparisonFilter
 } from '@mxvincent/query-params'
-import { is } from 'ramda'
+import { isString } from 'es-toolkit'
 import { QueryStringParameterValidationError } from '../shared/errors'
 import { decodeFilterOperator } from './shared'
 
@@ -24,7 +24,7 @@ import { decodeFilterOperator } from './shared'
  *   - Or(Filter.equal(b,b),Filter.equal(c,c))
  */
 export const parseLogicalFilterParameters = (input: string): string[] => {
-	if (!is(String, input)) {
+	if (!isString(input)) {
 		throw new TypeError(`input should be a string`)
 	}
 	const result: string[] = []
@@ -92,14 +92,14 @@ const parseFilter = (filterString: string, decode = base64Decode): ComparisonFil
 }
 
 /**
- * Extract filter params from parsed query string
+ * Extract filter params from a parsed query string
  */
 export const parse = (filters: string[] | string, decode = decodeURIComponent): Filter[] => {
-	if (is(String, filters)) {
+	if (isString(filters)) {
 		return [parseFilter(filters, decode)]
 	}
-	if (is(Array, filters)) {
-		return filters.filter(is(String)).map((filter) => parseFilter(filter, decode))
+	if (Array.isArray(filters)) {
+		return filters.filter(isString).map((filter) => parseFilter(filter, decode))
 	}
 	return []
 }
