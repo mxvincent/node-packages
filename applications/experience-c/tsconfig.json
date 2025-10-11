@@ -1,0 +1,17 @@
+{
+	"extends": "@mxvincent/tsconfig/commonjs.json",
+	"include": ["src"],
+	"exclude": ["*.test.ts", "*.stub.ts", "node_modules"],
+	"compilerOptions": {
+		"rootDir": "./src",
+		"baseUrl": "./src",
+		"outDir": "./dist",
+		"paths": {
+			"#/*": ["./*"],
+			"#/jest/*": ["./@jest/*"]
+		},
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+	},
+
+}

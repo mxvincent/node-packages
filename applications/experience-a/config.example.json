@@ -1,0 +1,11 @@
+{
+	"database": {
+		"type": "postgres",
+		"host": "localhost",
+		"port": 5432,
+		"database": "application",
+		"schema": "experience_a",
+		"username": "mxvincent",
+		"password": "mxvincent"
+	}
+}

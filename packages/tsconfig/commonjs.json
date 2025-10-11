@@ -1,0 +1,21 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"display": "Typescript base config for node v22 package",
+	"compilerOptions": {
+		"target": "ES2023",
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"composite": true,
+		"types": ["jest", "node"],
+		"sourceMap": true,
+		"declaration": true,
+		"declarationMap": true,
+		"lib": ["ESNext", "dom"]
+	}
+}

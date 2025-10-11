@@ -1,0 +1,19 @@
+{
+	"name": "@action/docker-build-dispacth",
+	"version": "1.0.0",
+	"private": true,
+	"main": "dist/action.js",
+	"scripts": {
+		"build:swc": "swc ./src -d ./dist --strip-leading-paths",
+		"build": "pnpm build:swc && ncc build  -o .",
+		"clean": "rm -rf ./{dist,index.js}"
+	},
+	"dependencies": {
+		"@actions/core": "^1.11.1",
+		"@actions/github": "^6.0.1"
+	},
+	"devDependencies": {
+		"@types/node": "^22.17.1",
+		"@vercel/ncc": "^0.38.3"
+	}
+}

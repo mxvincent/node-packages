@@ -1,0 +1,20 @@
+{
+  "$schema": "https://swc.rs/schema.json",
+  "module": {
+    "type": "commonjs"
+  },
+  "jsc": {
+    "baseUrl": "./src",
+    "parser": {
+      "syntax": "typescript"
+    },
+    "paths": {
+      "#/*": [
+        "./*"
+      ],
+      "#/jest/*": [
+        "./@jest/*"
+      ]
+    }
+  }
+}
