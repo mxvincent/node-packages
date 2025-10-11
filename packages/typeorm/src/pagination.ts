@@ -1,4 +1,4 @@
-import { base64Decode, base64Encode, sha1 } from '@mxvincent/core'
+import { base64Decode, base64Encode, sha1, xor } from '@mxvincent/core'
 import {
 	createEmptyPage,
 	GQLConnection,
@@ -11,7 +11,7 @@ import {
 	SortDirection
 } from '@mxvincent/query-params'
 import { logger } from '@mxvincent/telemetry'
-import { aperture, head, last, xor } from 'ramda'
+import { head, last, windowed } from 'es-toolkit'
 import invariant from 'tiny-invariant'
 import { Brackets, ObjectLiteral, SelectQueryBuilder, WhereExpressionBuilder } from 'typeorm'
 import { CursorRelativePosition, parseCursorValue, serializeCursorValue } from './helpers/cursors'
@@ -169,7 +169,7 @@ export class Pager<T extends ObjectLiteral> extends Sorter<T> {
 		query.andWhere(
 			new Brackets((qb) => {
 				qb.where(whereGreaterOrLower(firstSort))
-				const sortPairs: [Sort, Sort][] = aperture(2, this.sorts)
+				const sortPairs = windowed(this.sorts, 2) as [Sort, Sort][]
 				if (sortPairs.length) {
 					sortPairs.reduce(applyNextPairConstraint, qb)
 				}

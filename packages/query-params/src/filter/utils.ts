@@ -1,4 +1,4 @@
-import { uniq } from 'ramda'
+import { uniq } from 'es-toolkit'
 import { ComparisonFilter, Filter, LogicalFilter } from './filters'
 import { isComparisonFilter, isLogicalFilter } from './guards'
 

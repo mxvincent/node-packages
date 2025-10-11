@@ -1,14 +1,25 @@
 import { invariant, KeyOf } from '@mxvincent/core'
 import { Sort, SortDirection } from '@mxvincent/query-params'
-import { ascend, descend, prop, sortWith } from 'ramda'
+import { orderBy } from 'es-toolkit'
 
-// TODO: remove any cast
-const mapSortFunction = <T extends object>({ direction, path }: Sort<KeyOf<T>>) => {
-	return direction === SortDirection.ASC ? ascend(prop(path) as never) : descend(prop(path) as never)
-}
+// export function sortArrayWith<T extends object>(sorts: Sort<KeyOf<T>>[], array: T[]) {
+// 	const result = [...array]
+// 	for (const { direction, path } of sorts) {
+// 		const pick = (o: T) => o[path]
+// 		const sort = direction === 'ASC' ? ascending : descending
+// 		result.sort((a, b) => sort(pick(a), pick(b)))
+// 	}
+// 	return result
+// }
 
-export const sortArrayWith = <T extends object>(sorts: Sort<KeyOf<T>>[], list: T[]): T[] => {
-	return sortWith(sorts.map(mapSortFunction), list)
+export function sortArrayWith<T extends object>(sorts: Sort<KeyOf<T>>[], array: T[]) {
+	const paths: KeyOf<T>[] = []
+	const orders: ('asc' | 'desc')[] = []
+	for (const { direction, path } of sorts) {
+		paths.push(path)
+		orders.push(direction === SortDirection.ASC ? 'asc' : 'desc')
+	}
+	return orderBy(array, paths, orders)
 }
 
 export type Slice<T> = {

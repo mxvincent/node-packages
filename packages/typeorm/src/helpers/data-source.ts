@@ -1,6 +1,5 @@
 import { isString, TeardownFunction, withTimeout } from '@mxvincent/core'
 import { Logger, logger } from '@mxvincent/telemetry'
-import { pick } from 'ramda'
 import { DataSource } from 'typeorm'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { PinoLoggerAdapter } from '../adapters/logger'
@@ -87,6 +86,16 @@ export const createPostgresDataSource = (options: CreatePostgresDataSourceOption
 	})
 }
 
+const pickDataSourceProperties = (dataSource: PostgresDatabaseSource) => {
+	return {
+		database: dataSource.options.database,
+		username: dataSource.options.username,
+		host: dataSource.options.host,
+		port: dataSource.options.port,
+		type: dataSource.options.type
+	}
+}
+
 /**
  * Initialize DataSource
  */
@@ -101,7 +110,7 @@ export const initializeDataSource = async (
 	if (dataSource.isInitialized) {
 		logger.warn(
 			{
-				context: pick(['database', 'username', 'host', 'port', 'type'], dataSource.options)
+				context: pickDataSourceProperties(dataSource)
 			},
 			`DataSource is already initialized.`
 		)
@@ -145,7 +154,7 @@ export const initializeDataSource = async (
 
 	logger.info(
 		{
-			dataSource: pick(['database', 'username', 'host', 'port', 'type'], dataSource.options)
+			context: pickDataSourceProperties(dataSource)
 		},
 		`DataSource initialized.`
 	)
@@ -162,7 +171,7 @@ export const teardownDataSource = async (dataSource: PostgresDatabaseSource, tim
 	}
 	logger.info(
 		{
-			dataSource: pick(['database', 'username', 'host', 'port', 'type'], dataSource.options)
+			context: pickDataSourceProperties(dataSource)
 		},
 		`Close all database connections`
 	)

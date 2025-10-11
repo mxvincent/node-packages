@@ -1,5 +1,5 @@
 import { Sort } from '@mxvincent/query-params'
-import { is } from 'ramda'
+import { isString } from 'es-toolkit'
 import { decodeSortDirection } from './shared'
 
 /**
@@ -17,10 +17,10 @@ export const parseSorts = (sorts: string | string[], getFirstOnly?: boolean): So
 			}
 		}
 	}
-	if (is(String, sorts)) {
+	if (isString(sorts)) {
 		addSortParam(sorts)
-	} else if (is(Array, sorts)) {
-		for (const str of sorts.filter(is(String))) {
+	} else if (Array.isArray(sorts)) {
+		for (const str of sorts.filter(isString)) {
 			addSortParam(str)
 			if (getFirstOnly) {
 				break

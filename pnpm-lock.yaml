@@ -61,8 +61,8 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       turbo:
-        specifier: ^2.5.5
-        version: 2.5.5
+        specifier: ^2.5.8
+        version: 2.5.8
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -127,6 +127,9 @@ importers:
       class-validator:
         specifier: ^0.14.2
         version: 0.14.2
+      es-toolkit:
+        specifier: ^1.40.0
+        version: 1.40.0
       graphql:
         specifier: ^16.11.0
         version: 16.11.0
@@ -139,9 +142,6 @@ importers:
       pg:
         specifier: ^8.16.3
         version: 8.16.3
-      ramda:
-        specifier: ^0.30.1
-        version: 0.30.1
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -164,9 +164,6 @@ importers:
       '@types/graphql-fields':
         specifier: ^1.3.9
         version: 1.3.9
-      '@types/ramda':
-        specifier: ^0.30.2
-        version: 0.30.2
 
   applications/experience-b:
     dependencies:
@@ -209,6 +206,9 @@ importers:
       drizzle-orm:
         specifier: ^0.38.4
         version: 0.38.4(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(pg@8.16.3)(postgres@3.4.7)
+      es-toolkit:
+        specifier: ^1.40.0
+        version: 1.40.0
       fastify:
         specifier: ^5.4.0
         version: 5.4.0
@@ -221,9 +221,6 @@ importers:
       postgres:
         specifier: ^3.4.7
         version: 3.4.7
-      ramda:
-        specifier: ^0.30.1
-        version: 0.30.1
     devDependencies:
       '@mxvincent/tsconfig':
         specifier: workspace:*
@@ -231,9 +228,6 @@ importers:
       '@types/lodash':
         specifier: ^4.17.20
         version: 4.17.20
-      '@types/ramda':
-        specifier: ^0.30.2
-        version: 0.30.2
       drizzle-kit:
         specifier: ^0.30.6
         version: 0.30.6
@@ -261,6 +255,9 @@ importers:
       '@mxvincent/typeorm':
         specifier: workspace:*
         version: link:../../packages/typeorm
+      es-toolkit:
+        specifier: ^1.40.0
+        version: 1.40.0
       graphql:
         specifier: ^16.11.0
         version: 16.11.0
@@ -270,9 +267,6 @@ importers:
       pg:
         specifier: ^8.16.3
         version: 8.16.3
-      ramda:
-        specifier: ^0.30.1
-        version: 0.30.1
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -292,9 +286,6 @@ importers:
       '@types/graphql-fields':
         specifier: ^1.3.9
         version: 1.3.9
-      '@types/ramda':
-        specifier: ^0.30.2
-        version: 0.30.2
 
   kubernetes:
     devDependencies:
@@ -334,9 +325,6 @@ importers:
       jwks-rsa:
         specifier: ^3.2.0
         version: 3.2.0
-      ramda:
-        specifier: ^0.30.1
-        version: 0.30.1
       uuid:
         specifier: ^11.1.0
         version: 11.1.0
@@ -350,9 +338,6 @@ importers:
       '@types/node-jose':
         specifier: ^1.1.13
         version: 1.1.13
-      '@types/ramda':
-        specifier: ^0.30.2
-        version: 0.30.2
       '@types/uuid':
         specifier: ^10.0.0
         version: 10.0.0
@@ -377,29 +362,23 @@ importers:
       ajv-formats:
         specifier: ^3.0.1
         version: 3.0.1(ajv@8.17.1)
-      ramda:
-        specifier: ^0.30.1
-        version: 0.30.1
+      es-toolkit:
+        specifier: ^1.40.0
+        version: 1.40.0
     devDependencies:
       '@mxvincent/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@types/ramda':
-        specifier: ^0.30.2
-        version: 0.30.2
 
   packages/query-params:
     dependencies:
-      ramda:
-        specifier: ^0.30.1
-        version: 0.30.1
+      es-toolkit:
+        specifier: ^1.40.0
+        version: 1.40.0
     devDependencies:
       '@mxvincent/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@types/ramda':
-        specifier: ^0.30.2
-        version: 0.30.2
 
   packages/query-params-serializer:
     dependencies:
@@ -412,16 +391,13 @@ importers:
       '@mxvincent/query-params':
         specifier: workspace:*
         version: link:../query-params
-      ramda:
-        specifier: ^0.30.1
-        version: 0.30.1
+      es-toolkit:
+        specifier: ^1.40.0
+        version: 1.40.0
     devDependencies:
       '@mxvincent/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@types/ramda':
-        specifier: ^0.30.2
-        version: 0.30.2
 
   packages/telemetry:
     dependencies:
@@ -521,12 +497,12 @@ importers:
       '@mxvincent/telemetry':
         specifier: workspace:*
         version: link:../telemetry
+      es-toolkit:
+        specifier: ^1.40.0
+        version: 1.40.0
       pg:
         specifier: ^8.11.0
         version: 8.16.3
-      ramda:
-        specifier: ^0.30.1
-        version: 0.30.1
       tiny-invariant:
         specifier: ^1.3.3
         version: 1.3.3
@@ -537,9 +513,6 @@ importers:
       '@mxvincent/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@types/ramda':
-        specifier: 0.30.2
-        version: 0.30.2
 
 packages:
 
@@ -3452,6 +3425,9 @@ packages:
     resolution: {integrity: sha512-w+5mJ3GuFL+NjVtJlvydShqE1eN3h3PbI7/5LAsYJP/2qtuMXjfL2LpHSRqo4b4eSF5K/DH1JXKUAHSB2UW50g==}
     engines: {node: '>= 0.4'}
 
+  es-toolkit@1.40.0:
+    resolution: {integrity: sha512-8o6w0KFmU0CiIl0/Q/BCEOabF2IJaELM1T2PWj6e8KqzHv1gdx+7JtFnDwOx1kJH/isJ5NwlDG1nCr1HrRF94Q==}
+
   esbuild-register@3.6.0:
     resolution: {integrity: sha512-H2/S7Pm8a9CL1uhp9OvjwrBh5Pvx0H8qVOxNu8Wed9Y7qv56MPtq+GGM8RJpq6glYJn9Wspr8uw7l55uyinNeg==}
     peerDependencies:
@@ -5708,38 +5684,38 @@ packages:
     resolution: {integrity: sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg==}
     engines: {node: '>=0.6.11 <=0.7.0 || >=0.7.3'}
 
-  turbo-darwin-64@2.5.5:
-    resolution: {integrity: sha512-RYnTz49u4F5tDD2SUwwtlynABNBAfbyT2uU/brJcyh5k6lDLyNfYKdKmqd3K2ls4AaiALWrFKVSBsiVwhdFNzQ==}
+  turbo-darwin-64@2.5.8:
+    resolution: {integrity: sha512-Dh5bCACiHO8rUXZLpKw+m3FiHtAp2CkanSyJre+SInEvEr5kIxjGvCK/8MFX8SFRjQuhjtvpIvYYZJB4AGCxNQ==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.5.5:
-    resolution: {integrity: sha512-Tk+ZeSNdBobZiMw9aFypQt0DlLsWSFWu1ymqsAdJLuPoAH05qCfYtRxE1pJuYHcJB5pqI+/HOxtJoQ40726Btw==}
+  turbo-darwin-arm64@2.5.8:
+    resolution: {integrity: sha512-f1H/tQC9px7+hmXn6Kx/w8Jd/FneIUnvLlcI/7RGHunxfOkKJKvsoiNzySkoHQ8uq1pJnhJ0xNGTlYM48ZaJOQ==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.5.5:
-    resolution: {integrity: sha512-2/XvMGykD7VgsvWesZZYIIVXMlgBcQy+ZAryjugoTcvJv8TZzSU/B1nShcA7IAjZ0q7OsZ45uP2cOb8EgKT30w==}
+  turbo-linux-64@2.5.8:
+    resolution: {integrity: sha512-hMyvc7w7yadBlZBGl/bnR6O+dJTx3XkTeyTTH4zEjERO6ChEs0SrN8jTFj1lueNXKIHh1SnALmy6VctKMGnWfw==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.5.5:
-    resolution: {integrity: sha512-DW+8CjCjybu0d7TFm9dovTTVg1VRnlkZ1rceO4zqsaLrit3DgHnN4to4uwyuf9s2V/BwS3IYcRy+HG9BL596Iw==}
+  turbo-linux-arm64@2.5.8:
+    resolution: {integrity: sha512-LQELGa7bAqV2f+3rTMRPnj5G/OHAe2U+0N9BwsZvfMvHSUbsQ3bBMWdSQaYNicok7wOZcHjz2TkESn1hYK6xIQ==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.5.5:
-    resolution: {integrity: sha512-q5p1BOy8ChtSZfULuF1BhFMYIx6bevXu4fJ+TE/hyNfyHJIfjl90Z6jWdqAlyaFLmn99X/uw+7d6T/Y/dr5JwQ==}
+  turbo-windows-64@2.5.8:
+    resolution: {integrity: sha512-3YdcaW34TrN1AWwqgYL9gUqmZsMT4T7g8Y5Azz+uwwEJW+4sgcJkIi9pYFyU4ZBSjBvkfuPZkGgfStir5BBDJQ==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.5.5:
-    resolution: {integrity: sha512-AXbF1KmpHUq3PKQwddMGoKMYhHsy5t1YBQO8HZ04HLMR0rWv9adYlQ8kaeQJTko1Ay1anOBFTqaxfVOOsu7+1Q==}
+  turbo-windows-arm64@2.5.8:
+    resolution: {integrity: sha512-eFC5XzLmgXJfnAK3UMTmVECCwuBcORrWdewoiXBnUm934DY6QN8YowC/srhNnROMpaKaqNeRpoB5FxCww3eteQ==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.5.5:
-    resolution: {integrity: sha512-eZ7wI6KjtT1eBqCnh2JPXWNUAxtoxxfi6VdBdZFvil0ychCOTxbm7YLRBi1JSt7U3c+u3CLxpoPxLdvr/Npr3A==}
+  turbo@2.5.8:
+    resolution: {integrity: sha512-5c9Fdsr9qfpT3hA0EyYSFRZj1dVVsb6KIWubA9JBYZ/9ZEAijgUEae0BBR/Xl/wekt4w65/lYLTFaP3JmwSO8w==}
     hasBin: true
 
   type-check@0.4.0:
@@ -9348,6 +9324,8 @@ snapshots:
       is-date-object: 1.1.0
       is-symbol: 1.1.1
 
+  es-toolkit@1.40.0: {}
+
   esbuild-register@3.6.0(esbuild@0.19.12):
     dependencies:
       debug: 4.4.1
@@ -12070,32 +12048,32 @@ snapshots:
 
   tunnel@0.0.6: {}
 
-  turbo-darwin-64@2.5.5:
+  turbo-darwin-64@2.5.8:
     optional: true
 
-  turbo-darwin-arm64@2.5.5:
+  turbo-darwin-arm64@2.5.8:
     optional: true
 
-  turbo-linux-64@2.5.5:
+  turbo-linux-64@2.5.8:
     optional: true
 
-  turbo-linux-arm64@2.5.5:
+  turbo-linux-arm64@2.5.8:
     optional: true
 
-  turbo-windows-64@2.5.5:
+  turbo-windows-64@2.5.8:
     optional: true
 
-  turbo-windows-arm64@2.5.5:
+  turbo-windows-arm64@2.5.8:
     optional: true
 
-  turbo@2.5.5:
+  turbo@2.5.8:
     optionalDependencies:
-      turbo-darwin-64: 2.5.5
-      turbo-darwin-arm64: 2.5.5
-      turbo-linux-64: 2.5.5
-      turbo-linux-arm64: 2.5.5
-      turbo-windows-64: 2.5.5
-      turbo-windows-arm64: 2.5.5
+      turbo-darwin-64: 2.5.8
+      turbo-darwin-arm64: 2.5.8
+      turbo-linux-64: 2.5.8
+      turbo-linux-arm64: 2.5.8
+      turbo-windows-64: 2.5.8
+      turbo-windows-arm64: 2.5.8
 
   type-check@0.4.0:
     dependencies:

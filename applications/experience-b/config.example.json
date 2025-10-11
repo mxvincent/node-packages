@@ -8,7 +8,7 @@
 		"type": "postgres",
 		"host": "127.0.0.1",
 		"port": 5432,
-		"database": "experience-b",
+		"database": "test",
 		"username": "node-packages",
 		"password": "node-packages"
 	},

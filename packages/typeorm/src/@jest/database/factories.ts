@@ -1,8 +1,7 @@
 import { randomUUID } from 'crypto'
-import { range } from 'ramda'
+import { range } from 'es-toolkit'
 import { hydrate } from '../../helpers/hydrate'
 import { Author, DateContainer, Gender } from './entities'
-
 
 const startingDate = new Date('2020-01-01T00:00:00Z')
 const addSeconds = (date: Date, n: number): Date => new Date(date.getTime() + n * 1000)

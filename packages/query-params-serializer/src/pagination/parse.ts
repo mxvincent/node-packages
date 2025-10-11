@@ -1,5 +1,5 @@
 import { Pagination } from '@mxvincent/query-params'
-import { is } from 'ramda'
+import { isString } from 'es-toolkit'
 import { QueryStringRecord } from '../types/QueryStringRecord'
 
 type PaginationParameter = 'after' | 'before' | 'first'
@@ -9,7 +9,7 @@ const normalizePaginationParameters = (
 ): Record<PaginationParameter, string | null> => {
 	const normalizeValue = (key: PaginationParameter) => {
 		const value = queryStringRecord[key]
-		return is(Array, value) ? value[0] : (value ?? null)
+		return Array.isArray(value) ? value[0] : (value ?? null)
 	}
 	return {
 		after: normalizeValue('after'),
@@ -25,7 +25,7 @@ export const parsePagination = (
 	}
 ): Pagination => {
 	const { after, before, first } = normalizePaginationParameters(queryStringRecord)
-	const itemsPerPage = is(String)(first)
+	const itemsPerPage = isString(first)
 		? Number(first)
 		: options?.defaultPageSize
 			? options.defaultPageSize

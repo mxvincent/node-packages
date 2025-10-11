@@ -1,4 +1,4 @@
-import { isNil } from 'ramda'
+import { isNil } from 'es-toolkit'
 
 export function stringToDate(value: string): Date
 export function stringToDate(value?: string): Date | undefined

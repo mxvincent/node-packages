@@ -1,9 +1,9 @@
 import { ColumnMapping } from '#/database/helpers'
-import { base64Decode, base64Encode, invariant } from '@mxvincent/core'
+import { base64Decode, base64Encode, invariant, xor } from '@mxvincent/core'
 import { Page, Pagination, Sort, SortDirection } from '@mxvincent/query-params'
 import { and, asc, desc, eq, gt, lt, or, SQL } from 'drizzle-orm'
 import { PgColumn } from 'drizzle-orm/pg-core'
-import { aperture, pick, xor } from 'ramda'
+import { pick, windowed } from 'es-toolkit'
 
 export class CursorColumn<Alias = string> {
 	alias: Alias
@@ -53,8 +53,8 @@ export class PaginationManager<T extends readonly CursorColumn[]> {
 		return base64Encode(
 			JSON.stringify(
 				pick(
-					this.columns.map((column) => column.alias),
-					values
+					values,
+					this.columns.map((column) => column.alias)
 				)
 			)
 		)
@@ -89,7 +89,7 @@ export class PaginationManager<T extends readonly CursorColumn[]> {
 				: gt(column, getValue(alias))
 		}
 		const conditions: SQL[] = [getCondition(invariant(this.columns[0]))]
-		for (const [previous, current] of aperture(2, this.columns)) {
+		for (const [previous, current] of windowed(this.columns, 2)) {
 			const condition = and(eq(previous.column, getValue(previous.alias)), getCondition(current))
 			if (condition) {
 				conditions.push(condition)
