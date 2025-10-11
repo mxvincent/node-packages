@@ -1,6 +1,6 @@
 {
   "name": "@mxvincent/query-params",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "main": "./dist/index.js",
   "types": "./src/index.ts",
@@ -18,11 +18,9 @@
     "check:tsc-watch": "tsc --noEmit --watch",
     "test:all": "jest"
   },
-
-
   "dependencies": {
-		"es-toolkit": "^1.40.0"
-	},
+    "es-toolkit": "^1.40.0"
+  },
   "devDependencies": {
     "@mxvincent/tsconfig": "workspace:*"
   }
