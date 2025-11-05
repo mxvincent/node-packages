@@ -1,21 +1,10 @@
 import { Pagination } from '@mxvincent/query-params'
 import { isString } from 'es-toolkit'
-import { QueryStringRecord } from '../types/QueryStringRecord'
+import { QueryStringRecord } from '../types/query-string'
 
-type PaginationParameter = 'after' | 'before' | 'first'
-
-const normalizePaginationParameters = (
-	queryStringRecord: QueryStringRecord
-): Record<PaginationParameter, string | null> => {
-	const normalizeValue = (key: PaginationParameter) => {
-		const value = queryStringRecord[key]
-		return Array.isArray(value) ? value[0] : (value ?? null)
-	}
-	return {
-		after: normalizeValue('after'),
-		before: normalizeValue('before'),
-		first: normalizeValue('first')
-	}
+const normalizeValue = (value?: string | string[]): string | undefined => {
+	const unwrappedValue = Array.isArray(value) ? value[0] : value
+	return isString(unwrappedValue) && unwrappedValue.length > 0 ? unwrappedValue : undefined
 }
 
 export const parsePagination = (
@@ -24,17 +13,12 @@ export const parsePagination = (
 		defaultPageSize?: number
 	}
 ): Pagination => {
-	const { after, before, first } = normalizePaginationParameters(queryStringRecord)
-	const itemsPerPage = isString(first)
-		? Number(first)
+	const take = normalizeValue(queryStringRecord['take'])
+	const after = normalizeValue(queryStringRecord['after'])
+	const itemsPerPage = isString(take)
+		? Number(take)
 		: options?.defaultPageSize
 			? options.defaultPageSize
 			: Pagination.DEFAULT_PAGE_SIZE
-	if (after) {
-		return Pagination.forward(itemsPerPage, after)
-	}
-	if (before) {
-		return Pagination.backward(itemsPerPage, before)
-	}
-	return Pagination.forward(itemsPerPage)
+	return Pagination.take(itemsPerPage, after)
 }

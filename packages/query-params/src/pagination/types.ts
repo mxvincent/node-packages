@@ -1,26 +1,17 @@
-export interface PageCursors {
-	startCursor: string | null
-	endCursor: string | null
-}
-
-export interface PageInfo extends PageCursors {
-	hasPrevPage: boolean
+export interface PageInfo {
+	pageSize: number
+	itemsCount: number
+	cursor: string | null
 	hasNextPage: boolean
 }
 
-export interface Page<T> {
-	data: T[]
-	totalCount: number | null
-	pageInfo: PageInfo
-}
-
-export interface GQLEdge<T> {
-	cursor: string | null
+export interface PageEdge<T> {
+	cursor: string
 	node: T
 }
 
-export interface GQLConnection<T> {
-	edges: GQLEdge<T>[]
+export interface Page<T> {
+	edges: PageEdge<T>[]
 	pageInfo: PageInfo
 	totalCount: number | null
 }

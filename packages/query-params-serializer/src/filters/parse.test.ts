@@ -1,5 +1,5 @@
 import { ComparisonFilter, LogicalFilter } from '@mxvincent/query-params'
-import { parse, parseLogicalFilterParameters } from './parse'
+import { parseFilters, parseLogicalFilterParameters } from './parse'
 
 describe('parseLogicalFilterParameters()', () => {
 	test('should split top level operators as string array', () => {
@@ -41,7 +41,7 @@ describe('should parse comparison filter', () => {
 			filters: [ComparisonFilter.notNull('date')]
 		}
 	])('$queryString', ({ queryStringParameter, filters }) => {
-		expect(parse(queryStringParameter)).toStrictEqual(filters)
+		expect(parseFilters(queryStringParameter)).toStrictEqual(filters)
 	})
 })
 
@@ -57,7 +57,7 @@ describe('should parse logical filters', () => {
 			filters: [LogicalFilter.and(nestedFilters)]
 		}
 	])('$queryString', ({ queryStringParameter, filters }) => {
-		expect(parse(queryStringParameter)).toStrictEqual(filters)
+		expect(parseFilters(queryStringParameter)).toStrictEqual(filters)
 	})
 })
 
@@ -72,20 +72,25 @@ describe('should accept empty string as filter value', () => {
 			filters: [ComparisonFilter.in('id', [''])]
 		}
 	])('$queryString', ({ queryStringParameter, filters }) => {
-		expect(parse(queryStringParameter)).toStrictEqual(filters)
+		expect(parseFilters(queryStringParameter)).toStrictEqual(filters)
 	})
 })
 
 test('should merge filters from query string', () => {
-	expect(parse(['equal(a,a)', 'notEqual(b,b)', 'or(equal(c,c),greaterThanOrEqual(d,d))'])).toStrictEqual([
+	expect(
+		parseFilters(['equal(a,a)', 'notEqual(b,b)', 'or(equal(c,c),greaterThanOrEqual(d,d))'])
+	).toStrictEqual([
 		ComparisonFilter.equal('a', 'a'),
 		ComparisonFilter.notEqual('b', 'b'),
-		LogicalFilter.or([ComparisonFilter.equal('c', 'c'), ComparisonFilter.greaterThanOrEqual('d', 'd')])
+		LogicalFilter.or([
+			ComparisonFilter.equal('c', 'c'),
+			ComparisonFilter.greaterThanOrEqual('d', 'd')
+		])
 	])
 })
 
 test('should parse nested logical filters', () => {
-	expect(parse('and(equal(a,a),or(equal(b,b),in(c,c,c)))')).toStrictEqual([
+	expect(parseFilters('and(equal(a,a),or(equal(b,b),in(c,c,c)))')).toStrictEqual([
 		LogicalFilter.and([
 			ComparisonFilter.equal('a', 'a'),
 			LogicalFilter.or([ComparisonFilter.equal('b', 'b'), ComparisonFilter.in('c', ['c', 'c'])])
@@ -98,6 +103,6 @@ describe('should decode filter values', () => {
 		{ filter: ComparisonFilter.equal('a', 'va,l'), serializedFilter: 'equal(a,va%2Cl)' },
 		{ filter: ComparisonFilter.in('a', ['val', 'va,l']), serializedFilter: 'in(a,val,va%2Cl)' }
 	])('$serializedFilter', async ({ filter, serializedFilter }) => {
-		expect(parse([serializedFilter])).toStrictEqual([filter])
+		expect(parseFilters([serializedFilter])).toStrictEqual([filter])
 	})
 })

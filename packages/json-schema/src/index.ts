@@ -10,7 +10,7 @@ export * from './validation/validate'
  */
 export { Schema } from './builder'
 export { Value } from '@sinclair/typebox/value'
-export { Static } from '@sinclair/typebox'
+export type { Static } from '@sinclair/typebox'
 
 /**
  * Errors

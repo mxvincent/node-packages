@@ -1,4 +1,4 @@
-import { JsonObject } from '../types/json'
+import { JsonObject } from '../json/types'
 
 type RemoveUndefined<T> = T extends object
 	? {
@@ -7,6 +7,9 @@ type RemoveUndefined<T> = T extends object
 	: T
 
 export const removeUndefined = <T extends object>(obj: T): RemoveUndefined<T> => {
+	if (typeof obj !== 'object') {
+		throw new TypeError('Expected an object')
+	}
 	if (obj === null) {
 		return obj as RemoveUndefined<T>
 	}

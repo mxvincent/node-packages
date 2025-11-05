@@ -1,7 +1,7 @@
 import Ajv, { Options } from 'ajv'
 import addFormats from 'ajv-formats'
 
-export { ErrorObject } from 'ajv'
+export type { ErrorObject } from 'ajv'
 
 const DEFAULT_OPTIONS: Options = {
 	allErrors: true,

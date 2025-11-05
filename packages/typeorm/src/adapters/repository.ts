@@ -1,12 +1,13 @@
+import { Resource } from '@mxvincent/core'
 import { ListQueryParameter, Page } from '@mxvincent/query-params'
 import { DeepPartial, FindManyOptions, FindOptionsWhere, ObjectLiteral, ObjectType } from 'typeorm'
-import { ResourceNotFoundError } from '../errors/ResourceNotFoundError'
+import { TypeormResourceNotFoundError } from '../errors/resource-not-found'
 import { getPrimaryKeyColumns } from '../helpers/primary-key'
 import { Pager } from '../pagination'
 import { FindResourceOptions } from '../types/FindResourceOptions'
 import { TypeormDatabaseContext } from './context'
 
-export class TypeormRepository<T extends ObjectLiteral> {
+export class TypeormRepository<T extends ObjectLiteral & Resource> {
 	readonly context: TypeormDatabaseContext
 	readonly entity: ObjectType<T>
 
@@ -21,7 +22,7 @@ export class TypeormRepository<T extends ObjectLiteral> {
 		}, {})
 	}
 
-	async getPage({ filters, sorts, pagination }: ListQueryParameter): Promise<Page<T>> {
+	async getPage({ filters, sorts, pagination }: ListQueryParameter<T>): Promise<Page<T>> {
 		const query = this.context.manager.createQueryBuilder(this.entity, 'root')
 		const pager = new Pager(this.entity, { query, filters, sorts })
 		return await pager.getPage(pagination)
@@ -40,7 +41,7 @@ export class TypeormRepository<T extends ObjectLiteral> {
 		if (resource) {
 			return resource
 		}
-		throw ResourceNotFoundError.fromWhereOptions(this.context.manager.connection, this.entity, where)
+		throw TypeormResourceNotFoundError.fromWhereOptions(this.context.dataSource, this.entity, where)
 	}
 
 	async create(payload: Partial<T>): Promise<T> {
@@ -54,7 +55,7 @@ export class TypeormRepository<T extends ObjectLiteral> {
 		const where = this.getPrimaryKey(record)
 		const { affected } = await this.context.manager.update(this.entity, where, changes)
 		if (!affected) {
-			throw ResourceNotFoundError.fromWhereOptions(this.context.manager.connection, this.entity, where)
+			throw TypeormResourceNotFoundError.fromWhereOptions(this.context.dataSource, this.entity, where)
 		}
 		Object.assign(record, changes)
 		return record
@@ -64,7 +65,7 @@ export class TypeormRepository<T extends ObjectLiteral> {
 		const where = this.getPrimaryKey(record)
 		const { affected } = await this.context.manager.delete(this.entity, where)
 		if (!affected) {
-			throw ResourceNotFoundError.fromWhereOptions(this.context.manager.connection, this.entity, where)
+			throw TypeormResourceNotFoundError.fromWhereOptions(this.context.manager.connection, this.entity, where)
 		}
 		return record
 	}

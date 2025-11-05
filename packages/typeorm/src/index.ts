@@ -4,7 +4,6 @@
 export * from './types/PostgresErrorCode'
 export * from './types/PostgresConfig'
 export * from './types/FindResourceOptions'
-export * from './types/ArrayNodePosition'
 
 /**
  * Filter
@@ -32,7 +31,7 @@ export * from './adapters/repository'
 /**
  * Errors
  */
-export * from './errors/ResourceNotFoundError'
+export * from './errors/resource-not-found'
 
 /**
  * Helpers
@@ -47,4 +46,3 @@ export * from './helpers/hydrate'
 export * from './helpers/migrations'
 export { transformers } from './helpers/transformers'
 export * from 'typeorm'
-export { IsolationLevel } from 'typeorm/driver/types/IsolationLevel'

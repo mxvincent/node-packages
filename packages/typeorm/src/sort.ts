@@ -1,4 +1,4 @@
-import { NonEmptyArray, xor } from '@mxvincent/core'
+import { KeyOf, NonEmptyArray, Resource } from '@mxvincent/core'
 import {
 	ComparisonFilter,
 	Filter,
@@ -9,7 +9,7 @@ import {
 	SortDirection
 } from '@mxvincent/query-params'
 import { clone } from 'es-toolkit'
-import { ObjectLiteral, ObjectType, SelectQueryBuilder } from 'typeorm'
+import { ObjectType, SelectQueryBuilder } from 'typeorm'
 import { applyFilters } from './filters/applyFilters'
 import { getPrimaryKeyColumns } from './helpers/primary-key'
 import { getAliasedPath, getDefaultSort, mergePrimaryKeySorts } from './helpers/sortPath'
@@ -26,29 +26,29 @@ export const enforceFilterPathAliasing = (filters: (ComparisonFilter | LogicalFi
 	})
 }
 
-export type CollectionSorterOptions<T extends ObjectLiteral> = {
-	filters?: (ComparisonFilter | LogicalFilter)[]
-	sorts?: Sort[]
+export type CollectionSorterOptions<T extends Resource> = {
+	filters?: (ComparisonFilter<KeyOf<T>> | LogicalFilter<KeyOf<T>>)[]
+	sorts?: Sort<KeyOf<T>>[]
 	query: SelectQueryBuilder<T>
 }
 
 const query = Symbol('CollectionSorter.query')
 
-export class Sorter<T extends ObjectLiteral> {
+export class Sorter<T extends Resource> {
 	/**
 	 * User provided query
 	 */
 	readonly [query]: SelectQueryBuilder<T>
 
 	/**
-	 * Resource primary key is used to obtain a predictable sort result
+	 * Resource primary key is used to get a predictable sort result
 	 */
-	readonly primaryKeyColumns: NonEmptyArray<string>
+	readonly primaryKeyColumns: NonEmptyArray<KeyOf<T>>
 
 	/**
 	 * Collection sort options
 	 */
-	protected readonly sorts: NonEmptyArray<Sort>
+	protected readonly sorts: NonEmptyArray<Sort<KeyOf<T>>>
 
 	/**
 	 * Create a collection sorter
@@ -85,15 +85,15 @@ export class Sorter<T extends ObjectLiteral> {
 
 	/**
 	 * Apply sorts to the given query builder instance
-	 * SQLite null values are considered bigger than non-null values like PostgreSQL
+	 * SQLite null values are considered bigger than non-null values like Postgres
 	 * We can invert sort order with the second parameter to allow backward pagination
 	 */
-	protected applySorts(query: SelectQueryBuilder<T>, isBackwardPagination = false) {
+	protected applySorts(query: SelectQueryBuilder<T>) {
 		for (const sort of this.sorts) {
 			query.addOrderBy(
 				getAliasedPath(sort.path, query.alias),
-				xor(sort.direction === SortDirection.DESC, isBackwardPagination) ? 'DESC' : 'ASC',
-				xor(sort.direction === SortDirection.DESC, isBackwardPagination) ? 'NULLS FIRST' : 'NULLS LAST'
+				sort.direction === SortDirection.DESC ? 'DESC' : 'ASC',
+				sort.direction === SortDirection.DESC ? 'NULLS FIRST' : 'NULLS LAST'
 			)
 		}
 	}

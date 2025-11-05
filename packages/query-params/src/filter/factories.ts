@@ -1,35 +1,31 @@
-import {
-	ArrayComparisonFilter,
-	ComparisonFilter,
-	LogicalFilter,
-	NullComparisonFilter,
-	ValueComparisonFilter
-} from './filters'
+import { ArrayComparisonFilter, LogicalFilter, NullComparisonFilter, ValueComparisonFilter } from './filters'
 
 /**
- * Create ArrayComparisonFilter factory
+ * Create an ArrayComparisonFilter factory
  */
 export function arrayComparisonFilter(operator: ArrayComparisonFilter['operator']) {
-	return (path: string, values: string[]) => new ArrayComparisonFilter(operator, path, values)
+	return <T extends string>(path: T, values: string[]) => new ArrayComparisonFilter<T>(operator, path, values)
 }
 
 /**
- * Create NullComparisonFilter factory
+ * Create a NullComparisonFilter factory
  */
 export function nullComparisonFilter(operator: NullComparisonFilter['operator']) {
-	return (path: string): ComparisonFilter => new NullComparisonFilter(operator, path)
+	return <T extends string>(path: T) => new NullComparisonFilter<T>(operator, path)
 }
 
 /**
- * Create ValueComparisonFilter factory
+ * Create a ValueComparisonFilter factory
  */
 export function valueComparisonFilter(operator: ValueComparisonFilter['operator']) {
-	return (path: string, value: string) => new ValueComparisonFilter(operator, path, value)
+	return <T extends string>(path: T, value: string) => new ValueComparisonFilter<T>(operator, path, value)
 }
 
+export class ValueComparisonFilterFactory {}
+
 /**
- * Create LogicalFilter factory
+ * Create a LogicalFilter factory
  */
 export function logicalFilter(operator: LogicalFilter['operator']) {
-	return (filters: LogicalFilter['filters']) => new LogicalFilter(operator, filters)
+	return <T extends string>(filters: LogicalFilter<T>['filters']) => new LogicalFilter<T>(operator, filters)
 }

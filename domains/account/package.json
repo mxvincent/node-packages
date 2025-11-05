@@ -1,0 +1,22 @@
+{
+	"name": "@domain/account",
+	"main": "dist/index.js",
+	"types": "src/index.ts",
+	"scripts": {
+		"build:swc": "swc ./src -d ./dist  --strip-leading-paths",
+		"build:tsc": "tsc",
+		"build:watch": "pnpm run build:tsc --watch",
+		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+		"check:eslint": "eslint src",
+		"check:tsc": "tsc --noEmit",
+		"check:tsc:watch": "tsc --noEmit --watch"
+	},
+	"dependencies": {
+		"@mxvincent/core": "workspace:",
+		"@package/incubator": "workspace:",
+		"@mxvincent/query-params": "workspace:"
+	},
+	"devDependencies": {
+		"@mxvincent/tsconfig": "workspace:*"
+	}
+}

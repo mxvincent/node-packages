@@ -8,6 +8,7 @@
 		"build:swc": "turbo run build:swc --filter=!'@action/*'",
 		"build:tsc": "turbo run build:tsc --filter=!'@action/*'",
 		"build:actions": "turbo run build:swc --filter='@action/*'",
+		"build:domains": "turbo run build:swc --filter='./domains/*'",
 		"build:packages": "turbo run build:swc --filter='./packages/*'",
 		"clean": "rm -rf out && turbo run clean --parallel",
 		"changeset": "changeset add",

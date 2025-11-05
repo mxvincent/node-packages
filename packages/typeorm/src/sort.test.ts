@@ -1,6 +1,7 @@
+import { KeyOf } from '@mxvincent/core'
 import { Sort, SortDirection } from '@mxvincent/query-params'
+import { sortArrayWith } from '@package/incubator'
 import { randomUUID } from 'node:crypto'
-import { sortArrayWith } from './@jest'
 import { Author, factories, Post, useDatabaseContext, useDatabaseTransaction } from './@jest/database'
 import { hydrate, hydratePartial } from './helpers/hydrate'
 import { Sorter } from './sort'
@@ -20,8 +21,8 @@ describe.each([
 	})
 
 	test('(asc) should return sorted data', async () => {
-		const sorts: Sort<keyof Author>[] = [Sort.asc('createdAt'), Sort.asc('id')]
-		const expected = sortArrayWith<Author>(sorts, collection)
+		const sorts = [Sort.asc('createdAt'), Sort.asc('id')]
+		const expected = sortArrayWith<Author>(collection, sorts)
 		const query = database.manager.createQueryBuilder(Author, 'author')
 		const sorter = new Sorter(Author, { sorts, query })
 		const result = await sorter.getSortedCollection()
@@ -29,8 +30,8 @@ describe.each([
 	})
 
 	test('(desc) should return sorted data', async () => {
-		const sorts: Sort<keyof Author>[] = [Sort.desc('createdAt'), Sort.asc('id')]
-		const expected = sortArrayWith<Author>(sorts, collection)
+		const sorts = [Sort.desc('createdAt'), Sort.asc('id')]
+		const expected = sortArrayWith<Author>(collection, sorts)
 		const query = database.manager.createQueryBuilder(Author, 'author')
 		const sorter = new Sorter(Author, { sorts, query })
 		const result = await sorter.getSortedCollection()
@@ -66,10 +67,9 @@ describe('should sort on field containing null values', () => {
 			expected: [null, null, 'f', 'e', 'd', 'c', 'b', 'a']
 		}
 	])('($direction) should sort on field containing null values', async ({ direction, expected }) => {
-		const sorter = new Sorter(Post, {
-			query: database.manager.createQueryBuilder(Post, 'post'),
-			sorts: [{ path: 'name', direction }]
-		})
+		const sorts = [{ path: 'name', direction }] satisfies Sort<KeyOf<Post>>[]
+		const query = database.manager.createQueryBuilder(Post, 'post')
+		const sorter = new Sorter(Post, { query, sorts })
 		const result = await sorter.getSortedCollection()
 		expect(result.map((el) => el.name)).toEqual(expected)
 	})
@@ -99,7 +99,7 @@ describe('handle nested fields', () => {
 			query: database.manager.createQueryBuilder(Author, 'author').leftJoinAndSelect('author.posts', 'posts'),
 			sorts: [
 				{ path: 'name', direction: SortDirection.DESC },
-				{ path: 'posts.name', direction: SortDirection.ASC }
+				{ path: 'posts.name' as never, direction: SortDirection.ASC }
 			]
 		})
 		const [result] = await sorter.getSortedCollection()

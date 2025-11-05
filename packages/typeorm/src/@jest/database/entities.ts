@@ -1,3 +1,4 @@
+import { Resource } from '@mxvincent/core'
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { timestampWithTimeZone } from '../../helpers/entities'
 
@@ -37,9 +38,9 @@ export class DateContainer {
 }
 
 @Entity({ name: 'Post' })
-export class Post {
+export class Post implements Resource {
 	@PrimaryGeneratedColumn('increment')
-	id!: number
+	id!: string
 
 	@Column({ type: 'text', nullable: true })
 	name: string | null = null

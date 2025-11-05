@@ -1,4 +1,4 @@
-import { KeyOf, NonEmptyArray } from '@mxvincent/core'
+import { KeyOf, NonEmptyArray, Resource } from '@mxvincent/core'
 import { Sort } from '@mxvincent/query-params'
 import invariant from 'tiny-invariant'
 import { ObjectLiteral, ObjectType } from 'typeorm'
@@ -15,7 +15,7 @@ export const getDefaultSort = <T extends ObjectLiteral>(entity: ObjectType<T>): 
 	return (defaultSort.get(entity) ?? []) as EntitySort<T>[]
 }
 
-export const mergePrimaryKeySorts = <T extends ObjectLiteral>(
+export const mergePrimaryKeySorts = <T extends Resource>(
 	sorts: EntitySort<T>[],
 	primaryKeyColumns: NonEmptyArray<KeyOf<T>>
 ): NonEmptyArray<EntitySort<T>> => {

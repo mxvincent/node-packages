@@ -48,7 +48,10 @@ export const parseLogicalFilterParameters = (input: string): string[] => {
 /**
  * Parse filter string
  */
-const parseFilter = (filterString: string, decode = base64Decode): ComparisonFilter | LogicalFilter => {
+const parseFilter = (
+	filterString: string,
+	decode = base64Decode
+): ComparisonFilter | LogicalFilter => {
 	const matches = filterString.match(/^((?<operator>[a-z]+)\()?(?<parameters>.*)\)$/i)
 
 	if (!matches?.groups) {
@@ -66,7 +69,9 @@ const parseFilter = (filterString: string, decode = base64Decode): ComparisonFil
 	}
 
 	if (isLogicalOperator(operator)) {
-		const filters = parseLogicalFilterParameters(parameters).map((filter) => parseFilter(filter, decode))
+		const filters = parseLogicalFilterParameters(parameters).map((filter) =>
+			parseFilter(filter, decode)
+		)
 		return new LogicalFilter(operator, filters)
 	}
 
@@ -94,7 +99,7 @@ const parseFilter = (filterString: string, decode = base64Decode): ComparisonFil
 /**
  * Extract filter params from a parsed query string
  */
-export const parse = (filters: string[] | string, decode = decodeURIComponent): Filter[] => {
+export const parseFilters = (filters: string[] | string, decode = decodeURIComponent): Filter[] => {
 	if (isString(filters)) {
 		return [parseFilter(filters, decode)]
 	}

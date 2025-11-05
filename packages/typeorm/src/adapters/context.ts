@@ -1,10 +1,11 @@
+import { Resource } from '@mxvincent/core'
 import { logger } from '@mxvincent/telemetry'
-import { EntityManager, ObjectLiteral, ObjectType, QueryRunner } from 'typeorm'
+import { EntityManager, ObjectType, QueryRunner } from 'typeorm'
 import { IsolationLevel } from 'typeorm/driver/types/IsolationLevel'
 import { PostgresDatabaseSource } from '../helpers/data-source'
 import { TypeormRepository } from './repository'
 
-export { IsolationLevel }
+export type { IsolationLevel }
 
 export class TypeormDatabaseContext {
 	readonly dataSource: PostgresDatabaseSource
@@ -33,10 +34,11 @@ export class TypeormDatabaseContext {
 			this.queryRunner = this.dataSource.createQueryRunner()
 		}
 		if (this.queryRunner.isTransactionActive) {
-			throw new Error('Transaction already started.')
+			logger.debug('Transaction already active, save point created.')
+		} else {
+			await this.queryRunner.startTransaction(isolationLevel)
+			logger.debug('Transaction started.')
 		}
-		await this.queryRunner.startTransaction(isolationLevel)
-		logger.debug('Transaction started.')
 	}
 
 	async commitTransaction() {
@@ -90,7 +92,7 @@ export class TypeormDatabaseContext {
 		}
 	}
 
-	repository<TEntity extends ObjectLiteral>(entity: ObjectType<TEntity>): TypeormRepository<TEntity> {
+	repository<TEntity extends Resource>(entity: ObjectType<TEntity>): TypeormRepository<TEntity> {
 		return new TypeormRepository(this, entity)
 	}
 

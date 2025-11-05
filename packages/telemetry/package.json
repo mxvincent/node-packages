@@ -2,20 +2,8 @@
 	"name": "@mxvincent/telemetry",
 	"version": "0.1.0",
 	"private": true,
+	"main": "./dist/index.js",
 	"types": "./src/index.ts",
-	"exports": {
-		".": {
-			"types": "./src/index.ts",
-			"default": "./dist/index.js"
-		},
-		"./logger": {
-			"types": "./src/logger/logger.ts",
-			"default": "./dist/logger/logger.js"
-		},
-		"./register": {
-			"default": "./dist/register.js"
-		}
-	},
 	"scripts": {
 		"build:tsc": "tsc",
 		"build:swc": "swc ./src -d ./dist --strip-leading-paths",

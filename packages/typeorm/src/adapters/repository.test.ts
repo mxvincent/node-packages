@@ -2,7 +2,7 @@ import { ListQueryParameter, Pagination } from '@mxvincent/query-params'
 import { randomUUID } from 'node:crypto'
 import { In } from 'typeorm'
 import { Author, factories, useDatabaseContext, useDatabaseTransaction } from '../@jest/database'
-import { ResourceNotFoundError } from '../errors/ResourceNotFoundError'
+import { TypeormResourceNotFoundError } from '../errors/resource-not-found'
 import { Pager } from '../pagination'
 import { TypeormRepository } from './repository'
 
@@ -14,7 +14,7 @@ describe('Repository.getPage()', () => {
 	test('should create  query builder', async () => {
 		const createQueryBuilderSpy = jest.spyOn(database.manager, 'createQueryBuilder')
 		const getPageSpy = jest.spyOn(Pager.prototype, 'getPage')
-		const options = new ListQueryParameter({ pagination: Pagination.forward(10) })
+		const options = new ListQueryParameter<Author>({ pagination: Pagination.take(10) })
 		await repository.getPage(options)
 		expect(createQueryBuilderSpy).toHaveBeenCalledWith(Author, 'root')
 		expect(getPageSpy).toHaveBeenCalledWith(options.pagination)
@@ -22,8 +22,8 @@ describe('Repository.getPage()', () => {
 
 	test('should return 10 first records', async () => {
 		await database.manager.save(Author, factories.createAuthors(20))
-		const page = await repository.getPage(new ListQueryParameter({ pagination: Pagination.forward(10) }))
-		expect(page.data).toHaveLength(10)
+		const page = await repository.getPage(new ListQueryParameter<Author>({ pagination: Pagination.take(10) }))
+		expect(page.edges).toHaveLength(10)
 	})
 })
 
@@ -81,7 +81,7 @@ describe('Repository.findOneOrFail()', () => {
 		const id = randomUUID()
 		const options = { id }
 		await expect(() => repository.findOneOrFail(options)).rejects.toStrictEqual(
-			ResourceNotFoundError.format('Author', id)
+			TypeormResourceNotFoundError.format('Author', id)
 		)
 		expect(findOrFailSpy).toHaveBeenCalledTimes(1)
 		expect(findOrFailSpy).toHaveBeenCalledWith(options)
@@ -132,7 +132,7 @@ describe('Repository.update()', () => {
 	test('should fail when trying to update non existing record', async () => {
 		author = factories.createAuthor()
 		await expect(() => repository.update(author, { name: 'new-username' })).rejects.toStrictEqual(
-			ResourceNotFoundError.format('Author', author.id)
+			TypeormResourceNotFoundError.format('Author', author.id)
 		)
 	})
 })
@@ -141,7 +141,7 @@ describe('Repository.delete()', () => {
 	test('should throw an error when user not exists', async () => {
 		const author = factories.createAuthor()
 		await expect(() => repository.delete(author)).rejects.toStrictEqual(
-			ResourceNotFoundError.format('Author', author.id)
+			TypeormResourceNotFoundError.format('Author', author.id)
 		)
 	})
 

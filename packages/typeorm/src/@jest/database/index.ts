@@ -13,9 +13,7 @@ export const useDatabaseContext = (options?: { isolationLevel?: 'group' | 'test'
 		await testDatasource.synchronize()
 	})
 
-	if (options?.isolationLevel) {
-		useDatabaseTransaction(database, options.isolationLevel)
-	}
+	useDatabaseTransaction(database, options?.isolationLevel ?? 'group')
 
 	afterAll(async () => {
 		await teardownDataSource(testDatasource, 500)

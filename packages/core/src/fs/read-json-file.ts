@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import { resolve } from 'node:path'
-import { JsonArray, JsonObject } from '../types/json'
+import { JsonArray, JsonObject } from '../json/types'
 import { isReadableFileSync } from './is-readable-file'
 
 /**

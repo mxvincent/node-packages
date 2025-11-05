@@ -1,0 +1,30 @@
+{
+	"name": "@package/incubator",
+	"main": "./dist/index.js",
+	"types": "./src/index.ts",
+	"scripts": {
+		"build": "pnpm run build:swc && pnpm run build:types",
+		"build:swc": "swc ./src -d ./dist  --strip-leading-paths",
+		"build:tsc": "tsc",
+		"build:types": "tsc --emitDeclarationOnly",
+		"build:watch": "pnpm run build:tsc --watch",
+		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+		"check:eslint": "eslint src",
+		"cwheck:tsc": "tsc --noEmit",
+		"check:tsc-watch": "tsc --noEmit --watch"
+	},
+	"dependencies": {
+		"@faker-js/faker": "^9.9.0",
+		"@fastify/type-provider-typebox": "^6.0.0",
+		"@mxvincent/core": "workspace:",
+		"@mxvincent/json-schema": "workspace:",
+		"@mxvincent/query-params": "workspace:",
+		"@mxvincent/telemetry": "workspace:",
+		"es-toolkit": "^1.40.0",
+		"fastify": "^5.4.0",
+		"fastify-plugin": "^5.1.0"
+	},
+	"devDependencies": {
+		"@mxvincent/tsconfig": "workspace:*"
+	}
+}

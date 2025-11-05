@@ -13,10 +13,6 @@ export enum FilterType {
 }
 
 export abstract class ComparisonFilter<T extends string = string> {
-	readonly type = FilterType.COMPARISON
-	readonly operator: ComparisonOperator
-	readonly path: T
-
 	/**
 	 * Value comparison filters
 	 */
@@ -30,18 +26,19 @@ export abstract class ComparisonFilter<T extends string = string> {
 	static notLike = valueComparisonFilter(ComparisonOperator.NOT_LIKE)
 	static match = valueComparisonFilter(ComparisonOperator.MATCH)
 	static insensitiveMatch = valueComparisonFilter(ComparisonOperator.INSENSITIVE_MATCH)
-
 	/**
 	 * Null comparison filters
 	 */
 	static null = nullComparisonFilter(ComparisonOperator.NULL)
 	static notNull = nullComparisonFilter(ComparisonOperator.NOT_NULL)
-
 	/**
 	 * Array comparison filters
 	 */
 	static in = arrayComparisonFilter(ComparisonOperator.IN)
 	static notIn = arrayComparisonFilter(ComparisonOperator.NOT_IN)
+	readonly type = FilterType.COMPARISON
+	readonly operator: ComparisonOperator
+	readonly path: T
 
 	protected constructor(operator: ComparisonFilter['operator'], path: T) {
 		this.operator = operator
@@ -50,15 +47,14 @@ export abstract class ComparisonFilter<T extends string = string> {
 }
 
 export class LogicalFilter<T extends string = string> {
-	readonly type = FilterType.LOGICAL
-	readonly operator: LogicalOperator
-	readonly filters: Filter<T>[]
-
 	/**
 	 * Logical filters
 	 */
 	static and = logicalFilter(LogicalOperator.AND)
 	static or = logicalFilter(LogicalOperator.OR)
+	readonly type = FilterType.LOGICAL
+	readonly operator: LogicalOperator
+	readonly filters: Filter<T>[]
 
 	constructor(operator: LogicalOperator, filters: Filter<T>[]) {
 		this.operator = operator

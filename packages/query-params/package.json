@@ -1,29 +1,25 @@
 {
-  "name": "@mxvincent/query-params",
-  "version": "0.1.0",
-  "private": true,
-  "main": "./dist/index.js",
-  "types": "./src/index.ts",
-  "source": "./src/index.ts",
-  "exports": {
-    ".": "./dist/index.js"
-  },
-  "scripts": {
-    "build:swc": "swc ./src -d ./dist --strip-leading-paths",
-    "build:tsc": "tsc",
-    "build:watch": "pnpm run build:tsc --watch",
-    "clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
-    "check:eslint": "eslint src",
-    "check:tsc": "tsc --noEmit",
-    "check:tsc-watch": "tsc --noEmit --watch",
-    "test:all": "jest"
-  },
-
-
-  "dependencies": {
-		"es-toolkit": "^1.40.0"
+	"name": "@mxvincent/query-params",
+	"version": "0.1.0",
+	"private": true,
+	"main": "./dist/index.js",
+	"types": "./src/index.ts",
+	"source": "./src/index.ts",
+	"scripts": {
+		"build:swc": "swc ./src -d ./dist --strip-leading-paths",
+		"build:tsc": "tsc",
+		"build:watch": "pnpm run build:tsc --watch",
+		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+		"check:eslint": "eslint src",
+		"check:tsc": "tsc --noEmit",
+		"check:tsc-watch": "tsc --noEmit --watch",
+		"test:all": "jest"
 	},
-  "devDependencies": {
-    "@mxvincent/tsconfig": "workspace:*"
-  }
+	"dependencies": {
+		"es-toolkit": "^1.40.0",
+		"@mxvincent/core": "workspace:*"
+	},
+	"devDependencies": {
+		"@mxvincent/tsconfig": "workspace:*"
+	}
 }

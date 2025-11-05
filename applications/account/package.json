@@ -1,0 +1,38 @@
+{
+	"name": "@api/account",
+	"scripts": {
+		"build:swc": "swc ./src -d ./dist --strip-leading-paths",
+		"build:tsc": "tsc",
+		"clean": "find . ! -path '*/node_modules/*' -name 'dist' -d -prune -exec rm -rf '{}' +; find . -name '*.tsbuildinfo' -prune -exec rm -rf '{}' +; find . -path '*/.turbo' -type d -prune -exec rm -rf '{}' +",
+		"check:eslint": "eslint src",
+		"check:tsc": "tsc --noEmit",
+		"check:tsc:watch": "tsc --noEmit --watch",
+		"db:generate": "pnpm exec drizzle-kit generate --config=src/database/config.ts",
+		"db:migrate": "pnpm exec drizzle-kit migrate --config=src/database/config.ts",
+		"db:seed": "node -r @swc-node/register src/database/commands/seed.ts",
+		"db:trucate": "node -r @swc-node/register src/database/commands/truncate.ts",
+		"dev": "node --env-file-if-exists=.env -r @swc-node/register",
+		"dev:app-server": "pnpm dev --watch -- src/commands/start-api-server.ts",
+		"dev:sandbox": "pnpm dev -- src/sandbox.ts"
+	},
+	"dependencies": {
+		"@domain/account": "workspace:",
+		"@fastify/helmet": "^13.0.2",
+		"@fastify/type-provider-typebox": "^6.0.0",
+		"@mxvincent/core": "workspace:*",
+		"@mxvincent/json-schema": "workspace:*",
+		"@mxvincent/query-params": "workspace:^",
+		"@mxvincent/query-params-serializer": "workspace:^",
+		"@mxvincent/telemetry": "workspace:*",
+		"@package/incubator": "workspace:",
+		"drizzle-kit": "^0.31.5",
+		"drizzle-orm": "^0.44.6",
+		"es-toolkit": "^1.40.0",
+		"fastify": "^5.6.1",
+		"fastify-plugin": "^5.1.0",
+		"postgres": "^3.4.7"
+	},
+	"devDependencies": {
+		"@mxvincent/tsconfig": "workspace:*"
+	}
+}
